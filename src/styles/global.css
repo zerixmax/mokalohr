@@ -1,31 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* --- Mrgudić Bura Vina Paleta --- */
+  /* Premium Vinska Paleta */
+  --color-dark: #1a1718;        /* Gotovo crna, ali topla (pozadina) */
+  --color-wine-dark: #2a1c1e;   /* Duboka tamno-crvena (za kartice/tablice) */
+  --color-wine-red: #722f37;    /* Klasična vinska crvena (za naglaske i alergene) */
   
-  /* Tamna pozadina */
-  --color-dark: #242021; 
+  --color-gold: #a18e68;        /* Prigušena, elegantna zlatna */
+  --color-gold-muted: #65584d;  /* Brončana/zemljana za sporedne tekstove */
   
-  /* Prijelazna zemljana/brončana */
-  --color-muted-gold: #65584D;
-  
-  /* Primarna zlatna za naslove */
-  --color-gold: #A18E68; 
-  
-  /* Svijetli tekst */
-  --color-text-light: #E3E1D4; 
+  --color-text-light: #e3e1d4;  /* Topla bijela za laku čitljivost */
+  --color-text-muted: #9ca3af;
 
-  /* Mapiranje za predloške */
-  --color-text-muted: var(--color-muted-gold);
-  --color-border-gold: var(--color-muted-gold);
-
-  /* Fontosi */
-  --font-playfair: "Playfair Display", serif;
-  --font-inter: "Inter", sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+  --font-inter: 'Inter', sans-serif;
 }
 
 @layer base {
-  html {
-    @apply bg-dark text-text-light font-inter antialiased;
+  body {
+    @apply bg-dark text-text-light font-inter m-0 p-0 antialiased;
   }
 }
