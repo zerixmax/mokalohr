@@ -3,6 +3,9 @@ import Layout from '../../../layouts/Layout.astro';
 import LanguagePicker from '../../../components/LanguagePicker.astro';
 import Footer from '../../../components/Footer.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
+import bgVineyard from '../../../assets/20170303_Mrgudic-Bura-2017_1198.webp';
 
 export async function getStaticPaths() {
   const vina = await getCollection('vina');
@@ -28,27 +31,49 @@ const batch = Astro.url.searchParams.get('batch') || data.batches?.[0] || null;
 
 <Layout title={data.name} lang={lang} description={`E-etiketa za ${data.name}`}>
   
-  <div class="fixed top-0 left-0 w-full p-3 flex justify-between items-center z-50 bg-dark/90 backdrop-blur-md border-b border-wine-red/30">
+  <div class="fixed inset-0 w-full h-full z-0 pointer-events-none opacity-10">
+    <Image 
+      src={bgVineyard} 
+      alt="Mrgudić Bura Vinograd" 
+      class="w-full h-full object-cover"
+      widths={[400, 800, 1600]}
+      sizes="100vw"
+    />
+  </div>
+
+  {data.image && (
+    <div class="fixed -bottom-16 -left-16 w-[70%] max-w-[280px] opacity-20 z-0 pointer-events-none mix-blend-lighten">
+      <Image 
+        src={data.image} 
+        alt={`Boca ${data.name}`} 
+        class="w-full h-auto drop-shadow-2xl"
+        widths={[300, 600]}
+        sizes="(max-width: 768px) 300px, 600px"
+      />
+    </div>
+  )}
+
+  <div class="fixed top-0 left-0 w-full p-3 flex justify-between items-center z-50 bg-dark/80 backdrop-blur-md border-b border-wine-red/30">
      <div class="text-gold font-playfair tracking-widest uppercase text-xs font-semibold">
         <a href={`/${lang}`}>Mrgudić Bura</a>
      </div>
      <LanguagePicker />
   </div>
 
-  <main class="container mx-auto px-4 pt-20 pb-8 max-w-lg mx-auto font-inter">
+  <main class="container mx-auto px-4 pt-20 pb-12 max-w-lg mx-auto font-inter relative z-10">
     
     <header class="text-center mb-6 border-b border-gold/20 pb-4">
-      <p class="text-wine-red tracking-widest uppercase text-xs mt-2">{data.category}</p>
-      <h1 class="text-3xl md:text-4xl font-playfair text-gold mb-1">{data.name}</h1>
+      <p class="text-wine-red tracking-widest uppercase text-xs">{data.category}</p>
+      <h1 class="text-3xl md:text-4xl font-playfair text-gold mb-1 drop-shadow-md">{data.name}</h1>
       <p class="text-gold-muted tracking-widest uppercase text-xs mt-2">
         {data.year} | {data.region}
       </p>
     </header>
 
-    <div class="space-y-6 bg-wine-dark p-4 sm:p-6 rounded-xl border border-wine-red/20 shadow-2xl">
+    <div class="space-y-6 bg-wine-dark/95 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-wine-red/20 shadow-2xl">
       
       {batch && (
-        <div class="bg-dark/50 p-3 rounded-lg border border-wine-red/30 text-center">
+        <div class="bg-dark/60 p-3 rounded-lg border border-wine-red/30 text-center">
           <p class="text-wine-red text-xs uppercase tracking-wider">Serija / Batch</p>
           <p class="text-gold text-2xl font-mono mt-1">{batch}</p>
         </div>
@@ -77,7 +102,7 @@ const batch = Astro.url.searchParams.get('batch') || data.batches?.[0] || null;
         </ul>
       </section>
 
-      <section class="bg-dark/50 p-3 rounded-lg border border-wine-red/30">
+      <section class="bg-dark/60 p-3 rounded-lg border border-wine-red/30">
         <h2 class="text-md font-playfair text-gold mb-2">Sastojci i alergeni</h2>
         <p class="text-xs text-text-light mb-2"><span class="text-gold-muted">Sastojci:</span> {data.ingredients}</p>
         <p class="text-xs text-text-light flex items-center flex-wrap gap-2">
@@ -100,7 +125,7 @@ const batch = Astro.url.searchParams.get('batch') || data.batches?.[0] || null;
                   <td class="py-2 text-text-muted">Masti</td>
                   <td class="py-2 text-right">{data.nutrition.carbs} g</td>
                 </tr>
-                <tr class="border-b border-dark bg-dark/30">
+                <tr class="border-b border-dark bg-dark/40">
                   <td class="py-1 pl-4 text-xs text-text-muted italic">od toga šećeri</td>
                   <td class="py-1 text-right text-xs">{data.nutrition.sugars} g</td>
                 </tr>
