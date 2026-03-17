@@ -1,6 +1,14 @@
 {
-  "currentVersion": "1.0.0",
+  "currentVersion": "1.1.0",
   "changelog": [
+    {
+      "version": "1.1.0",
+      "date": "2025-03-17",
+      "description": {
+        "hr": "EU E-etiketa - nutritivne vrijednosti, alergeni, batch podrška, nova paleta boja",
+        "en": "EU E-label - nutritional values, allergens, batch support, new color palette"
+      }
+    },
     {
       "version": "1.0.0",
       "date": "2025-01-01",
