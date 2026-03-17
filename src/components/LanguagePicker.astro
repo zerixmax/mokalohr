@@ -1,0 +1,24 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+
+// A simple utility to toggle the language in the URL path.
+function toggleLanguagePath(pathname: string, currentLang: string) {
+  const newLang = currentLang === 'hr' ? 'en' : 'hr';
+  
+  if (pathname.startsWith(`/${currentLang}/`)) {
+    return pathname.replace(`/${currentLang}/`, `/${newLang}/`);
+  } else if (pathname === `/${currentLang}`) {
+    return `/${newLang}`;
+  }
+  return `/${newLang}${pathname}`;
+}
+
+const currentPath = new URL(Astro.request.url).pathname;
+const newPath = toggleLanguagePath(currentPath, lang);
+---
+
+<a href={newPath} class="inline-flex items-center px-4 py-2 text-sm font-medium text-gold hover:text-text-light transition-colors border border-gold/30 rounded-md hover:bg-gold/10">
+  {lang === 'hr' ? 'EN' : 'HR'}
+</a>

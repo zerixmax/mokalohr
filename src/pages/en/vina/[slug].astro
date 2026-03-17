@@ -1,0 +1,35 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import WineCard from '../../../components/WineCard.astro';
+import LanguagePicker from '../../../components/LanguagePicker.astro';
+import Footer from '../../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const enVina = await getCollection('vina', ({ id }) => {
+    return id.startsWith('en/');
+  });
+  
+  return enVina.map(entry => ({
+    params: { slug: entry.slug.replace('en/', '') },
+    props: { wine: entry },
+  }));
+}
+
+const { wine } = Astro.props;
+---
+
+<Layout title={wine.data.name}>
+  <div class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-50 bg-dark/80 backdrop-blur-md border-b border-gold/10">
+     <div class="text-gold font-playfair tracking-widest uppercase text-sm font-semibold">
+        <a href="/en">Mrgudić Bura Wine</a>
+     </div>
+     <LanguagePicker />
+  </div>
+
+  <main class="container mx-auto px-4 pt-28 pb-10 flex-grow">
+    <WineCard wine={wine} />
+  </main>
+
+  <Footer />
+</Layout>
