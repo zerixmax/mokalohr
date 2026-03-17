@@ -19,18 +19,25 @@ export async function getStaticPaths() {
 
 const { wine } = Astro.props;
 const { lang } = Astro.params;
+const batch = Astro.url.searchParams.get('batch') || null;
+const currentBatch = batch || wine.data.batches?.[0] || null;
 ---
 
-<Layout title={wine.data.name} lang={lang} description={wine.data.description} image={wine.data.image?.src}>
-  <div class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-50 bg-dark/80 backdrop-blur-md border-b border-gold/10">
-     <div class="text-gold font-playfair tracking-widest uppercase text-sm font-semibold">
+<Layout 
+  title={wine.data.name} 
+  lang={lang}
+  description={`${wine.data.producer} - ${wine.data.category} ${wine.data.year}`}
+  image={wine.data.image?.src}
+>
+  <div class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-50 bg-bura-dark-900/80 backdrop-blur-md border-b border-bura-brown/30">
+     <div class="text-bura-gold-500 font-playfair tracking-widest uppercase text-sm font-semibold">
         <a href={`/${lang}`}>Mrgudić Bura Wine</a>
      </div>
      <LanguagePicker />
   </div>
 
   <main class="container mx-auto px-4 pt-28 pb-10 flex-grow">
-    <WineCard wine={wine} />
+    <WineCard wine={wine} batch={currentBatch} />
   </main>
 
   <Footer />

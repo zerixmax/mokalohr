@@ -5,42 +5,125 @@ import { Image } from 'astro:assets';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { wine } = Astro.props;
+const { wine, batch } = Astro.props;
+const isHR = lang === 'hr';
 ---
 
-<div class="max-w-4xl mx-auto bg-dark border border-gold/30 rounded-lg overflow-hidden shadow-2xl flex flex-col md:flex-row my-8 transform transition hover:-translate-y-1 hover:shadow-gold/10 duration-300">
-  <div class="md:w-1/2 min-h-[400px] relative">
-      <Image 
-        src={wine.data.image} 
-        alt={wine.data.name}
-        class="absolute inset-0 w-full h-full object-cover"
-      />
-  </div>
+<div class="max-w-4xl mx-auto bg-bura-dark-800 border border-bura-brown rounded-lg overflow-hidden shadow-2xl flex flex-col md:flex-row my-8">
+  {wine.data.image && (
+    <div class="md:w-1/2 min-h-[400px] relative">
+        <Image 
+          src={wine.data.image} 
+          alt={wine.data.name}
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+    </div>
+  )}
   
-  <div class="px-8 py-10 md:w-1/2 flex flex-col justify-center">
-    <h2 class="font-playfair text-4xl text-gold mb-2">{wine.data.name}</h2>
-    <p class="text-text-muted text-sm tracking-widest uppercase mb-6">{wine.data.tagline}</p>
+  <div class="px-8 py-10 flex-1 flex flex-col justify-center">
+    <div class="mb-4">
+      <p class="text-bura-gold-300 text-xs uppercase tracking-widest">{wine.data.category}</p>
+      <h2 class="font-playfair text-4xl text-bura-gold-500 mb-2">{wine.data.name}</h2>
+      <p class="text-bura-light/70 text-lg">{wine.data.year}</p>
+    </div>
     
-    <p class="text-text-light/90 leading-relaxed mb-8">{wine.data.description}</p>
-    
-    <div class="space-y-4 border-t border-gold/20 pt-6">
-      <div class="flex justify-between items-center">
-        <span class="text-gold/80 text-sm font-semibold uppercase tracking-wider">{t('wine.grape')}</span>
-        <span class="text-text-light">{wine.data.grape}</span>
+    <div class="space-y-3 border-t border-bura-brown pt-4 mb-6">
+      <div class="flex justify-between text-sm">
+        <span class="text-bura-gold-300 uppercase">{isHR ? 'Proizvođač' : 'Producer'}</span>
+        <span class="text-bura-light">{wine.data.producer}</span>
       </div>
-      
-      {wine.data.alcohol && (
-        <div class="flex justify-between items-center">
-          <span class="text-gold/80 text-sm font-semibold uppercase tracking-wider">{t('wine.alcohol')}</span>
-          <span class="text-text-light">{wine.data.alcohol}</span>
+      <div class="flex justify-between text-sm">
+        <span class="text-bura-gold-300 uppercase">{isHR ? 'Punioni' : 'Bottler'}</span>
+        <span class="text-bura-light">{wine.data.bottler}</span>
+      </div>
+      <div class="flex justify-between text-sm">
+        <span class="text-bura-gold-300 uppercase">{isHR ? 'Regija' : 'Region'}</span>
+        <span class="text-bura-light">{wine.data.region}</span>
+      </div>
+      <div class="flex justify-between text-sm">
+        <span class="text-bura-gold-300 uppercase">{isHR ? 'Alkohol' : 'Alcohol'}</span>
+        <span class="text-bura-light">{wine.data.alcohol}</span>
+      </div>
+      {wine.data.grape && (
+        <div class="flex justify-between text-sm">
+          <span class="text-bura-gold-300 uppercase">{isHR ? 'Sorta' : 'Grape'}</span>
+          <span class="text-bura-light">{wine.data.grape}</span>
         </div>
       )}
     </div>
 
+    {batch && (
+      <div class="mb-6 p-3 bg-bura-dark-900 rounded border border-bura-gold-500/30">
+        <p class="text-bura-gold-500 text-sm font-semibold uppercase">
+          {isHR ? 'Serija / Batch' : 'Batch'}
+        </p>
+        <p class="text-bura-light text-2xl font-mono">{batch}</p>
+      </div>
+    )}
+
+    <!-- EU Nutrition Table -->
+    {wine.data.nutrition && (
+      <div class="mb-6">
+        <h3 class="text-bura-gold-300 text-xs uppercase tracking-wider mb-3">
+          {isHR ? 'Nutritivne vrijednosti (na 100ml)' : 'Nutritional values (per 100ml)'}
+        </h3>
+        <div class="bg-bura-dark-900 rounded p-4 text-sm">
+          <table class="w-full">
+            <tbody>
+              <tr class="border-b border-bura-brown/50">
+                <td class="py-2 text-bura-light/70">{isHR ? 'Energija' : 'Energy'}</td>
+                <td class="py-2 text-bura-light text-right font-mono">{wine.data.nutrition.energy} kJ/kcal</td>
+              </tr>
+              <tr class="border-b border-bura-brown/50">
+                <td class="py-2 text-bura-light/70">{isHR ? 'Masti' : 'Fat'}</td>
+                <td class="py-2 text-bura-light text-right font-mono">{wine.data.nutrition.carbs}g</td>
+              </tr>
+              <tr class="border-b border-bura-brown/50">
+                <td class="py-2 text-bura-light/70">{isHR ? 'Od toga šećeri' : 'Of which sugars'}</td>
+                <td class="py-2 text-bura-light text-right font-mono">{wine.data.nutrition.sugars}g</td>
+              </tr>
+              <tr class="border-b border-bura-brown/50">
+                <td class="py-2 text-bura-light/70">{isHR ? 'Bjelančevine' : 'Protein'}</td>
+                <td class="py-2 text-bura-light text-right font-mono">{wine.data.nutrition.protein}g</td>
+              </tr>
+              <tr>
+                <td class="py-2 text-bura-light/70">{isHR ? 'Sol' : 'Salt'}</td>
+                <td class="py-2 text-bura-light text-right font-mono">{wine.data.nutrition.salt}g</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )}
+
+    <!-- Allergens - EU Required -->
+    <div class="mb-6 p-3 bg-bura-dark-900 rounded border-l-4 border-bura-gold-500">
+      <p class="text-bura-gold-300 text-xs uppercase mb-1">
+        {isHR ? 'Alergeni' : 'Allergens'}
+      </p>
+      <p class="text-bura-light font-semibold">{wine.data.allergens}</p>
+    </div>
+
+    <!-- Ingredients -->
+    <div class="mb-6">
+      <p class="text-bura-gold-300 text-xs uppercase mb-1">
+        {isHR ? 'Sastojci' : 'Ingredients'}
+      </p>
+      <p class="text-bura-light/80 text-sm">{wine.data.ingredients}</p>
+    </div>
+
+    {wine.data.recycling && (
+      <div class="text-xs text-bura-light/50 italic mb-6">
+        ♻️ {wine.data.recycling}
+      </div>
+    )}
+
     {wine.data.tastingNotes && wine.data.tastingNotes.length > 0 && (
-      <div class="mt-6">
-         <span class="text-gold/80 text-sm font-semibold uppercase tracking-wider block mb-2">{t('wine.tastingNotes')}</span>
-         <ul class="list-disc list-inside text-text-light/80 text-sm space-y-1">
+      <div class="mb-6">
+         <span class="text-bura-gold-300 text-xs uppercase tracking-wider block mb-2">
+           {isHR ? 'Bilješke o kušanju' : 'Tasting Notes'}
+         </span>
+         <ul class="list-disc list-inside text-bura-light/80 text-sm space-y-1">
             {wine.data.tastingNotes.map((note: string) => (
               <li>{note}</li>
             ))}
@@ -49,18 +132,20 @@ const { wine } = Astro.props;
     )}
 
     {wine.data.pairing && (
-      <div class="mt-6">
-        <span class="text-gold/80 text-sm font-semibold uppercase tracking-wider block mb-2">{t('wine.pairing')}</span>
-        <p class="text-text-light/80 text-sm">{wine.data.pairing}</p>
+      <div class="mb-6">
+        <span class="text-bura-gold-300 text-xs uppercase tracking-wider block mb-2">
+          {isHR ? 'Uparivanje hrane' : 'Food Pairing'}
+        </span>
+        <p class="text-bura-light/80 text-sm">{wine.data.pairing}</p>
       </div>
     )}
 
-    <div class="mt-8 pt-4">
-      <a href={`/${lang}`} class="inline-flex items-center text-gold hover:text-gold-hover transition-colors text-sm">
+    <div class="mt-auto pt-4 border-t border-bura-brown">
+      <a href={`/${lang}`} class="inline-flex items-center text-bura-gold-500 hover:text-bura-gold-300 transition-colors text-sm">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
-        {lang === 'hr' ? 'Povratak na popis' : 'Back to list'}
+        {isHR ? 'Povratak na popis' : 'Back to list'}
       </a>
     </div>
   </div>
