@@ -2,7 +2,7 @@
 
 ## Pregled
 
-Višejezični Astro web za vinariju s QR landing stranicama za svako vino. Fokus na performanse (Zero-JS), SEO i mobile-first UX.
+Višejezični Astro web za vinariju s QR landing stranicama za svako vino. Fokus na performanse (Zero-JS), SEO i mobile-first UX. Usklađen s EU zakonima o e-etiketama.
 
 ## Tech Stack
 
@@ -14,50 +14,51 @@ Višejezični Astro web za vinariju s QR landing stranicama za svako vino. Fokus
 | Sadržaj | Astro Content Collections (Markdown + Zod) |
 | i18n | Native Astro i18n (HR + EN) |
 | SEO | sitemap.xml + RSS feed + OG/Twitter Cards |
+| EU Compliance | E-etikete s nutritivnim vrijednostima |
 | Deploy | Docker + Nginx Alpine |
 
 ## Struktura Projekta
 
 ```
 src/
-├── components/           # UI komponente
-│   ├── WineCard.astro  # Prikaz vina s detaljima
+├── components/
+│   ├── WineCard.astro      # EU E-etiketa + batch podrška
 │   ├── LanguagePicker.astro
 │   └── Footer.astro
 ├── content/
-│   └── vina/           # Content Collections
-│       ├── hr/          # Hrvatski opisi
-│       └── en/         # Engleski opisi
+│   └── vina/
+│       ├── hr/             # Hrvatski opisi
+│       └── en/             # Engleski opisi
 ├── data/
-│   └── versions.json    # Verzije i changelog
+│   └── versions.json       # Verzije i changelog
 ├── i18n/
-│   ├── ui.ts           # Prijevodi (HR/EN)
-│   └── utils.ts        # i18n pomoćne funkcije
+│   ├── ui.ts
+│   └── utils.ts
 ├── layouts/
-│   └── Layout.astro    # Glavni layout s SEO
+│   └── Layout.astro       # SEO meta tags
 ├── pages/
-│   ├── [lang]/        # Dinamičke rute
-│   │   ├── 404.astro  # 404 za oba jezika
+│   ├── [lang]/
+│   │   ├── 404.astro
 │   │   └── vina/
-│   │       └── [slug].astro  # Detalji vina
-│   ├── hr/index.astro # Popis vina (HR)
-│   ├── en/index.astro # Popis vina (EN)
-│   ├── sitemap.xml.ts # SEO sitemap
-│   ├── rss.xml.ts     # RSS feed
-│   └── index.astro   # Redirect na /hr
+│   │       └── [...slug].astro  # Catch-all + batch
+│   ├── hr/index.astro
+│   ├── en/index.astro
+│   ├── sitemap.xml.ts
+│   ├── rss.xml.ts
+│   └── index.astro
 └── styles/
-    └── global.css     # Tailwind 4 theme
+    └── global.css          # Tailwind 4 + Bura paleta
 ```
 
 ## Vina (5)
 
-| Vino | Opis |
-|------|------|
-| Marica | Plavac Mali |
-| Mare | Vrhunski Plavac |
-| Bura | Premium (Plavac, Rukatac, Sivi Plavac) |
-| Dingač | Kraljevsko vino |
-| Galerija | Ekskluzivna kolekcija |
+| Vino | Batchevi |
+|------|----------|
+| Marica | 17/b1, 17/b2 |
+| Mare | 17/b1 |
+| Bura | 17/b1 |
+| Dingač | 17/b1 |
+| Galerija | 17/b1 |
 
 ## Development
 
@@ -72,15 +73,12 @@ npm run dev
 npm run build
 ```
 
-Build generira statične HTML datoteke u `dist/` direktoriju (16 stranica).
+Build generira 16 stranica u `dist/` direktoriju.
 
 ## Docker
 
 ```bash
-# Build
 docker build -t mrgudic-bura .
-
-# Run
 docker run -p 80:80 mrgudic-bura
 ```
 
@@ -89,33 +87,33 @@ docker run -p 80:80 mrgudic-bura
 - **Podržani jezici:** HR (default), EN
 - **URL struktura:** `/hr/...`, `/en/...`
 - **Preusmjeravanje:** `/` → `/hr`
-- **LanguagePicker:** Automatski prebacuje jezik u URL-u
+- **LanguagePicker:** Automatski prebacuje jezik
 
 ## SEO
 
 - Canonical URL
-- OpenGraph (og:image koristi sliku vina)
-- Twitter Cards
-- Dinamički description
+- OpenGraph + Twitter Cards
 - `/sitemap.xml` - Sve stranice
 - `/rss.xml` - Feed vina
 
-## Verzije
+## EU E-etiketa
 
-Verzije se prate u `src/data/versions.json`:
+Sve stranica vina uključuju:
+- Proizvođač / Punioni
+- Regija / Kategorija / Godina
+- Nutritivna tablica (na 100ml)
+- Alergeni (obavezno)
+- Sastojci
+- Batch kod (preko URL)
 
-```json
-{
-  "currentVersion": "1.0.0",
-  "changelog": [
-    {
-      "version": "1.0.0",
-      "date": "2025-01-01",
-      "description": { "hr": "...", "en": "..." }
-    }
-  ]
-}
+### Batch Podrška
+
+Batch se prenosi preko query parametra:
 ```
+/hr/vina/marica?batch=17/b1
+```
+
+## Verzije
 
 Prikazuje se u footelu (`v1.0.0`).
 
@@ -123,37 +121,40 @@ Prikazuje se u footelu (`v1.0.0`).
 
 ```typescript
 {
-  name: string,          // Ime vina
-  tagline: string,       // Kratki opis
-  description: string,  // Detaljan opis
-  image: Image(),        // Slika boce
-  alcohol?: string,      // Postotak alkohola
-  grape: string,        // Sorte grožđa
-  tastingNotes?: string[], // Bilješke o kušanju
-  pairing?: string       // Uparivanje s hranom
+  name: string,
+  producer: string,
+  bottler: string,
+  region: string,
+  category: string,
+  country: string,
+  year: string,
+  alcohol: string,
+  ingredients: string,
+  allergens: string,
+  nutrition: {
+    energy: string,
+    carbs: string,
+    sugars: string,
+    protein: string,
+    salt: string
+  },
+  recycling: string,
+  batches: string[],        // npr. ["17/b1", "17/b2"]
+  // Legacy
+  grape: string,
+  tastingNotes: string[],
+  pairing: string,
+  image: Image()
 }
 ```
 
-## Dodavanje Novog Vina
+## Color Palette
 
-1. Kreiraj `src/content/vina/hr/ime-vina.md`
-2. Kreiraj `src/content/vina/en/ime-vina.md`
-3. Dodaj sliku u `src/assets/`
-4. Ažuriraj `image` putanju u markdownu
-
-```yaml
----
-name: Novo Vino
-tagline: Kratki opis
-description: Detaljan opis vina...
-image: ../../../assets/slika.webp
-alcohol: 14.5%
-grape: Sorta 100%
-tastingNotes:
-  - Nota 1
-  - Nota 2
-pairing: Hrana.
----
+```css
+--color-dark: #242021;        /* Pozadina */
+--color-gold: #A18E68;        /* Naslovi */
+--color-muted-gold: #65584D;  /* Obrubi */
+--color-text-light: #E3E1D4;  /* Tekst */
 ```
 
 ## Build Output
