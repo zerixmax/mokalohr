@@ -6,23 +6,25 @@ import Footer from '../../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const hrVina = await getCollection('vina', ({ id }) => {
-    return id.startsWith('hr/');
-  });
+  const vina = await getCollection('vina');
   
-  return hrVina.map(entry => ({
-    params: { slug: entry.slug.replace('hr/', '') },
-    props: { wine: entry },
-  }));
+  return vina.map((entry: any) => {
+    const [lang, ...slugParts] = entry.slug.split('/');
+    return {
+      params: { lang, slug: slugParts.join('/') },
+      props: { wine: entry },
+    };
+  });
 }
 
 const { wine } = Astro.props;
+const { lang } = Astro.params;
 ---
 
-<Layout title={wine.data.name}>
+<Layout title={wine.data.name} lang={lang} description={wine.data.description} image={wine.data.image?.src}>
   <div class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-50 bg-dark/80 backdrop-blur-md border-b border-gold/10">
      <div class="text-gold font-playfair tracking-widest uppercase text-sm font-semibold">
-        <a href="/hr">Mrgudić Bura Wine</a>
+        <a href={`/${lang}`}>Mrgudić Bura Wine</a>
      </div>
      <LanguagePicker />
   </div>

@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const enVina = await getCollection('vina', ({ id }) => {
+  return id.startsWith('en/');
+});
+---
+
+<Layout title="Our Wines" lang="en">
+    <main class="container mx-auto px-4 py-20 flex-grow text-center">
+        <h1 class="font-playfair text-5xl text-gold mb-6">All Wines</h1>
+        <p class="text-text-muted mb-10">Discover our assortment...</p>
+        
+        {enVina.map(wine => (
+            <a href={`/en/vina/${wine.slug.replace('en/', '')}`} class="inline-block p-4 border border-gold/30 hover:border-gold transition">
+                <h2 class="text-xl text-gold font-playfair">{wine.data.name}</h2>
+                <p class="text-sm text-text-muted">{wine.data.tagline}</p>
+            </a>
+        ))}
+    </main>
+</Layout>
