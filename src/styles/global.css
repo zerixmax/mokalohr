@@ -1,6 +1,24 @@
 @import "tailwindcss";
 
 @theme {
+  /* --- Mrgudić Bura Vina Paleta --- */
+  
+  /* Tamne nijanse (Pozadine, kartice, tamni tekst na svijetlom) */
+  --color-bura-dark-900: #242021; 
+  --color-bura-dark-800: #413E3D; 
+  
+  /* Prijelazne zemljane/brončane nijanse */
+  --color-bura-brown: #65584D;    
+  
+  /* Zlatni naglasci (Gumbi, naslovi, okviri) */
+  --color-bura-gold-700: #887050; 
+  --color-bura-gold-500: #A18E68; /* Primarna zlatna boja brenda */
+  --color-bura-gold-300: #BBAA80; 
+  
+  /* Svijetle nijanse (Osnovni tekst, svijetle pozadine) */
+  --color-bura-light: #E3E1D4;    
+  
+  /* Legacy kompatibilnost */
   --color-gold: #c3a35a;
   --color-gold-hover: #d4b56c;
   --color-dark: #0a0a0a;
@@ -13,6 +31,10 @@
 
 @layer base {
   body {
-    @apply bg-dark text-text-light font-inter m-0 p-0;
+    @apply bg-bura-dark-900 text-bura-light font-inter m-0 p-0 antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-bura-gold-500;
   }
 }
