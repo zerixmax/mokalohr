@@ -1,0 +1,13 @@
+{
+  "currentVersion": "1.0.0",
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "date": "2025-01-01",
+      "description": {
+        "hr": "Početna verzija - QR landing stranice i višejezična podrška",
+        "en": "Initial version - QR landing pages and multilingual support"
+      }
+    }
+  ]
+}
