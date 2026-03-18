@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block QR landing pages from being indexed (optional - uncomment if needed)
+# Disallow: /hr/vina/
+# Disallow: /en/vina/
+
+Sitemap: https://mokalo.hr/sitemap.xml

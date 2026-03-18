@@ -13,8 +13,7 @@
 - [x] **Verzije:** Brojač verzija u footeru
 
 ## 🚧 U TIJEKU (Ono što sada radimo)
-- [ ] **Ažuriranje Baze Podataka (Zod Schema):** Ažurirati `src/content/config.ts` kako bi uključivao obavezna EU polja (nutritivne vrijednosti, sastojci, alergeni).
-  - Dodati `batches: z.array(z.string()).optional()` u shemu za praćenje serija vina na QR kodovima (npr. `24/b1`).
+- [ ] **EN verzije vina** - Dodati engleske prijevode za sva vina
 
 ## 🎯 TODO (Sljedeći koraci za programiranje)
 

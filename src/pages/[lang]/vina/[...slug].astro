@@ -53,88 +53,88 @@ const batch = Astro.url.searchParams.get('batch') || data.batches?.[0] || null;
     </div>
   )}
 
-  <div class="fixed top-0 left-0 w-full p-3 flex justify-between items-center z-50 bg-dark/80 backdrop-blur-md border-b border-wine-red/30">
-     <div class="text-gold font-playfair tracking-widest uppercase text-xs font-semibold">
-        <a href={`/${lang}`}>Mrgudić Bura</a>
-     </div>
-     <LanguagePicker />
-  </div>
+  <div class="fixed top-0 left-0 w-full p-3 flex justify-between items-center z-50 bg-bura-dark-900/80 backdrop-blur-md border-b border-bura-red/30">
+      <div class="text-bura-gold-500 font-playfair tracking-widest uppercase text-xs font-semibold">
+         <a href={`/${lang}`}>Mrgudić Bura</a>
+      </div>
+      <LanguagePicker />
+   </div>
 
   <main class="container mx-auto px-4 pt-20 pb-12 max-w-lg mx-auto font-inter relative z-10">
     
-    <header class="text-center mb-6 border-b border-gold/20 pb-4">
-      <p class="text-wine-red tracking-widest uppercase text-xs">{data.category}</p>
-      <h1 class="text-3xl md:text-4xl font-playfair text-gold mb-1 drop-shadow-md">{data.name}</h1>
-      <p class="text-gold-muted tracking-widest uppercase text-xs mt-2">
+    <header class="text-center mb-6 border-b border-bura-gold-500/20 pb-4">
+      <p class="text-bura-red tracking-widest uppercase text-xs">{data.category}</p>
+      <h1 class="text-3xl md:text-4xl font-playfair text-bura-gold-500 mb-1 drop-shadow-md">{data.name}</h1>
+      <p class="text-bura-brown tracking-widest uppercase text-xs mt-2">
         {data.year} | {data.region}
       </p>
     </header>
 
-    <div class="space-y-6 bg-wine-dark/95 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-wine-red/20 shadow-2xl">
+    <div class="space-y-6 bg-bura-dark/95 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-bura-red/20 shadow-2xl">
       
       {batch && (
-        <div class="bg-dark/60 p-3 rounded-lg border border-wine-red/30 text-center">
-          <p class="text-wine-red text-xs uppercase tracking-wider">Serija / Batch</p>
-          <p class="text-gold text-2xl font-mono mt-1">{batch}</p>
+        <div class="bg-bura-dark-900/60 p-3 rounded-lg border border-bura-red/30 text-center">
+          <p class="text-bura-red text-xs uppercase tracking-wider">Serija / Batch</p>
+          <p class="text-bura-gold-500 text-2xl font-mono mt-1">{batch}</p>
         </div>
       )}
 
       <section>
-        <h2 class="text-lg font-playfair text-gold mb-3 border-b border-wine-red/20 pb-1">Informacije</h2>
-        <ul class="space-y-2 text-text-light text-sm">
-          <li class="flex justify-between border-b border-dark pb-1">
-            <span class="text-text-muted">Proizvođač:</span> <span class="text-right">{data.producer}</span>
+        <h2 class="text-lg font-playfair text-bura-gold-500 mb-3 border-b border-bura-red/20 pb-1">Informacije</h2>
+        <ul class="space-y-2 text-bura-light text-sm">
+          <li class="flex justify-between border-b border-bura-dark-900 pb-1">
+            <span class="text-bura-muted">Proizvođač:</span> <span class="text-right">{data.producer}</span>
           </li>
-          <li class="flex justify-between border-b border-dark pb-1">
-            <span class="text-text-muted">Punioni:</span> <span class="text-right">{data.bottler}</span>
+          <li class="flex justify-between border-b border-bura-dark-900 pb-1">
+            <span class="text-bura-muted">Punioni:</span> <span class="text-right">{data.bottler}</span>
           </li>
-          <li class="flex justify-between border-b border-dark pb-1">
-            <span class="text-text-muted">Regija:</span> <span class="text-right">{data.region}</span>
+          <li class="flex justify-between border-b border-bura-dark-900 pb-1">
+            <span class="text-bura-muted">Regija:</span> <span class="text-right">{data.region}</span>
           </li>
-          <li class="flex justify-between border-b border-dark pb-1">
-            <span class="text-text-muted">Alkohol:</span> <span class="text-right font-semibold text-gold">{data.alcohol}</span>
+          <li class="flex justify-between border-b border-bura-dark-900 pb-1">
+            <span class="text-bura-muted">Alkohol:</span> <span class="text-right font-semibold text-bura-gold-500">{data.alcohol}</span>
           </li>
           {data.grape && (
-            <li class="flex justify-between border-b border-dark pb-1">
-              <span class="text-text-muted">Sorta:</span> <span class="text-right">{data.grape}</span>
+            <li class="flex justify-between border-b border-bura-dark-900 pb-1">
+              <span class="text-bura-muted">Sorta:</span> <span class="text-right">{data.grape}</span>
             </li>
           )}
         </ul>
       </section>
 
-      <section class="bg-dark/60 p-3 rounded-lg border border-wine-red/30">
-        <h2 class="text-md font-playfair text-gold mb-2">Sastojci i alergeni</h2>
-        <p class="text-xs text-text-light mb-2"><span class="text-gold-muted">Sastojci:</span> {data.ingredients}</p>
-        <p class="text-xs text-text-light flex items-center flex-wrap gap-2">
-          <span class="text-gold-muted">Alergeni:</span> 
-          <span class="font-bold text-white bg-wine-red px-2 py-0.5 rounded shadow-sm">{data.allergens}</span>
+      <section class="bg-bura-dark-900/60 p-3 rounded-lg border border-bura-red/30">
+        <h2 class="text-md font-playfair text-bura-gold-500 mb-2">Sastojci i alergeni</h2>
+        <p class="text-xs text-bura-light mb-2"><span class="text-bura-brown">Sastojci:</span> {data.ingredients}</p>
+        <p class="text-xs text-bura-light flex items-center flex-wrap gap-2">
+          <span class="text-bura-brown">Alergeni:</span> 
+          <span class="font-bold text-white bg-bura-red px-2 py-0.5 rounded shadow-sm">{data.allergens}</span>
         </p>
       </section>
 
       {data.nutrition && (
         <section>
-          <h2 class="text-lg font-playfair text-gold mb-3 border-b border-wine-red/20 pb-1">Hranjive vrijednosti <span class="text-xs text-text-muted font-sans">(100 ml)</span></h2>
+          <h2 class="text-lg font-playfair text-bura-gold-500 mb-3 border-b border-bura-red/20 pb-1">Hranjive vrijednosti <span class="text-xs text-bura-muted font-sans">(100 ml)</span></h2>
           <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-text-light text-sm">
+            <table class="w-full text-left border-collapse text-bura-light text-sm">
               <tbody>
-                <tr class="border-b border-dark">
-                  <td class="py-2 text-text-muted">Energija</td>
+                <tr class="border-b border-bura-dark-900">
+                  <td class="py-2 text-bura-muted">Energija</td>
                   <td class="py-2 text-right">{data.nutrition.energy} kJ/kcal</td>
                 </tr>
-                <tr class="border-b border-dark">
-                  <td class="py-2 text-text-muted">Masti</td>
+                <tr class="border-b border-bura-dark-900">
+                  <td class="py-2 text-bura-muted">Masti</td>
                   <td class="py-2 text-right">{data.nutrition.carbs} g</td>
                 </tr>
-                <tr class="border-b border-dark bg-dark/40">
-                  <td class="py-1 pl-4 text-xs text-text-muted italic">od toga šećeri</td>
+                <tr class="border-b border-bura-dark-900 bg-bura-dark-900/40">
+                  <td class="py-1 pl-4 text-xs text-bura-muted italic">od toga šećeri</td>
                   <td class="py-1 text-right text-xs">{data.nutrition.sugars} g</td>
                 </tr>
-                <tr class="border-b border-dark">
-                  <td class="py-2 text-text-muted">Bjelančevine</td>
+                <tr class="border-b border-bura-dark-900">
+                  <td class="py-2 text-bura-muted">Bjelančevine</td>
                   <td class="py-2 text-right">{data.nutrition.protein} g</td>
                 </tr>
                 <tr>
-                  <td class="py-2 text-text-muted">Sol</td>
+                  <td class="py-2 text-bura-muted">Sol</td>
                   <td class="py-2 text-right">{data.nutrition.salt} g</td>
                 </tr>
               </tbody>
@@ -144,7 +144,7 @@ const batch = Astro.url.searchParams.get('batch') || data.batches?.[0] || null;
       )}
 
       {data.recycling && (
-        <div class="text-xs text-text-muted italic text-center pt-2">
+        <div class="text-xs text-bura-muted italic text-center pt-2">
           ♻️ {data.recycling}
         </div>
       )}
@@ -152,7 +152,7 @@ const batch = Astro.url.searchParams.get('batch') || data.batches?.[0] || null;
     </div>
 
     <div class="mt-8 text-center">
-      <a href={`/${lang}`} class="inline-flex items-center text-gold hover:text-gold-muted transition-colors text-sm">
+      <a href={`/${lang}`} class="inline-flex items-center text-bura-gold-500 hover:text-bura-brown transition-colors text-sm">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>

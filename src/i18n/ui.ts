@@ -13,7 +13,7 @@ export const ui = {
     'wine.pairing': 'Uparivanje hrane',
     'wine.tastingNotes': 'Zabilješke o kušanju',
     'contact.title': 'Kontakt',
-    'contact.email': 'bmrgudic@gmail.com',
+    'contact.email': 'boris@mokalo.hr',
   },
   en: {
     'nav.home': 'Home',
@@ -22,6 +22,6 @@ export const ui = {
     'wine.pairing': 'Food Pairing',
     'wine.tastingNotes': 'Tasting Notes',
     'contact.title': 'Contact',
-    'contact.email': 'bmrgudic@gmail.com',
+    'contact.email': 'boris@mokalo.hr',
   },
 } as const;
