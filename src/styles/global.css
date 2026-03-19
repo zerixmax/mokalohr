@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
 @theme {
-  /* Premium Vinska Paleta - Bura Naming */
-  --color-bura-dark-900: #1a1718;
-  --color-bura-dark-800: #242021;
-  --color-bura-dark: #2a1c1e;
-  --color-bura-red: #722f37;
+  /* Autentična Vinska Paleta - Etiketa-First */
+  --color-bura-paper: #f7f3e9;
+  --color-bura-paper-dark: #ebe4d3;
+  --color-bura-ink: #2a2a2a;
   
-  --color-bura-gold-500: #a18e68;
-  --color-bura-gold-400: #b8a07c;
-  --color-bura-gold-300: #c4b090;
-  --color-bura-brown: #65584d;
+  /* Dark Mode Paleta */
+  --color-bura-dark-bg: #1a1718;
+  --color-bura-dark-paper: #242021;
+  --color-bura-dark-ink: #e3e1d4;
   
-  --color-bura-light: #e3e1d4;
-  --color-bura-muted: #9ca3af;
+  --color-bura-wine-red: #800000;
+  --color-bura-wine-blue: #004080;
+  --color-bura-wine-gold: #b8860b;
+  
+  --color-bura-muted: #6b6b6b;
 
   --font-playfair: 'Playfair Display', serif;
   --font-inter: 'Inter', sans-serif;
 }
 
 @layer base {
+  :root {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-bura-dark-900 text-bura-light font-inter m-0 p-0 antialiased;
+    @apply bg-bura-paper text-bura-ink font-inter m-0 p-0 antialiased transition-colors duration-500;
+  }
+
+  :root.dark body {
+    @apply bg-bura-dark-bg text-bura-dark-ink;
+  }
+
+  /* Papirnata tekstura overlay */
+  body::before {
+    content: "";
+    @apply fixed inset-0 z-[-1] pointer-events-none opacity-40 transition-opacity duration-500;
+    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+  }
+
+  :root.dark body::before {
+    @apply opacity-10 invert;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bura-paper;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-bura-muted/30 rounded-full hover:bg-bura-muted/50 transition-colors;
+  }
+
+  a {
+    @apply transition-all duration-300;
   }
 }

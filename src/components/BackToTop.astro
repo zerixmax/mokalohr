@@ -1,0 +1,56 @@
+---
+---
+
+<button 
+  id="back-to-top" 
+  class="fixed bottom-24 right-8 z-[90] w-12 h-12 bg-white/80 backdrop-blur-md border border-black/5 rounded-full shadow-2xl flex items-center justify-center text-bura-ink invisible opacity-0 transition-all duration-500 hover:scale-110 active:scale-95 group"
+  aria-label="Back to top"
+>
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    class="w-6 h-6 transform transition-transform group-hover:-translate-y-1 animate-bounce-gentle" 
+    fill="none" 
+    viewBox="0 0 24 24" 
+    stroke="currentColor"
+  >
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+  </svg>
+</button>
+
+<style>
+  @keyframes bounce-gentle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  .animate-bounce-gentle {
+    animation: bounce-gentle 2s infinite ease-in-out;
+  }
+
+  #back-to-top.visible {
+    @apply visible opacity-100;
+  }
+</style>
+
+<script>
+  const backToTop = document.getElementById('back-to-top');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      backToTop?.classList.add('visible');
+    } else {
+      backToTop?.classList.remove('visible');
+    }
+  });
+
+  backToTop?.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+</script>

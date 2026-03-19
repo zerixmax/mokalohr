@@ -1,14 +1,14 @@
 ---
 name: "Bura Rukatac"
 producer: "OPG Mrgudić-Bura"
-category_title: "Autentično Bijelo"
+category_title: "Autochthonous White"
 alcohol: "12.5%"
 sort: "Rukatac (Maraština)"
 
 # Marketing Content
-aromas: ["Cvijet naranče", "limun", "badem", "mineralne note"]
-character: "Divlja fermentacija, iskren izričaj pelješkog kamena. Svježe i hrskavo."
-technicals: "Odležavanje u inox tankovima radi očuvanja svježine i sortnih aroma."
+aromas: ["Citrus", "dried hay", "almond flower", "mineral notes"]
+character: "Wild fermentation, an honest expression of Pelješac stone. Fresh and crisp."
+technicals: "Stainless steel tank aging to preserve freshness and varietal aromas."
 
 # Radar Chart (0-100)
 profile:
@@ -20,12 +20,12 @@ profile:
 
 # Serving & Pairing
 serving:
-  type: "Svježe bijelo"
+  type: "Fresh White"
   temp: "10 - 12°C"
-  glass: "Klasična vinska čaša"
+  glass: "Classic white wine glass"
 pairings:
   - icon: "fish"
-    desc: "Svježa bijela riba, škampi na žaru, lagane ljetne salate."
+    desc: "Fresh white fish, grilled scampi, light summer salads."
 
 visual_theme:
   theme_type: "Rukatac-Blue"
@@ -37,7 +37,7 @@ nutrition:
   sugars: "0,3"
   protein: "0"
   salt: "0"
-ingredients: "Grožđe, Sulfiti"
-allergens: "Sulfiti"
+ingredients: "Grapes, Sulfites"
+allergens: "Sulfites"
 image: ../../../assets/25-b1_bura-rukatac.webp
 ---

@@ -1,14 +1,14 @@
 ---
 name: "Marica"
 producer: "OPG Mrgudić-Bura"
-category_title: "Elegantno Crno"
+category_title: "Elegant Red"
 alcohol: "14.5%"
 sort: "Plavac Mali"
 
 # Marketing Content
-aromas: ["Višnja", "mediteransko bilje", "zemljane note", "vanilija"]
-character: "Elegantno i uravnoteženo vino s dugim završetkom i pročišćenom teksturo."
-technicals: "Tradicionalna fermentacija, odležano u slavonskom hrastu."
+aromas: ["Cherry", "mediterranean herbs", "earthy notes", "vanilla"]
+character: "Elegant and balanced with a long finish and refined texture."
+technicals: "Traditional fermentation, aged in Slavonian oak."
 
 # Radar Chart (0-100)
 profile:
@@ -20,12 +20,12 @@ profile:
 
 # Serving & Pairing
 serving:
-  type: "Elegantno crno"
+  type: "Elegant Red"
   temp: "16 - 18°C"
-  glass: "Standardna vinska čaša"
+  glass: "Standard red wine glass"
 pairings:
   - icon: "pot"
-    desc: "Tradicionalna dalmatinska pašticada, perad u tamnim umacima, teletina pod pekom."
+    desc: "Traditional Dalmatian Pašticada, poultry in dark sauces, veal under the baking lid (peka)."
 
 visual_theme:
   theme_type: "Marica-Red"
@@ -37,7 +37,7 @@ nutrition:
   sugars: "0,5"
   protein: "0"
   salt: "0"
-ingredients: "Grožđe, Sulfiti"
-allergens: "Sulfiti"
+ingredients: "Grapes, Sulfites"
+allergens: "Sulfites"
 image: ../../../assets/25-b1_marica.webp
 ---

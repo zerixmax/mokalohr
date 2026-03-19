@@ -1,14 +1,14 @@
 ---
 name: "Amare Gold"
 producer: "OPG Mrgudić-Bura"
-category_title: "Plemenito Desertno"
+category_title: "Noble Dessert Wine"
 alcohol: "15.0%"
 sort: "Plavac Mali 100%"
 
 # Marketing Content
-aromas: ["Suho voće", "med", "rogač", "orašasti plodovi"]
-character: "Koncentrirano, slatko i plemenito desertno vino od prosušenih bobica."
-technicals: "Tradicionalna proizvodnja od najboljih bobica prosušenih na suncu."
+aromas: ["Dried fruit", "honey", "carob", "nuts"]
+character: "Concentrated, sweet, and noble dessert wine made from dried berries."
+technicals: "Traditional production from the best berries dried in the sun."
 
 # Radar Chart (0-100)
 profile:
@@ -20,12 +20,12 @@ profile:
 
 # Serving & Pairing
 serving:
-  type: "Slatko desertno"
+  type: "Sweet Dessert"
   temp: "10 - 12°C"
-  glass: "Mala desertna čaša"
+  glass: "Small dessert glass"
 pairings:
   - icon: "cake"
-    desc: "Tradicionalni dalmatinski deserti (rožata), plemeniti sirevi."
+    desc: "Traditional Dalmatian desserts (rožata), noble cheeses."
 
 visual_theme:
   theme_type: "Amare-Gold"
@@ -37,7 +37,7 @@ nutrition:
   sugars: "7,5"
   protein: "0.2"
   salt: "0"
-ingredients: "Grožđe, Sulfiti"
-allergens: "Sulfiti"
+ingredients: "Grapes, Sulfites"
+allergens: "Sulfites"
 image: ../../../assets/25-b1_mare.webp
 ---

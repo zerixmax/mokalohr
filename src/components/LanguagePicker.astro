@@ -18,8 +18,37 @@ function toggleLanguagePath(pathname: string, currentLang: string) {
 
 const currentPath = new URL(Astro.request.url).pathname;
 const newPath = toggleLanguagePath(currentPath, lang);
+
+const isHR = lang === 'hr';
 ---
 
-<a href={newPath} class="inline-flex items-center px-4 py-2 text-sm font-medium text-gold hover:text-text-light transition-colors border border-gold/30 rounded-md hover:bg-gold/10">
-  {lang === 'hr' ? 'EN' : 'HR'}
+<a href={newPath} class="relative group block" aria-label={isHR ? "Switch to English" : "Prebaci na Hrvatski"}>
+  <div class="w-10 h-10 rounded-full border-2 border-white dark:border-black/20 shadow-sm group-hover:shadow-xl group-hover:scale-110 group-hover:border-bura-wine-red/30 transition-all duration-500 overflow-hidden relative">
+    {isHR ? (
+      /* UK Flag for EN */
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" class="w-full h-full object-cover scale-125">
+        <rect width="60" height="30" fill="#012169"/>
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/>
+        <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+        <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+      </svg>
+    ) : (
+      /* HR Flag */
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" class="w-full h-full object-cover scale-125">
+        <rect width="20" height="10" fill="#fff"/>
+        <rect width="20" height="3.33" fill="#ff0000"/>
+        <rect width="20" height="3.33" y="6.66" fill="#171796"/>
+        <!-- Simple Shield -->
+        <rect x="8.5" y="3" width="3" height="4" fill="#fff" rx="0.5"/>
+        <path d="M9,3.5 v2 a1,1 0 0,0 2,0 v-2 z" fill="#ff0000"/>
+      </svg>
+    )}
+    <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+  </div>
+  
+  <!-- Tooltip -->
+  <span class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 bg-bura-ink text-bura-paper text-[10px] font-bold rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase tracking-tighter">
+    {isHR ? 'English' : 'Hrvatski'}
+  </span>
 </a>

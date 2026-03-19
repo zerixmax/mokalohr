@@ -1,0 +1,48 @@
+---
+---
+
+<label class="relative inline-flex items-center cursor-pointer group">
+  <input type="checkbox" class="sr-only peer theme-slider-input">
+  <div class="w-14 h-7 bg-black/5 border border-black/10 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:start-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-6 after:transition-all peer-checked:bg-bura-wine-red/20 transition-all duration-500 overflow-hidden shadow-inner">
+    <!-- Sun Icon (Light) -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-1.5 top-1.5 w-4 h-4 text-orange-400 opacity-100 peer-checked:opacity-0 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.93 19.07l1.41-1.41"></path><path d="M17.66 6.34l1.41-1.41"></path></svg>
+    <!-- Moon Icon (Dark) -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="absolute right-1.5 top-1.5 w-4 h-4 text-blue-200 opacity-0 peer-checked:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>
+  </div>
+</label>
+
+<script>
+  function initTheme() {
+    const sliders = document.querySelectorAll('.theme-slider-input') as NodeListOf<HTMLInputElement>;
+    const html = document.documentElement;
+
+    const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    if (currentTheme === 'dark') {
+      html.classList.add('dark');
+      sliders.forEach(s => s.checked = true);
+    }
+
+    sliders.forEach(slider => {
+      slider.addEventListener('change', () => {
+        if (slider.checked) {
+          html.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+          // Sync other sliders
+          sliders.forEach(s => s.checked = true);
+        } else {
+          html.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+          // Sync other sliders
+          sliders.forEach(s => s.checked = false);
+        }
+      });
+    });
+  }
+
+  // Run on initial load
+  initTheme();
+
+  // Run on view transitions if enabled
+  document.addEventListener('astro:after-swap', initTheme);
+</script>

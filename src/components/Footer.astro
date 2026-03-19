@@ -1,17 +1,68 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import versions from '../data/versions.json';
+import { Image } from 'astro:assets';
+import logo from '../assets/mrgudic -bura-logo.webp';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const currentVersion = versions.currentVersion;
 ---
 
-<footer class="py-10 border-t border-bura-gold-500/20 mt-20 text-center">
-  <div class="container mx-auto px-4">
-    <h3 class="font-playfair text-2xl text-bura-gold-500 mb-4">{t('contact.title')}</h3>
-    <a href={`mailto:${t('contact.email')}`} class="text-bura-muted hover:text-bura-gold-500 transition-colors">{t('contact.email')}</a>
-    <p class="text-xs text-bura-muted mt-8 opacity-50">&copy; {new Date().getFullYear()} Mrgudić Bura Vina. Sva prava pridržana.</p>
-    <p class="text-xs text-bura-muted mt-2 opacity-30">v{currentVersion}</p>
+<footer class="py-16 border-t border-black/5 mt-20 bg-black/[0.02]">
+  <div class="container mx-auto px-4 text-center">
+    <div class="mb-8 opacity-60 hover:opacity-100 transition-opacity">
+       <Image 
+          src={logo} 
+          alt="Mrgudić Bura Vina" 
+          class="h-10 w-auto mx-auto object-contain brightness-90 grayscale hover:grayscale-0 transition-all duration-500"
+        />
+    </div>
+    
+    <div class="space-y-6">
+      <h3 class="font-playfair text-xl text-bura-ink tracking-wider uppercase opacity-80">{t('contact.title')}</h3>
+      
+      <div class="flex flex-col items-center space-y-2">
+        <p class="font-playfair text-lg font-bold text-bura-ink">{t('contact.winery')}</p>
+        <p class="text-sm text-bura-muted italic">{t('contact.address')}</p>
+        <a 
+          href={`mailto:${t('contact.email')}`} 
+          class="text-bura-ink/60 hover:text-bura-wine-red transition-colors text-sm font-mono border-b border-black/5"
+        >
+          {t('contact.email')}
+        </a>
+      </div>
+
+      <div class="flex justify-center space-x-6 pt-4">
+        <!-- Facebook -->
+        <a 
+          href="https://www.facebook.com/vinarija.buramrgudic" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-bura-muted hover:text-[#1877F2] hover:border-[#1877F2]/30 hover:bg-[#1877F2]/5 transition-all duration-300 group"
+          aria-label="Facebook"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        
+        <!-- Instagram -->
+        <a 
+          href="https://www.instagram.com/buramrgudic" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center text-bura-muted hover:text-[#E4405F] hover:border-[#E4405F]/30 hover:bg-[#E4405F]/5 transition-all duration-300 group"
+          aria-label="Instagram"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-black/5">
+      <p class="text-[10px] text-bura-muted uppercase tracking-[0.2em] opacity-60">&copy; {new Date().getFullYear()} Mrgudić Bura Vina. Sva prava pridržana.</p>
+      <div class="mt-4 inline-block px-3 py-1 bg-black/5 rounded-full">
+        <p class="text-[9px] font-mono text-bura-muted font-bold tracking-tighter uppercase">Build Version: v{currentVersion}</p>
+      </div>
+    </div>
   </div>
 </footer>

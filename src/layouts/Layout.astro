@@ -1,5 +1,10 @@
 ---
 import '../styles/global.css';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/mrgudic -bura-logo.webp';
 
 interface Props {
 	title: string;
@@ -23,7 +28,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | Mrgudić Bura Vina</title>
@@ -49,7 +54,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 	</head>
-	<body class="bg-bura-dark-900 text-bura-light font-inter selection:bg-bura-gold-500/30 selection:text-bura-gold-500 min-h-screen flex flex-col antialiased">
-		<slot />
+	<body class="bg-bura-paper text-bura-ink font-inter selection:bg-bura-wine-red/10 selection:text-bura-wine-red min-h-screen flex flex-col antialiased">
+		<Navigation />
+		<div class="flex-grow">
+			<slot />
+		</div>
+		<Footer />
+		<BackToTop />
 	</body>
 </html>

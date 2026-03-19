@@ -1,0 +1,188 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import LanguagePicker from './LanguagePicker.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/mrgudic -bura-logo.webp';
+import { getCollection } from 'astro:content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const allWines = await getCollection('vina', ({ id }) => {
+  return id.startsWith(`${lang}/`);
+});
+
+const isHR = lang === 'hr';
+
+// Helper for dynamic collection path
+const getWinePath = (slug: string) => `/${lang}/${isHR ? 'vina' : 'wine'}/${slug.split('/')[1]}`;
+---
+
+<header class="sticky top-0 left-0 w-full z-[100] bg-bura-paper/90 backdrop-blur-xl border-b border-black/5 h-20 transition-all duration-300">
+  <nav class="container mx-auto px-4 h-full flex items-center justify-between relative">
+    
+    <!-- Left: Desktop Links / Mobile Hamburger -->
+    <div class="flex items-center space-x-8">
+      <!-- Hamburger (Mobile/Tablet) -->
+      <button id="menu-toggle" class="md:hidden p-2 -ml-2 hover:bg-black/5 rounded-full transition-colors relative z-[110]" aria-label="Menu">
+        <svg id="hamburger-svg" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path id="hamburger-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16" />
+        </svg>
+      </button>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href={`/${lang}`} class="text-xs font-bold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.home')}</a>
+        
+        <div class="relative group">
+          <button class="flex items-center text-xs font-bold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors group text-bura-ink">
+            {t('nav.collection')}
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          
+          <div class="absolute top-full -left-4 pt-4 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300">
+            <div class="bg-white/95 backdrop-blur-xl border border-black/5 shadow-2xl rounded-2xl p-4 w-64 space-y-1">
+              {allWines.map(wine => (
+                <a href={getWinePath(wine.slug)} class="flex items-center space-x-3 p-3 rounded-xl hover:bg-black/5 transition-colors group/item text-bura-ink">
+                  <div class="w-8 h-8 rounded-lg bg-black/[0.02] border border-black/5 flex items-center justify-center overflow-hidden shrink-0">
+                    {wine.data.image && <Image src={wine.data.image} alt="" class="h-6 w-auto object-contain" />}
+                  </div>
+                  <div>
+                    <p class="text-sm font-bold font-playfair group-hover/item:text-bura-wine-red transition-colors">{wine.data.name}</p>
+                    <p class="text-[9px] text-bura-muted uppercase tracking-tighter">{wine.data.category_title}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center: Logo -->
+    <a href={`/${lang}`} class="absolute left-1/2 -translate-x-1/2 flex items-center group z-[105]">
+      <Image 
+        src={logo} 
+        alt="Mrgudić Bura Vina" 
+        class="w-auto h-10 object-contain brightness-90 transition-transform group-hover:scale-105"
+      />
+    </a>
+
+    <!-- Right: Language & Theme (Desktop) -->
+    <div class="hidden md:flex items-center space-x-4">
+      <ThemeToggle />
+      <LanguagePicker />
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay (Full Screen) -->
+  <div id="mobile-menu" class="fixed inset-0 z-[100] bg-bura-paper dark:bg-bura-dark-bg invisible opacity-0 transition-all duration-500 ease-in-out flex flex-col pointer-events-none">
+    <div class="flex-grow overflow-y-auto pt-24 px-8 pb-12">
+      <div class="max-w-lg mx-auto space-y-12">
+        
+        <!-- Language & Theme Switcher (Mobile) -->
+        <div class="flex flex-col items-center space-y-8">
+          <div class="flex items-center space-x-6">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-bura-muted italic">Theme</span>
+            <ThemeToggle />
+          </div>
+          <div class="flex justify-center space-x-4">
+            <a href="/hr" class={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest border transition-all ${isHR ? 'bg-bura-wine-red text-white border-bura-wine-red shadow-lg' : 'bg-white/50 text-bura-ink border-black/5 hover:bg-white dark:bg-white/10 dark:text-bura-dark-ink'}`}>Hrvatski</a>
+            <a href="/en" class={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest border transition-all ${!isHR ? 'bg-bura-wine-red text-white border-bura-wine-red shadow-lg' : 'bg-white/50 text-bura-ink border-black/5 hover:bg-white dark:bg-white/10 dark:text-bura-dark-ink'}`}>English</a>
+          </div>
+        </div>
+
+        <!-- Primary Links -->
+        <div class="space-y-4 text-center">
+          <a href={`/${lang}`} class="block text-5xl font-playfair font-bold hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.home')}</a>
+          <div class="w-12 h-px bg-bura-wine-red/20 mx-auto"></div>
+        </div>
+
+        <!-- Wines Collection -->
+        <div class="space-y-6">
+          <h3 class="text-[10px] font-bold uppercase tracking-[0.4em] text-bura-muted text-center italic">{t('nav.collection')}</h3>
+          <div class="grid grid-cols-1 gap-3">
+            {allWines.map(wine => (
+              <a href={getWinePath(wine.slug)} class="flex items-center space-x-4 p-5 rounded-[2rem] bg-white/60 border border-black/5 hover:bg-white transition-all group active:scale-95 shadow-sm text-bura-ink">
+                <div class="w-16 h-16 rounded-2xl bg-white shadow-md border border-black/5 flex items-center justify-center overflow-hidden shrink-0 group-hover:rotate-3 transition-transform">
+                  {wine.data.image && <Image src={wine.data.image} alt="" class="h-14 w-auto object-contain" />}
+                </div>
+                <div class="text-left">
+                  <p class="font-playfair text-2xl font-bold group-hover:text-bura-wine-red transition-colors leading-tight mb-1">{wine.data.name}</p>
+                  <p class="text-[10px] text-bura-muted uppercase tracking-widest font-bold">{wine.data.category_title}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+        
+        <!-- Contact Section -->
+        <div class="space-y-6 text-center">
+           <h3 class="text-[10px] font-bold uppercase tracking-[0.4em] text-bura-muted italic">{t('contact.title')}</h3>
+           <div class="space-y-4">
+              <p class="font-playfair text-3xl font-bold text-bura-ink">{t('contact.winery')}</p>
+              <div class="flex flex-col items-center space-y-2">
+                 <p class="text-lg text-bura-muted italic">{t('contact.address')}</p>
+                 <a href={`mailto:${t('contact.email')}`} class="text-2xl font-playfair italic underline underline-offset-8 decoration-bura-wine-red/20 hover:decoration-bura-wine-red transition-all text-bura-ink">
+                    {t('contact.email')}
+                 </a>
+              </div>
+           </div>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="flex justify-center space-x-8 pt-4">
+           <a href="https://www.facebook.com/vinarija.buramrgudic" target="_blank" class="w-16 h-16 rounded-full bg-white border border-black/5 flex items-center justify-center text-[#1877F2] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+           </a>
+           <a href="https://www.instagram.com/buramrgudic" target="_blank" class="w-16 h-16 rounded-full bg-white border border-black/5 flex items-center justify-center text-[#E4405F] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+           </a>
+        </div>
+
+        <div class="text-center pt-8 opacity-30 pb-12">
+          <p class="text-[9px] uppercase tracking-widest font-bold text-bura-ink">Mrgudić Bura Vina &copy; {new Date().getFullYear()}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const svg = document.getElementById('hamburger-svg');
+  const path = document.getElementById('hamburger-path');
+  let isMenuOpen = false;
+
+  menuToggle?.addEventListener('click', () => {
+    isMenuOpen = !isMenuOpen;
+    
+    if (isMenuOpen) {
+      mobileMenu?.classList.remove('invisible', 'opacity-0', 'pointer-events-none');
+      mobileMenu?.classList.add('visible', 'opacity-100');
+      document.body.style.overflow = 'hidden';
+      if (svg) svg.style.transform = 'rotate(90deg)';
+      if (path) path.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+    } else {
+      mobileMenu?.classList.add('invisible', 'opacity-0', 'pointer-events-none');
+      mobileMenu?.classList.remove('visible', 'opacity-100');
+      document.body.style.overflow = '';
+      if (svg) svg.style.transform = 'rotate(0deg)';
+      if (path) path.setAttribute('d', 'M4 8h16M4 16h16');
+    }
+  });
+
+  // Close menu on link click
+  const links = mobileMenu?.querySelectorAll('a');
+  links?.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('invisible', 'opacity-0', 'pointer-events-none');
+      document.body.style.overflow = '';
+      isMenuOpen = false;
+      if (svg) svg.style.transform = 'rotate(0deg)';
+      if (path) path.setAttribute('d', 'M4 8h16M4 16h16');
+    });
+  });
+</script>

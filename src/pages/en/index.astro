@@ -1,22 +1,97 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import heroImage from '../../assets/20170303_Mrgudic-Bura-2017_1198.webp';
 
 const enVina = await getCollection('vina', ({ id }) => {
   return id.startsWith('en/');
 });
+
+// Sort wines by name
+const sortedVina = enVina.sort((a, b) => a.data.name.localeCompare(b.data.name));
 ---
 
-<Layout title="Our Wines" lang="en">
-    <main class="container mx-auto px-4 py-20 flex-grow text-center">
-        <h1 class="font-playfair text-5xl text-gold mb-6">All Wines</h1>
-        <p class="text-text-muted mb-10">Discover our assortment...</p>
+<Layout title="Premium Pelješac Wines" lang="en">
+    <!-- Hero Section -->
+    <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
+        <Image 
+            src={heroImage} 
+            alt="Mrgudić Bura Vineyards" 
+            class="absolute inset-0 w-full h-full object-cover"
+            priority
+        />
+        <div class="absolute inset-0 bg-bura-dark-900/60 backdrop-blur-[2px]"></div>
         
-        {enVina.map(wine => (
-            <a href={`/en/vina/${wine.slug.replace('en/', '')}`} class="inline-block p-4 border border-gold/30 hover:border-gold transition">
-                <h2 class="text-xl text-gold font-playfair">{wine.data.name}</h2>
-                <p class="text-sm text-text-muted">{wine.data.tagline}</p>
-            </a>
-        ))}
-    </main>
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <span class="text-bura-gold-500 uppercase tracking-[0.3em] text-sm mb-4 block animate-fade-in">Tradition of Pelješac</span>
+            <h1 class="font-playfair text-5xl md:text-7xl text-bura-light mb-6 leading-tight">
+                Wines that tell <br/> <span class="italic text-bura-gold-400">a story of stone and sun</span>
+            </h1>
+            <div class="w-24 h-px bg-bura-gold-500 mx-auto mb-8"></div>
+            <p class="text-bura-light/80 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+                Welcome to the world of the Mrgudić and Bura families, where the passion for wine has been passed down through generations on the steep slopes of Dingač and Postup.
+            </p>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-bura-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Wine Gallery -->
+    <section class="py-24 bg-bura-dark-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-4xl text-bura-gold-500 mb-4 tracking-wide">Our Collection</h2>
+                <p class="text-bura-muted uppercase tracking-widest text-xs">Discover the character of each location</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {sortedVina.map(wine => (
+                    <a 
+                        href={`/en/vina/${wine.slug.replace('en/', '')}`} 
+                        class="group relative bg-bura-dark-800 border border-bura-gold-500/10 rounded-lg overflow-hidden transition-all duration-500 hover:border-bura-gold-500/40 hover:-translate-y-2 shadow-xl shadow-black/20"
+                    >
+                        {wine.data.image && (
+                            <div class="aspect-[3/4] overflow-hidden">
+                                <Image 
+                                    src={wine.data.image} 
+                                    alt={wine.data.name}
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                                />
+                            </div>
+                        )}
+                        <div class="absolute inset-0 bg-gradient-to-t from-bura-dark-900 via-transparent to-transparent opacity-80"></div>
+                        
+                        <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                            <span class="text-bura-gold-400 text-xs uppercase tracking-widest mb-2 block">{wine.data.category}</span>
+                            <h3 class="font-playfair text-2xl text-bura-light group-hover:text-bura-gold-500 transition-colors duration-300 mb-2">{wine.data.name}</h3>
+                            <div class="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                                <span class="text-bura-light/60 text-sm">{wine.data.year}</span>
+                                <span class="text-bura-gold-500 text-sm font-medium inline-flex items-center">
+                                    Details
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </div>
+    </section>
 </Layout>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 1.5s ease-out forwards;
+    }
+</style>
