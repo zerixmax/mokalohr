@@ -37,10 +37,18 @@ Glavni cilj bio je preslikati fizički doživljaj vinske boce u digitalni format
 - **Serving Module:** Specifični podaci o idealnoj temperaturi i vrsti čaše.
 - **Social Integration:** Ažurirani linkovi na Facebook i Instagram (`buramrgudic`) s brendiranim ikonama u footeru i meniju.
 
-## 🚀 5. Status i Build
+## ⚙️ 5. Payload CMS Integracija (Phase 2)
+Uveden je profesionalni sustav za upravljanje sadržajem kako bi se olakšalo održavanje kataloga vina.
+- **Backend:** Payload CMS 3.0 (Next.js baziran).
+- **Baza Podataka:** **SQLite** (Arhitektura: Jednostavnost, brzina, bez vanjskih ovisnosti).
+- **Lokalizacija (i18n):** CMS podržava HR/EN unos za sva marketinška polja (Arome, Karakter, Tehnikalije).
+- **Custom Collections:** Definirana `Vina` kolekcija koja replicira Content Matrix (Tabbed UI, Analytics slideri, Media upload).
+- **Docker Ready:** Optimiziran `docker-compose.yml` (Node 20, SQLite volumen, uklonjen MongoDB).
+
+## 🚀 6. Status i Build
 - **Build Status:** 🟢 SUCCESS (17 statičkih ruta generirano).
 - **Performance:** Slike su optimizirane putem `astro:assets` (WebP format).
-- **Persistence:** Odabir teme se pohranjuje u `localStorage`.
+- **Persistence:** Odabir teme se pohranjuje u `localStorage`, dok se vinski podaci sele u CMS.
 
 ---
 **Lead Architect Signature:** z3r1x  

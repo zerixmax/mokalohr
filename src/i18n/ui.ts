@@ -9,6 +9,9 @@ export const ui = {
   hr: {
     'nav.home': 'Početna',
     'nav.collection': 'Naša Kolekcija',
+    'nav.winery': 'Vinarija',
+    'nav.about': 'O nama',
+    'nav.contact': 'Kontakt',
     'wine.alcohol': 'Alkohol',
     'wine.grape': 'Sorte',
     'wine.pairing': 'Uparivanje hrane',
@@ -22,6 +25,9 @@ export const ui = {
   en: {
     'nav.home': 'Home',
     'nav.collection': 'Our Collection',
+    'nav.winery': 'Winery',
+    'nav.about': 'About Us',
+    'nav.contact': 'Contact',
     'wine.alcohol': 'Alcohol',
     'wine.grape': 'Grape Varieties',
     'wine.pairing': 'Food Pairing',
