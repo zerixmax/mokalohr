@@ -1,7 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import LanguagePicker from './LanguagePicker.astro';
-import ThemeToggle from './ThemeToggle.astro';
 import { Image } from 'astro:assets';
 import logo from '../assets/mrgudic -bura-logo.webp';
 import { getCollection } from 'astro:content';
@@ -73,30 +72,17 @@ const getWinePath = (slug: string) => `/${lang}/${isHR ? 'vina' : 'wine'}/${slug
       />
     </a>
 
-    <!-- Right: Language & Theme -->
-    <div class="hidden md:flex items-center space-x-4">
-      <ThemeToggle />
+    <!-- Right: Language (Desktop) -->
+    <div class="hidden md:flex items-center">
       <LanguagePicker />
     </div>
   </nav>
 
   <!-- Mobile Menu Overlay (Solid Color) -->
-  <div id="mobile-menu" class="fixed inset-0 z-[100] bg-bura-paper dark:bg-bura-dark-bg invisible opacity-0 transition-all duration-500 ease-in-out flex flex-col pointer-events-none overflow-y-auto">
+  <div id="mobile-menu" class="fixed inset-0 z-[100] bg-bura-paper invisible opacity-0 transition-all duration-500 ease-in-out flex flex-col pointer-events-none overflow-y-auto">
     <div class="min-h-full flex flex-col pt-24 px-8 pb-12">
       <div class="max-w-lg mx-auto w-full space-y-12">
         
-        <!-- Language Switcher (Mobile) -->
-        <div class="flex flex-col items-center space-y-6">
-          <div class="flex items-center space-x-6">
-            <span class="text-[10px] font-bold uppercase tracking-widest text-bura-muted italic">Theme</span>
-            <ThemeToggle />
-          </div>
-          <div class="flex justify-center space-x-4">
-            <a href="/hr" class={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest border transition-all ${isHR ? 'bg-bura-wine-red text-white border-bura-wine-red shadow-lg' : 'bg-white text-bura-ink border-black/5 dark:bg-white/10 dark:text-bura-dark-ink'}`}>Hrvatski</a>
-            <a href="/en" class={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest border transition-all ${!isHR ? 'bg-bura-wine-red text-white border-bura-wine-red shadow-lg' : 'bg-white text-bura-ink border-black/5 dark:bg-white/10 dark:text-bura-dark-ink'}`}>English</a>
-          </div>
-        </div>
-
         <!-- Primary Links -->
         <div class="space-y-6 text-center">
           <a href={`/${lang}`} class="block text-4xl font-playfair font-bold hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.home')}</a>

@@ -61,6 +61,7 @@ const sortedVina = hrVina.sort((a, b) => a.data.name.localeCompare(b.data.name))
                                     src={wine.data.image} 
                                     alt={wine.data.name}
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                                    transition:name={`bottle-${wine.slug.split('/')[1]}`}
                                 />
                             </div>
                         )}
@@ -68,7 +69,12 @@ const sortedVina = hrVina.sort((a, b) => a.data.name.localeCompare(b.data.name))
                         
                         <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                             <span class="text-bura-gold-400 text-xs uppercase tracking-widest mb-2 block">{wine.data.category}</span>
-                            <h3 class="font-playfair text-2xl text-bura-light group-hover:text-bura-gold-500 transition-colors duration-300 mb-2">{wine.data.name}</h3>
+                            <h3 
+                                class="font-playfair text-2xl text-bura-light group-hover:text-bura-gold-500 transition-colors duration-300 mb-2"
+                                transition:name={`title-${wine.slug.split('/')[1]}`}
+                            >
+                                {wine.data.name}
+                            </h3>
                             <div class="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                                 <span class="text-bura-light/60 text-sm">{wine.data.year}</span>
                                 <span class="text-bura-gold-500 text-sm font-medium inline-flex items-center">

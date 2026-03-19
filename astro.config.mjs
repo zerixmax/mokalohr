@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import AstroPWA from '@vite-pwa/astro';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://mokalo.hr',
   vite: {
@@ -13,8 +13,33 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: false,
     },
-    // i18n Mapiranje rute
-    // Napomena: u Astro v4.x, ovo se radi pomoću 'locales' konfiguracije
-    // gdje svaki locale može imati svoj 'path' (pre-mapping)
-  }
+  },
+  integrations: [
+    AstroPWA({
+      mode: 'production',
+      base: '/',
+      scope: '/',
+      registerType: 'autoUpdate',
+      manifest: {
+        name: 'Mrgudić Bura Vina',
+        short_name: 'Bura Vina',
+        description: 'Digitalne etikete vrhunskih peljeških vina',
+        theme_color: '#f7f3e9',
+        background_color: '#f7f3e9',
+        display: 'standalone',
+        icons: [
+          {
+            src: 'favicon.svg',
+            sizes: '48x48 72x72 96x96 128x128 256x256 512x512',
+            type: 'image/svg+xml',
+            purpose: 'any maskable',
+          },
+        ],
+      },
+      workbox: {
+        navigateFallback: '/404',
+        globPatterns: ['**/*.{js,css,html,svg,png,jpg,jpeg,webp}'],
+      },
+    }),
+  ],
 });

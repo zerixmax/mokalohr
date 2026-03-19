@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import BackToTop from '../components/BackToTop.astro';
+import { ViewTransitions } from 'astro:transitions';
 import { Image } from 'astro:assets';
 import logo from '../assets/mrgudic -bura-logo.webp';
 
@@ -53,6 +54,34 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+		
+		<style>
+			/* Globalni prijelazi za glatko iskustvo */
+			::view-transition-old(root),
+			::view-transition-new(root) {
+				animation-duration: 0.5s;
+			}
+		</style>
+		<ViewTransitions />
+		<script is:inline>
+			// Omogući prefetching za ultra-brzu navigaciju
+			document.addEventListener('astro:after-swap', () => {
+				if ('connection' in navigator && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType))) return;
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							const link = entry.target;
+							const prefetch = document.createElement('link');
+							prefetch.rel = 'prefetch';
+							prefetch.href = link.href;
+							document.head.appendChild(prefetch);
+							observer.unobserve(link);
+						}
+					});
+				});
+				document.querySelectorAll('a[href^="/"]').forEach(link => observer.observe(link));
+			});
+		</script>
 	</head>
 	<body class="bg-bura-paper text-bura-ink font-inter selection:bg-bura-wine-red/10 selection:text-bura-wine-red min-h-screen flex flex-col antialiased">
 		<Navigation />

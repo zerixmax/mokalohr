@@ -1,20 +1,20 @@
 {
-  "currentVersion": "1.2.1",
+  "currentVersion": "2.2.0",
   "changelog": [
+    {
+      "version": "2.2.0",
+      "date": "2026-03-19",
+      "description": {
+        "hr": "MAJOR RELEASE: Payload CMS Integracija. Sustav prebačen na SQLite bazu, automatiziran uvoz podataka (seeding), uvedena kolekcija VINA ASORTIMAN.",
+        "en": "MAJOR RELEASE: Payload CMS Integration. System migrated to SQLite database, automated data seeding, introduced VINA ASORTIMAN collection."
+      }
+    },
     {
       "version": "1.2.1",
       "date": "2026-03-19",
       "description": {
-        "hr": "UI/UX Poliranje - dodana BackToTop komponenta, hibridna desktop/mobile navigacija, animirani dropdown i ažurirani social linkovi.",
-        "en": "UI/UX Polishing - added BackToTop component, hybrid desktop/mobile navigation, animated dropdown and updated social links."
-      }
-    },
-    {
-      "version": "1.2.0",
-      "date": "2026-03-19",
-      "description": {
-        "hr": "Veliki Redizajn 2026 - novi vizualni identitet (papirnata tekstura), dinamičke teme po vinima, pauk grafikoni i SEO /wine/ rute.",
-        "en": "Major Redesign 2026 - new visual identity (paper texture), dynamic wine themes, spider graphs and SEO /wine/ routes."
+        "hr": "UI/UX Poliranje - dodana BackToTop komponenta, hibridna navigacija.",
+        "en": "UI/UX Polishing - added BackToTop component, hybrid navigation."
       }
     }
   ]

@@ -93,6 +93,7 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
             alt={data.name} 
             class="h-[50vh] w-auto object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.3)] transform transition-all duration-1000 hover:scale-105"
             priority
+            transition:name={`bottle-${Astro.params.slug?.split('/')[0]}`}
           />
         </div>
       )}
@@ -100,7 +101,11 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
       <!-- Label Details Overlay -->
       <div class="relative z-20 text-center space-y-2">
         <span class="text-bura-muted uppercase tracking-[0.5em] text-[10px] font-bold block animate-fade-in">{data.category_title}</span>
-        <h2 class="font-playfair text-6xl md:text-8xl font-bold tracking-tighter" style={`color: ${themeColor};`}>
+        <h2 
+          class="font-playfair text-6xl md:text-8xl font-bold tracking-tighter" 
+          style={`color: ${themeColor};`}
+          transition:name={`title-${Astro.params.slug?.split('/')[0]}`}
+        >
           {heroTitle}
         </h2>
         <p class="font-playfair italic text-xl md:text-2xl text-bura-ink/60 uppercase tracking-widest">
@@ -142,8 +147,46 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
                   <span class="font-mono text-2xl tracking-tighter font-bold">{batch}</span>
                 </div>
                )}
+
+               <!-- Quick Actions -->
+               <div class="grid grid-cols-2 gap-3 pt-4">
+                  <button 
+                    onclick="window.print()" 
+                    class="flex flex-col items-center justify-center p-4 bg-white border border-black/5 rounded-2xl hover:bg-bura-wine-red/5 hover:border-bura-wine-red/20 transition-all group"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mb-1 text-bura-muted group-hover:text-bura-wine-red transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span class="text-[9px] font-bold uppercase tracking-widest text-bura-muted group-hover:text-bura-wine-red">{isHR ? 'PDF List' : 'Wine Sheet'}</span>
+                  </button>
+                  <button 
+                    id="share-btn"
+                    class="flex flex-col items-center justify-center p-4 bg-white border border-black/5 rounded-2xl hover:bg-bura-wine-red/5 hover:border-bura-wine-red/20 transition-all group"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mb-1 text-bura-muted group-hover:text-bura-wine-red transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                    <span class="text-[9px] font-bold uppercase tracking-widest text-bura-muted group-hover:text-bura-wine-red">{isHR ? 'Podijeli' : 'Share'}</span>
+                  </button>
+               </div>
             </div>
           </div>
+
+          <script>
+            // Web Share API Integration
+            const shareBtn = document.getElementById('share-btn');
+            shareBtn?.addEventListener('click', async () => {
+              try {
+                await navigator.share({
+                  title: document.title,
+                  text: 'Provjerite digitalnu etiketu Mrgudić Bura Vina',
+                  url: window.location.href
+                });
+              } catch (err) {
+                console.log('Share failed or cancelled');
+              }
+            });
+          </script>
 
         <!-- Right Column: Character, Serving, Pairing -->
         <div class="lg:col-span-8 space-y-8">
