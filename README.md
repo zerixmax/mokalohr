@@ -1,74 +1,52 @@
-# Mrgudić Bura Vina — QR Landing Sustav
+# Mrgudić Bura Vina — Premium QR Landing System
+[![Astro](https://img.shields.io/badge/Astro-4.x-FF5D01.svg)](https://astro.build)
+[![Payload CMS](https://img.shields.io/badge/Payload-3.0-000000.svg)](https://payloadcms.com)
+[![Version](https://img.shields.io/badge/Version-2.2.0-800000.svg)](./src/data/versions.json)
 
-![Mrgudić Bura Vina](public/favicon.svg)
+Digitalni ekosustav za vrhunska pelješka vina vinarije **Mrgudić-Bura**. Ovaj sustav služi kao interaktivna, višejezična e-etiketa dostupna putem QR kodova na bocama.
 
-Digitalna prisutnost vinarije i pametni QR sustav izgrađen na modernoj i brzoj tehnologiji za ugodno iskustvo čak i pod najslabijim mobilnim signalom.
+---
+
+## 🖋️ Vizija: "Label-First" Identity
+Projekt je dizajniran s ciljem da preslika fizički doživljaj držanja vrhunske vinske boce u digitalni format.
+- **Autentična podloga:** Tekstura toplog pergamenta i tintni ispis.
+- **Premium Tipografija:** *Playfair Display* (Serif) i *Inter* (Sans).
+- **Dinamičko bojanje:** Sučelje se automatski prilagođava vrsti vina (Marica-Red, Rukatac-Blue, Amare-Gold).
 
 ## 🚀 Tehnološki Stack
-- **Framework:** [Astro 5.x](https://astro.build/) - Mobile-first Static Site Generation (SSG).
-- **Styling:** [Tailwind CSS 4.x](https://tailwindcss.com/) - Potpuno novi mehanizam s ugrađenom @theme podrškom.
-- **Podaci (DB):** Zod-bazirane Markdown kolekcije za svaki artikl.
-- **Višejezičnost (i18n):** Ugrađeni hr/en prevodi i rutiranje.
+- **Frontend:** [Astro 4.x](https://astro.build) — Munjevito brz statički generator.
+- **Backend:** [Payload CMS 3.0](https://payloadcms.com) — Headless sustav za upravljanje sadržajem.
+- **Baza Podataka:** [SQLite](https://sqlite.org) — Zero-maintenance, visoke performanse čitanja.
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com) — Moderni, utility-first dizajn.
+- **Interaktivnost:** View Transitions API (glatke animacije) i PWA (Offline rad u podrumima).
 
-## 📂 Pisanje Novih Vina (Sadržaja)
+## ✨ Ključne Značajke
+- **Radar Chart (Pauk Grafikon):** Vizualni profil vina (Voćnost, Kiselina, Floralnost, Začini, Tanini).
+- **Multi-Lot Support:** Praćenje različitih serija vina s jedinstvenim laboratorijskim nalazima.
+- **SEO i i18n:** Strateško mapiranje ruta (`/hr/vina/` vs `/en/wine/`).
+- **EU Compliance:** Potpuna podrška za nutritivne tablice i sastojke prema EU regulativi.
+- **Hybrid Navigation:** Interaktivni full-screen mobilni meni s vizualnim prikazom boca.
 
-Zahvaljujući Astro Content Collections i Zod shemama, dodavanje novih vina je sigurno i jednostavno.
+## 🛠️ Razvojni Setup
 
-1. Otvorite repozitorij (`src/content/vina/hr/` za hrvatski, `src/content/vina/en/` za engleski).
-2. Napravite novu `.md` datoteku s imenom vina (npr. `bura.md`).
-3. Zalijepite potrebne podatke koristeći istu strukturu kao i za `marica.md`:
-
-```yaml
----
-name: Bura
-tagline: Moćan Dingač
-description: ...
-image: ../../../assets/slika-boce.webp
-alcohol: 14.5%
-grape: Plavac Mali 100%
-tastingNotes:
-  - Snažan karakter
-  - Note zrelih trešanja
-pairing: Crveno meso sa žara.
----
-```
-*Napomena:* Zod shema osigurava da će `npm run build` prijaviti grešku ako fali neki od obaveznih podataka.
-
-## 💻 Razvoj (Lokalno)
-
-Za rad na lokalnom računalu s Node v20.x:
-
-1. **Instalacija ovisnosti:**
-   ```bash
-   npm install
-   ```
-
-2. **Pokretanje razvojnog servera:**
-   ```bash
-   npm run dev
-   ```
-   *Otvorite `http://localhost:4321` u pregledniku. Ažuriranja će se vršiti u stvarnom vremenu.*
-
-## 🏗️ Produkcija i Build
-
-Prije nego što kod ide "live", odnosno na vaš Docker/Nginx server:
-
-1. **Testiranje Builda:**
-   ```bash
-   npm run build
-   ```
-   *Ova komanda generira sve statične `.html` datoteke, optimizira slike (WebP) i provjerava vaš Markdown kod na greške unutar direktorija `dist/`.*
-
-## 🐳 Docker (Produkcija)
-
+### Astro Frontend (`/mrgudic-bura-vina`)
 ```bash
-# Build slike
-docker build -t mrgudic-bura .
-
-# Pokretanje
-docker run -p 80:80 mrgudic-bura
+npm install
+npm run dev
 ```
 
-## 🌐 O projektu
-- Više na službenoj web stranici: [mokalo.hr](https://mokalo.hr)
-- Dizajnirano za Mobile-First QR očitavanje direktno iz vinograda/restorana.
+### Payload Backend (`/mrgudic-cms`)
+```bash
+npm install
+npm run dev
+```
+
+## 🏁 Milestone & Dokumentacija
+- [Finalni Izvještaj Razvoja (Ožujak 2026)](./docs/FINAL-SUMMARY-2026-03-19.md)
+- [Dokumentacija Redizajna](./docs/REDIZAJN-2026.md)
+- [Arhitektura Baze (SQLite Decision)](./docs/VERSION-2.2-CMS-READY.md)
+
+---
+**Lead Architect:** z3r1x  
+**Full Stack Execution:** Gemini AI (Senior)  
+© 2026 OPG Mrgudić-Bura. Sva prava pridržana.
