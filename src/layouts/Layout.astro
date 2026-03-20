@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import BackToTop from '../components/BackToTop.astro';
 import { ViewTransitions } from 'astro:transitions';
 import { Image } from 'astro:assets';
-import logo from '../assets/mrgudic -bura-logo.webp';
+import logo from '../assets/mrgudic-bura-logo-web.webp';
 
 interface Props {
 	title: string;
@@ -85,7 +85,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
 	</head>
 	<body class="bg-bura-paper text-bura-ink font-inter selection:bg-bura-wine-red/10 selection:text-bura-wine-red min-h-screen flex flex-col antialiased">
 		<Navigation />
-		<div class="flex-grow">
+		<div class="grow">
 			<slot />
 		</div>
 		<Footer />

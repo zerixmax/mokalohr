@@ -5,9 +5,11 @@ import { Image } from 'astro:assets';
 import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
 
 // Import logos for the bottom
-import logo1 from '../../../assets/mrgudic -bura-logo.webp';
-import logo2 from '../../../assets/mrgudic -bura-logo.webp'; 
-import logo3 from '../../../assets/mrgudic -bura-logo.webp';
+import logo1 from '../../../assets/mrgudic-bura-logo-web.webp';
+import logo2 from '../../../assets/mrgudic-bura-logo-web.webp'; 
+import logo3 from '../../../assets/mrgudic-bura-logo-web.webp';
+import placeholderBottle from '../../../assets/boca-vina-mrgudic-placeholder.webp';
+import whiteWinePlaceholder from '../../../assets/mrgudic-bura-bijelovino-placeholder.webp';
 
 export async function getStaticPaths() {
   const vina = await getCollection('vina');
@@ -40,7 +42,7 @@ const themeMap = {
   'Amare-Gold': '#b8860b'
 };
 
-const themeColor = themeMap[data.visual_theme?.theme_type || 'Marica-Red'];
+const themeColor = themeMap[(data.visual_theme?.theme_type as keyof typeof themeMap) || 'Marica-Red'];
 const heroTitle = data.name.toUpperCase();
 const heroSubtitle = data.category_title;
 
@@ -86,17 +88,21 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
       </div>
 
       <!-- Bottle Image Container -->
-      {data.image && (
-        <div class="relative z-10 flex-grow w-full flex items-center justify-center py-12">
-          <Image 
-            src={data.image} 
-            alt={data.name} 
-            class="h-[50vh] w-auto object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.3)] transform transition-all duration-1000 hover:scale-105"
-            priority
-            transition:name={`bottle-${Astro.params.slug?.split('/')[0]}`}
-          />
+      <div class="relative z-10 grow w-full flex items-center justify-center py-12">
+        <Image 
+          src={data.image || (data.visual_theme?.theme_type === 'Marica-Red' ? placeholderBottle : whiteWinePlaceholder)} 
+          alt={data.name} 
+          class="h-[50vh] w-auto object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.3)] transform transition-all duration-1000 hover:scale-105"
+          loading="eager"
+          transition:name={`bottle-${Astro.params.slug?.split('/')[0]}`}
+        />
+        <!-- Brand Ribbon -->
+        <div class="absolute -bottom-4 md:-bottom-8 left-1/2 -translate-x-1/2 z-20">
+          <div class="bura-ribbon whitespace-nowrap">
+            {isHR ? 'VINARIJA MRGUDIĆ-BURA' : 'MRGUDIĆ-BURA WINERY'}
+          </div>
         </div>
-      )}
+      </div>
 
       <!-- Label Details Overlay -->
       <div class="relative z-20 text-center space-y-2">
@@ -130,16 +136,16 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
           <div class="lg:col-span-4 space-y-6">
             <div class="bg-white/60 p-8 rounded-3xl border border-black/5 shadow-xl space-y-6">
                <div class="flex justify-between items-center border-b border-black/5 pb-4">
-                  <span class="text-[10px] text-bura-muted uppercase tracking-widest font-bold">{isHR ? 'Godište' : 'Year'}</span>
-                  <span class="font-playfair text-2xl font-bold">{data.year || '2025'}</span>
+                  <span class="text-[10px] text-bura-muted uppercase tracking-widest font-bold">{t('wine.year') || (isHR ? 'Godište' : 'Year')}</span>
+                  <span class="font-playfair text-2xl font-bold">{data.year}</span>
                </div>
                <div class="flex justify-between items-center border-b border-black/5 pb-4">
                   <span class="text-[10px] text-bura-muted uppercase tracking-widest font-bold">{isHR ? 'Regija' : 'Region'}</span>
                   <span class="font-playfair text-xl">{data.region}</span>
                </div>
                <div class="flex justify-between items-center pb-2">
-                  <span class="text-[10px] text-bura-muted uppercase tracking-widest font-bold">{isHR ? 'Alkohol' : 'Alcohol'}</span>
-                  <span class="font-bold text-2xl" style={`color: ${themeColor};`}>{data.alcohol}</span>
+                  <span class="text-[10px] text-bura-muted uppercase tracking-widest font-bold">{t('wine.alcohol')}</span>
+                  <span class="font-bold text-2xl" style={`color: ${themeColor};`}>{data.alcohol}<span class="text-sm ml-1 opacity-50">%vol</span></span>
                </div>
                {batch && (
                 <div class="bg-black/5 p-4 rounded-2xl mt-4 border border-black/5">
@@ -229,12 +235,12 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
 
             <!-- Marketing Content -->
             <div class="space-y-8">
-              <section class="bg-white/40 backdrop-blur-sm p-6 rounded-2xl border border-black/5 shadow-sm">
+              <section class="bg-white/40 backdrop-blur-sm p-6 rounded-2xl border border-black/5 shadow-sm slats-bg">
                 <h2 class="font-playfair text-xl mb-4 uppercase tracking-widest" style={`color: ${themeColor};`}>
                    {isHR ? 'Arome' : 'Aromas'}
                 </h2>
                 <div class="flex flex-wrap gap-2">
-                  {data.aromas.map(aroma => (
+                  {data.aromas.map((aroma: string) => (
                     <span class="px-3 py-1 bg-white/50 rounded-full text-xs border border-black/5" style={`color: ${themeColor};`}>
                       {aroma}
                     </span>
@@ -268,7 +274,7 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
 
           <!-- Technicals & Pairing -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-             <section class="bg-white/40 backdrop-blur-sm p-6 rounded-2xl border border-black/5 shadow-sm">
+             <section class="bg-white/40 backdrop-blur-sm p-6 rounded-2xl border border-black/5 shadow-sm slats-bg">
                 <h2 class="font-playfair text-xl mb-4 uppercase tracking-widest" style={`color: ${themeColor};`}>
                    {isHR ? 'Tehnikalije' : 'Technicals'}
                 </h2>
@@ -282,7 +288,7 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
                    {isHR ? 'Sljubljivanje' : 'Pairing'}
                 </h2>
                 <div class="space-y-4">
-                   {data.pairings.map(p => (
+                   {data.pairings.map((p: any) => (
                       <div class="flex items-center gap-4 p-3 bg-white/40 rounded-xl border border-black/5">
                          <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={`background-color: ${themeColor}15; color: ${themeColor};`}>
                             <span class="text-[10px] font-bold uppercase">{p.icon}</span>
@@ -294,15 +300,15 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
              </section>
           </div>
 
-          <!-- EU Regulation -->
-          <section class="bg-black/[0.03] p-8 rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
-             <div class="space-y-6">
+          <!-- EU Regulation & Laboratory Analysis -->
+          <section class="bg-black/3 p-8 rounded-3xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
+             <div class="lg:col-span-1 space-y-6">
                 <div>
-                  <h3 class="font-bold uppercase text-[10px] tracking-widest mb-2 opacity-50">{isHR ? 'Sastojci' : 'Ingredients'}</h3>
-                  <p class="text-bura-ink/70">{data.ingredients}</p>
+                  <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-3 opacity-50" style={`color: ${themeColor};`}>{t('wine.ingredients')}</h3>
+                  <p class="text-bura-ink/70 leading-relaxed">{data.ingredients}</p>
                 </div>
                 <div>
-                  <h3 class="font-bold uppercase text-[10px] tracking-widest mb-2 opacity-50">{isHR ? 'Alergeni' : 'Allergens'}</h3>
+                  <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-3 opacity-50" style={`color: ${themeColor};`}>{t('wine.allergens')}</h3>
                   <p class="inline-block px-4 py-1.5 bg-white rounded-lg shadow-sm font-bold border border-black/5" style={`color: ${themeColor};`}>{data.allergens}</p>
                 </div>
                 {data.recycling && (
@@ -312,15 +318,42 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
                 )}
              </div>
              
-             {data.nutrition && (
-               <div class="bg-white/40 p-6 rounded-xl border border-black/5">
-                  <h3 class="font-bold uppercase text-[10px] tracking-widest mb-4 opacity-50">{isHR ? 'Nutritivne vrijednosti (100ml)' : 'Nutritional Values (100ml)'}</h3>
-                  <div class="space-y-2 font-mono text-xs">
-                    <div class="flex justify-between border-b border-black/5 pb-1"><span>Energy</span><span class="font-bold">{data.nutrition.energy} kJ/kcal</span></div>
-                    <div class="flex justify-between border-b border-black/5 pb-1"><span>Fat</span><span>{data.nutrition.carbs}g</span></div>
-                    <div class="flex justify-between pl-4 opacity-40 text-[10px]"><span>- of which sugars</span><span>{data.nutrition.sugars}g</span></div>
-                    <div class="flex justify-between border-b border-black/5 pb-1"><span>Protein</span><span>{data.nutrition.protein}g</span></div>
-                    <div class="flex justify-between"><span>Salt</span><span>{data.nutrition.salt}g</span></div>
+             {data.nutricija && (
+               <div class="bg-white/40 p-6 rounded-xl border border-black/5 shadow-sm slats-bg">
+                  <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-6 text-center" style={`color: ${themeColor};`}>{t('wine.nutrition')}</h3>
+                  <div class="space-y-1 font-inter text-[11px]">
+                    <div class="flex justify-between p-2 bg-black/5 border-b border-black/5 rounded-t-lg">
+                      <span class="opacity-60">{t('wine.energy')}</span>
+                      <span class="font-bold">{data.nutricija.energija}</span>
+                    </div>
+                    {[
+                      { label: t('wine.carbs'), val: data.nutricija.ugljikohidrati, unit: 'g' },
+                      { label: t('wine.sugars'), val: data.nutricija.seceri, unit: 'g' }
+                    ].map((item, i) => (
+                      <div class={`flex justify-between p-2 ${i % 2 === 0 ? '' : 'bg-black/5'} border-b border-black/5 last:border-0 last:rounded-b-lg`}>
+                        <span class="opacity-60">{item.label}</span>
+                        <span class="font-bold">{item.val ?? '0'}{item.unit}</span>
+                      </div>
+                    ))}
+                  </div>
+               </div>
+             )}
+
+             {data.analiza && (
+               <div class="bg-white/40 p-6 rounded-xl border border-black/5 shadow-sm slats-bg">
+                  <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-6 text-center" style={`color: ${themeColor};`}>{t('wine.analysis')}</h3>
+                  <div class="space-y-1 font-inter text-[11px]">
+                    {[
+                      { label: t('wine.extract'), val: data.analiza.suhi_ekstrakt, unit: ' g/l' },
+                      { label: t('wine.reducing_sugars'), val: data.analiza.reducirajuci_seceri, unit: ' g/l' },
+                      { label: t('wine.acidity'), val: data.analiza.ukupna_kiselost, unit: ' g/l' },
+                      { label: t('wine.so2'), val: data.analiza.ukupni_so2, unit: ' mg/L' }
+                    ].map((item, i) => (
+                      <div class={`flex justify-between p-2 ${i % 2 === 0 ? 'bg-black/5' : ''} border-b border-black/5 last:border-0 first:rounded-t-lg last:rounded-b-lg`}>
+                        <span class="opacity-60">{item.label}</span>
+                        <span class="font-bold">{item.val ?? '-'}{item.unit}</span>
+                      </div>
+                    ))}
                   </div>
                </div>
              )}
@@ -328,9 +361,10 @@ const bgPath100 = points.map((p, i) => getPoint(i, 100)).join(' ');
         </div>
       </div>
     </div>
+  </div>
 
     <!-- Triple Logo Branding Footer -->
-    <section class="py-24 border-t border-black/5 bg-black/[0.01]">
+    <section class="py-24 border-t border-black/5 bg-black/1">
        <div class="container mx-auto px-4">
           <div class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 opacity-40 grayscale hover:grayscale-0 transition-all duration-1000">
              <Image src={logo1} alt="Bura Logo" class="h-16 w-auto object-contain" />

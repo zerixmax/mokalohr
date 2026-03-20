@@ -2,8 +2,9 @@
 name: "Bura Rukatac"
 producer: "OPG Mrgudić-Bura"
 category_title: "Autochthonous White"
-alcohol: "12.5%"
+alcohol: 12.5
 sort: "Rukatac (Maraština)"
+year: 2025
 
 # Marketing Content
 aromas: ["Citrus", "dried hay", "almond flower", "mineral notes"]
@@ -31,12 +32,15 @@ visual_theme:
   theme_type: "Rukatac-Blue"
 
 # EU Regulation
-nutrition:
-  energy: "310/74"
-  carbs: "1,0"
-  sugars: "0,3"
-  protein: "0"
-  salt: "0"
+nutricija:
+  energija: "310/74"
+  ugljikohidrati: 1
+  seceri: 0.3
+analiza:
+  suhi_ekstrakt: 0
+  reducirajuci_seceri: 0
+  ukupna_kiselost: 0
+  ukupni_so2: 0
 ingredients: "Grapes, Sulfites"
 allergens: "Sulfites"
 image: ../../../assets/25-b1_bura-rukatac.webp

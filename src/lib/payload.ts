@@ -1,4 +1,8 @@
-const PAYLOAD_URL = 'http://localhost:3000';
+const DEV_URL = 'http://localhost:3000';
+const PROD_URL = 'https://cms.mokalo.hr'; // TODO: Confirm with Boris
+
+const isProd = import.meta.env.PROD;
+const PAYLOAD_URL = isProd ? PROD_URL : DEV_URL;
 
 export async function getVina(lang: string = 'hr') {
   try {

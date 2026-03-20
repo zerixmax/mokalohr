@@ -2,7 +2,7 @@
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import LanguagePicker from './LanguagePicker.astro';
 import { Image } from 'astro:assets';
-import logo from '../assets/mrgudic -bura-logo.webp';
+import logo from '../assets/mrgudic-bura-logo-web.webp';
 import { getCollection } from 'astro:content';
 
 const lang = getLangFromUrl(Astro.url);
@@ -18,13 +18,13 @@ const isHR = lang === 'hr';
 const getWinePath = (slug: string) => `/${lang}/${isHR ? 'vina' : 'wine'}/${slug.split('/')[1]}`;
 ---
 
-<header class="sticky top-0 left-0 w-full z-[100] bg-bura-paper/90 backdrop-blur-xl border-b border-black/5 h-20 transition-all duration-300">
+<header class="sticky top-0 left-0 w-full z-100 bg-bura-paper/90 backdrop-blur-xl border-b border-black/5 h-20 transition-all duration-300" transition:persist>
   <nav class="container mx-auto px-4 h-full flex items-center justify-between relative">
     
     <!-- Left: Desktop Links / Mobile Hamburger -->
     <div class="flex items-center space-x-8">
       <!-- Hamburger (Mobile/Tablet) -->
-      <button id="menu-toggle" class="md:hidden p-2 -ml-2 hover:bg-black/5 rounded-full transition-colors relative z-[110]" aria-label="Menu">
+      <button id="menu-toggle" class="md:hidden p-2 -ml-2 hover:bg-black/5 rounded-full transition-colors relative z-110" aria-label="Menu">
         <svg id="hamburger-svg" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path id="hamburger-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 8h16M4 16h16" />
         </svg>
@@ -32,11 +32,11 @@ const getWinePath = (slug: string) => `/${lang}/${isHR ? 'vina' : 'wine'}/${slug
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-6">
-        <a href={`/${lang}`} class="text-[10px] font-bold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.home')}</a>
+        <a href={`/${lang}`} class="text-[11px] font-extrabold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.home')}</a>
         
         <!-- Collection Dropdown -->
         <div class="relative group">
-          <button class="flex items-center text-[10px] font-bold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors group text-bura-ink">
+          <button class="flex items-center text-[11px] font-extrabold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors group text-bura-ink">
             {t('nav.collection')}
             <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 9l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -44,7 +44,7 @@ const getWinePath = (slug: string) => `/${lang}/${isHR ? 'vina' : 'wine'}/${slug
             <div class="bg-white/95 backdrop-blur-xl border border-black/5 shadow-2xl rounded-2xl p-4 w-64 space-y-1">
               {allWines.map(wine => (
                 <a href={getWinePath(wine.slug)} class="flex items-center space-x-3 p-3 rounded-xl hover:bg-black/5 transition-colors group/item text-bura-ink">
-                  <div class="w-8 h-8 rounded-lg bg-black/[0.02] border border-black/5 flex items-center justify-center overflow-hidden shrink-0">
+                  <div class="w-8 h-8 rounded-lg bg-black/2 border border-black/5 flex items-center justify-center overflow-hidden shrink-0">
                     {wine.data.image && <Image src={wine.data.image} alt="" class="h-6 w-auto object-contain" />}
                   </div>
                   <div>
@@ -57,18 +57,18 @@ const getWinePath = (slug: string) => `/${lang}/${isHR ? 'vina' : 'wine'}/${slug
           </div>
         </div>
 
-        <a href={`/${lang}#winery`} class="text-[10px] font-bold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.winery')}</a>
-        <a href={`/${lang}#about`} class="text-[10px] font-bold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.about')}</a>
-        <a href={`/${lang}#contact`} class="text-[10px] font-bold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.contact')}</a>
+        <a href={`/${lang}#winery`} class="text-[11px] font-extrabold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.winery')}</a>
+        <a href={`/${lang}#about`} class="text-[11px] font-extrabold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.about')}</a>
+        <a href={`/${lang}#contact`} class="text-[11px] font-extrabold uppercase tracking-[0.2em] hover:text-bura-wine-red transition-colors text-bura-ink">{t('nav.contact')}</a>
       </div>
     </div>
 
     <!-- Center: Logo -->
-    <a href={`/${lang}`} class="absolute left-1/2 -translate-x-1/2 flex items-center group z-[105]">
+    <a href={`/${lang}`} class="absolute left-1/2 -translate-x-1/2 flex items-center group z-105">
       <Image 
         src={logo} 
         alt="Mrgudić Bura Vina" 
-        class="w-auto h-10 object-contain brightness-90 transition-transform group-hover:scale-105"
+        class="w-auto h-14 object-contain brightness-95 transition-transform group-hover:scale-105"
       />
     </a>
 
@@ -79,7 +79,7 @@ const getWinePath = (slug: string) => `/${lang}/${isHR ? 'vina' : 'wine'}/${slug
   </nav>
 
   <!-- Mobile Menu Overlay (Solid Color) -->
-  <div id="mobile-menu" class="fixed inset-0 z-[100] bg-bura-paper invisible opacity-0 transition-all duration-500 ease-in-out flex flex-col pointer-events-none overflow-y-auto">
+  <div id="mobile-menu" class="fixed inset-0 z-100 bg-bura-paper invisible opacity-0 transition-all duration-500 ease-in-out flex flex-col pointer-events-none overflow-y-auto">
     <div class="min-h-full flex flex-col pt-24 px-8 pb-12">
       <div class="max-w-lg mx-auto w-full space-y-12">
         
@@ -96,7 +96,7 @@ const getWinePath = (slug: string) => `/${lang}/${isHR ? 'vina' : 'wine'}/${slug
           <h3 class="text-[10px] font-bold uppercase tracking-[0.4em] text-bura-muted text-center italic">{t('nav.collection')}</h3>
           <div class="grid grid-cols-1 gap-3">
             {allWines.map(wine => (
-              <a href={getWinePath(wine.slug)} class="flex items-center space-x-4 p-5 rounded-[2rem] bg-white dark:bg-white/5 border border-black/5 shadow-sm text-bura-ink">
+              <a href={getWinePath(wine.slug)} class="flex items-center space-x-4 p-5 rounded-4xl bg-white dark:bg-white/5 border border-black/5 shadow-sm text-bura-ink">
                 <div class="w-16 h-16 rounded-2xl bg-white shadow-md border border-black/5 flex items-center justify-center overflow-hidden shrink-0">
                   {wine.data.image && <Image src={wine.data.image} alt="" class="h-14 w-auto object-contain" />}
                 </div>
@@ -128,39 +128,46 @@ const getWinePath = (slug: string) => `/${lang}/${isHR ? 'vina' : 'wine'}/${slug
 </header>
 
 <script>
-  const menuToggle = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const svg = document.getElementById('hamburger-svg');
-  const path = document.getElementById('hamburger-path');
-  let isMenuOpen = false;
+  function setupNav() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const svg = document.getElementById('hamburger-svg');
+    const path = document.getElementById('hamburger-path');
+    let isMenuOpen = false;
 
-  menuToggle?.addEventListener('click', () => {
-    isMenuOpen = !isMenuOpen;
-    
-    if (isMenuOpen) {
-      mobileMenu?.classList.remove('invisible', 'opacity-0', 'pointer-events-none');
-      mobileMenu?.classList.add('visible', 'opacity-100');
-      document.body.style.overflow = 'hidden';
-      if (svg) svg.style.transform = 'rotate(90deg)';
-      if (path) path.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-    } else {
-      mobileMenu?.classList.add('invisible', 'opacity-0', 'pointer-events-none');
-      mobileMenu?.classList.remove('visible', 'opacity-100');
-      document.body.style.overflow = '';
-      if (svg) svg.style.transform = 'rotate(0deg)';
-      if (path) path.setAttribute('d', 'M4 8h16M4 16h16');
-    }
-  });
+    if (!menuToggle || !mobileMenu) return;
 
-  // Close menu on link click
-  const links = mobileMenu?.querySelectorAll('a');
-  links?.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('invisible', 'opacity-0', 'pointer-events-none');
-      document.body.style.overflow = '';
-      isMenuOpen = false;
-      if (svg) svg.style.transform = 'rotate(0deg)';
-      if (path) path.setAttribute('d', 'M4 8h16M4 16h16');
+    menuToggle.onclick = () => {
+      isMenuOpen = !isMenuOpen;
+      
+      if (isMenuOpen) {
+        mobileMenu.classList.remove('invisible', 'opacity-0', 'pointer-events-none');
+        mobileMenu.classList.add('visible', 'opacity-100');
+        document.body.style.overflow = 'hidden';
+        if (svg) svg.style.transform = 'rotate(90deg)';
+        if (path) path.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+      } else {
+        mobileMenu.classList.add('invisible', 'opacity-0', 'pointer-events-none');
+        mobileMenu.classList.remove('visible', 'opacity-100');
+        document.body.style.overflow = '';
+        if (svg) svg.style.transform = 'rotate(0deg)';
+        if (path) path.setAttribute('d', 'M4 8h16M4 16h16');
+      }
+    };
+
+    // Close menu on link click
+    const links = mobileMenu.querySelectorAll('a');
+    links.forEach(link => {
+      link.onclick = () => {
+        mobileMenu.classList.add('invisible', 'opacity-0', 'pointer-events-none');
+        document.body.style.overflow = '';
+        isMenuOpen = false;
+        if (svg) svg.style.transform = 'rotate(0deg)';
+        if (path) path.setAttribute('d', 'M4 8h16M4 16h16');
+      };
     });
-  });
+  }
+
+  // Re-setup on page transitions and initial load
+  document.addEventListener('astro:page-load', setupNav);
 </script>

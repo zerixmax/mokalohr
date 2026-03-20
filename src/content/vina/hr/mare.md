@@ -2,8 +2,9 @@
 name: "Amare Gold"
 producer: "OPG Mrgudić-Bura"
 category_title: "Plemenito Desertno"
-alcohol: "15.0%"
+alcohol: 15.0
 sort: "Plavac Mali 100%"
+year: 2025
 
 # Marketing Content
 aromas: ["Suho voće", "med", "rogač", "orašasti plodovi"]
@@ -31,12 +32,15 @@ visual_theme:
   theme_type: "Amare-Gold"
 
 # EU Regulation
-nutrition:
-  energy: "450/108"
-  carbs: "8,0"
-  sugars: "7,5"
-  protein: "0.2"
-  salt: "0"
+nutricija:
+  energija: "450/108"
+  ugljikohidrati: 8
+  seceri: 7.5
+analiza:
+  suhi_ekstrakt: 0
+  reducirajuci_seceri: 0
+  ukupna_kiselost: 0
+  ukupni_so2: 0
 ingredients: "Grožđe, Sulfiti"
 allergens: "Sulfiti"
 image: ../../../assets/25-b1_mare.webp

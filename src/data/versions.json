@@ -1,6 +1,14 @@
 {
-  "currentVersion": "2.2.0",
+  "currentVersion": "2.3.0",
   "changelog": [
+    {
+      "version": "2.3.0",
+      "date": "2026-03-20",
+      "description": {
+        "hr": "LAB & UI EXPANSION: Dodana laboratorijska analiza i nutritivni podaci (EU), veći logotip, boldan font izbornika, stabiliziran mobilni meni.",
+        "en": "LAB & UI EXPANSION: Added laboratory analysis and nutritional data (EU), larger logo, bold menu font, stabilized mobile menu."
+      }
+    },
     {
       "version": "2.2.0",
       "date": "2026-03-19",

@@ -62,3 +62,23 @@
     @apply transition-all duration-300;
   }
 }
+
+@utility slats-bg {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 40px,
+    rgba(0, 0, 0, 0.02) 40px,
+    rgba(0, 0, 0, 0.02) 41px
+  );
+}
+
+@layer components {
+  .bura-ribbon {
+    @apply relative bg-bura-wine-red text-white px-6 py-2 shadow-lg transform -rotate-1 font-extrabold uppercase tracking-widest text-xs;
+  }
+  
+  .bura-badge {
+    @apply rounded-full border border-black/10 bg-bura-wine-gold text-white p-2 flex items-center justify-center shadow-md;
+  }
+}

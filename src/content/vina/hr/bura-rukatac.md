@@ -2,8 +2,10 @@
 name: "Bura Rukatac"
 producer: "OPG Mrgudić-Bura"
 category_title: "Autentično Bijelo"
-alcohol: "12.5%"
+alcohol: 10.7
 sort: "Rukatac (Maraština)"
+year: 2025
+lot: "LOT04022025"
 
 # Marketing Content
 aromas: ["Cvijet naranče", "limun", "badem", "mineralne note"]
@@ -31,12 +33,15 @@ visual_theme:
   theme_type: "Rukatac-Blue"
 
 # EU Regulation
-nutrition:
-  energy: "310/74"
-  carbs: "1,0"
-  sugars: "0,3"
-  protein: "0"
-  salt: "0"
+nutricija:
+  energija: "271/65 kJ/kcal"
+  ugljikohidrati: 1.1
+  seceri: 0.3
+analiza:
+  suhi_ekstrakt: 22.4
+  reducirajuci_seceri: 3.9
+  ukupna_kiselost: 4.8
+  ukupni_so2: 42
 ingredients: "Grožđe, Sulfiti"
 allergens: "Sulfiti"
 image: ../../../assets/25-b1_bura-rukatac.webp

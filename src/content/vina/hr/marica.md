@@ -2,8 +2,9 @@
 name: "Marica"
 producer: "OPG Mrgudić-Bura"
 category_title: "Elegantno Crno"
-alcohol: "14.5%"
+alcohol: 14.5
 sort: "Plavac Mali"
+year: 2025
 
 # Marketing Content
 aromas: ["Višnja", "mediteransko bilje", "zemljane note", "vanilija"]
@@ -31,12 +32,15 @@ visual_theme:
   theme_type: "Marica-Red"
 
 # EU Regulation
-nutrition:
-  energy: "350/84"
-  carbs: "1,2"
-  sugars: "0,5"
-  protein: "0"
-  salt: "0"
+nutricija:
+  energija: "350/84"
+  ugljikohidrati: 1.2
+  seceri: 0.5
+analiza:
+  suhi_ekstrakt: 0
+  reducirajuci_seceri: 0
+  ukupna_kiselost: 0
+  ukupni_so2: 0
 ingredients: "Grožđe, Sulfiti"
 allergens: "Sulfiti"
 image: ../../../assets/25-b1_marica.webp

@@ -2,8 +2,10 @@
 name: "Bura Plavac"
 producer: "OPG Mrgudić-Bura"
 category_title: "Klasični Pelješac"
-alcohol: "14.0%"
+alcohol: 12.7
 sort: "Plavac Mali 100%"
+year: 2025
+lot: "LOT05022025"
 
 # Marketing Content
 aromas: ["Višnja", "mediteransko bilje", "zemljane note"]
@@ -31,13 +33,16 @@ visual_theme:
   theme_type: "Marica-Red"
 
 # EU Regulation
-nutrition:
-  energy: "340/81"
-  carbs: "1,1"
-  sugars: "0,4"
-  protein: "0"
-  salt: "0"
+nutricija:
+  energija: "324/77 kJ/kcal"
+  ugljikohidrati: 1.4
+  seceri: 0.4
+analiza:
+  suhi_ekstrakt: 31.5
+  reducirajuci_seceri: 3.7
+  ukupna_kiselost: 4.5
+  ukupni_so2: 12
 ingredients: "Grožđe, Sulfiti"
 allergens: "Sulfiti"
-image: ../../../assets/25-b1_bura-plavac.webp
+image: ../../../assets/Plavac-bura.webp
 ---

@@ -7,8 +7,10 @@ const vinaCollection = defineCollection({
     name: z.string(),
     producer: z.string().default('OPG Mrgudić-Bura'),
     category_title: z.string(), // npr. "The Crown of Production"
-    alcohol: z.string().regex(/^\d+(\.\d+)?%$/, "Alkohol mora biti u formatu 'XX.X%'"),
+    alcohol: z.number(), // npr. 14.5
     sort: z.string(), // npr. "Plavac Mali 100%"
+    year: z.number(),
+    region: z.string().optional(),
     
     // === MARKETING SADRŽAJ (Localized: true) ===
     aromas: z.array(z.string()),
@@ -42,12 +44,16 @@ const vinaCollection = defineCollection({
     }).optional(),
 
     // === LEGALNI DIO (EU Regulativa) ===
-    nutrition: z.object({
-      energy: z.string(),
-      carbs: z.string(),
-      sugars: z.string(),
-      protein: z.string(),
-      salt: z.string()
+    nutricija: z.object({
+      energija: z.string(), // e.g. "324/77 kJ/kcal"
+      ugljikohidrati: z.number().optional(),
+      seceri: z.number().optional()
+    }).optional(),
+    analiza: z.object({
+      suhi_ekstrakt: z.number().optional(),
+      reducirajuci_seceri: z.number().optional(),
+      ukupna_kiselost: z.number().optional(),
+      ukupni_so2: z.number().optional()
     }).optional(),
     ingredients: z.string().default('Grapes, Sulfites'),
     allergens: z.string().default('Sulfites'),

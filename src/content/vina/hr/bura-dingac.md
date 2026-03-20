@@ -2,8 +2,9 @@
 name: "Bura Dingač"
 producer: "OPG Mrgudić-Bura"
 category_title: "Kruna proizvodnje"
-alcohol: "15.0%"
+alcohol: 15.0
 sort: "Plavac Mali 100%"
+year: 2025
 
 # Marketing Content
 aromas: ["Tamna šljiva", "borovnica", "ljubičica", "rogač", "kakao", "crveni papar"]
@@ -31,12 +32,15 @@ visual_theme:
   theme_type: "Marica-Red"
 
 # EU Regulation
-nutrition:
-  energy: "360/86"
-  carbs: "1,4"
-  sugars: "0,6"
-  protein: "0"
-  salt: "0"
+nutricija:
+  energija: "360/86"
+  ugljikohidrati: 1.4
+  seceri: 0.6
+analiza:
+  suhi_ekstrakt: 0
+  reducirajuci_seceri: 0
+  ukupna_kiselost: 0
+  ukupni_so2: 0
 ingredients: "Grožđe, Sulfiti"
 allergens: "Sulfiti"
 image: ../../../assets/25-b1_bura-dingac.webp
