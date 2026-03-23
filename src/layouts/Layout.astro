@@ -25,7 +25,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} class="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -43,6 +43,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
 		<meta property="og:title" content={`${title} | Mrgudić Bura Vina`} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL(image, Astro.url)} />
+
+		<!-- Hreflang Tags (SEO Multi-language) -->
+		<link rel="alternate" hreflang="hr" href={`https://mokalo.hr/hr${Astro.url.pathname.replace(/^\/(hr|en)/, '')}`} />
+		<link rel="alternate" hreflang="en" href={`https://mokalo.hr/en${Astro.url.pathname.replace(/^\/(hr|en)/, '')}`} />
+		<link rel="alternate" hreflang="x-default" href={`https://mokalo.hr/hr${Astro.url.pathname.replace(/^\/(hr|en)/, '')}`} />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
@@ -64,6 +69,27 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url);
 		</style>
 		<ViewTransitions />
 		<script is:inline>
+			// Inicijalizacija teme prije rendera (sprječava bljesak bijele)
+			const theme = (() => {
+				// Provjeravamo ako je korisnik ikada bio na stranici, ako je light, forsamo dark jednom
+				if (typeof localStorage !== 'undefined') {
+					const saved = localStorage.getItem('theme');
+					if (!saved || saved === 'light') {
+						localStorage.setItem('theme', 'dark');
+						return 'dark';
+					}
+					return saved;
+				}
+				return 'dark'; // Default na tamnu temu
+			})();
+		
+			if (theme === 'light') {
+				document.documentElement.classList.remove('dark');
+			} else {
+				document.documentElement.classList.add('dark');
+			}
+			window.localStorage.setItem('theme', theme);
+
 			// Omogući prefetching za ultra-brzu navigaciju
 			document.addEventListener('astro:after-swap', () => {
 				if ('connection' in navigator && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType))) return;

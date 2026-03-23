@@ -16,11 +16,14 @@
     const sliders = document.querySelectorAll('.theme-slider-input') as NodeListOf<HTMLInputElement>;
     const html = document.documentElement;
 
-    const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const currentTheme = localStorage.getItem('theme') || 'dark';
     
     if (currentTheme === 'dark') {
       html.classList.add('dark');
       sliders.forEach(s => s.checked = true);
+    } else {
+      html.classList.remove('dark');
+      sliders.forEach(s => s.checked = false);
     }
 
     sliders.forEach(slider => {

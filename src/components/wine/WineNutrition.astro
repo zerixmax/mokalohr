@@ -1,0 +1,100 @@
+---
+// src/components/wine/WineNutrition.astro
+import { useTranslations } from '../../i18n/utils';
+
+interface Props {
+  lang: any;
+  data: {
+    ingredients: string;
+    allergens: string;
+    producer: string;
+    recycling?: string;
+    nutricija?: {
+      energija: string;
+      ugljikohidrati: number;
+      seceri: number;
+    };
+    analiza?: {
+      suhi_ekstrakt?: number;
+      reducirajuci_seceri?: number;
+      ukupna_kiselost?: number;
+      ukupni_so2?: number;
+    };
+  };
+  themeColor: string;
+}
+
+const { lang, data, themeColor } = Astro.props;
+const t = useTranslations(lang);
+const isHR = lang === 'hr';
+---
+
+<section class="bg-black/3 dark:bg-white/5 p-8 rounded-3xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
+  <!-- Ingredients & Allergens -->
+  <div class="lg:col-span-1 space-y-6">
+    <div>
+      <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-3 opacity-50" style={`color: ${themeColor};`}>{t('wine.ingredients')}</h3>
+      <p class="text-bura-ink/70 dark:text-bura-dark-ink/70 leading-relaxed">{data.ingredients}</p>
+    </div>
+    <div>
+      <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-3 opacity-50" style={`color: ${themeColor};`}>{t('wine.allergens')}</h3>
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-bura-wine-red/10 rounded-xl shadow-sm border border-bura-wine-red/20">
+        <span class="text-bura-wine-red text-lg">⚠️</span>
+        <p class="font-bold text-bura-wine-red uppercase tracking-tight">{data.allergens}</p>
+      </div>
+      <p class="text-[9px] mt-2 opacity-40 italic">{isHR ? '* Obvezno isticanje prema EU regulativi' : '* Mandatory disclosure per EU regulation'}</p>
+    </div>
+    <div class="pt-4 space-y-4 border-t border-black/5 dark:border-white/5">
+      <div>
+        <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-1 opacity-50" style={`color: ${themeColor};`}>{isHR ? 'Proizvođač' : 'Producer'}</h3>
+        <p class="text-[11px] font-bold text-bura-ink/80 dark:text-bura-dark-ink/80">
+          {data.producer}<br/>
+          Potomje 7, 20244 Potomje<br/>
+          Hrvatska / Croatia
+        </p>
+      </div>
+      {data.recycling && <div class="flex items-center gap-3 text-[11px] text-bura-muted italic grayscale opacity-60"><span class="text-xl">♻️</span> {data.recycling}</div>}
+    </div>
+  </div>
+
+  <!-- Nutrition Table -->
+  {data.nutricija && (
+    <div class="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-black/5 dark:border-white/5 shadow-sm slats-bg">
+      <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-6 text-center" style={`color: ${themeColor};`}>{t('wine.nutrition')}</h3>
+      <div class="space-y-1 font-inter text-[11px]">
+        <div class="flex justify-between p-2 bg-black/5 dark:bg-white/5 border-b border-black/5 dark:border-white/5 rounded-t-lg">
+          <span class="opacity-60">{t('wine.energy')}</span>
+          <span class="font-bold">{data.nutricija.energija}</span>
+        </div>
+        <div class="flex justify-between p-2 border-b border-black/5 dark:border-white/5">
+          <span class="opacity-60">{t('wine.carbs')}</span>
+          <span class="font-bold">{data.nutricija.ugljikohidrati ?? '0'}g</span>
+        </div>
+        <div class="flex justify-between p-2 last:border-0 last:rounded-b-lg">
+          <span class="opacity-60">{t('wine.sugars')}</span>
+          <span class="font-bold">{data.nutricija.seceri ?? '0'}g</span>
+        </div>
+      </div>
+    </div>
+  )}
+
+  <!-- Laboratory Analysis -->
+  {data.analiza && (
+    <div class="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-black/5 dark:border-white/5 shadow-sm slats-bg">
+      <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-6 text-center" style={`color: ${themeColor};`}>{t('wine.analysis')}</h3>
+      <div class="space-y-1 font-inter text-[11px]">
+        {[
+          { label: t('wine.extract'), val: data.analiza.suhi_ekstrakt, unit: ' g/l' },
+          { label: t('wine.reducing_sugars'), val: data.analiza.reducirajuci_seceri, unit: ' g/l' },
+          { label: t('wine.acidity'), val: data.analiza.ukupna_kiselost, unit: ' g/l' },
+          { label: t('wine.so2'), val: data.analiza.ukupni_so2, unit: ' mg/L' }
+        ].map((item, i) => (
+          <div class={`flex justify-between p-2 ${i % 2 === 0 ? 'bg-black/5 dark:bg-white/5' : ''} border-b border-black/5 dark:border-white/5 last:border-0 first:rounded-t-lg last:rounded-b-lg`}>
+            <span class="opacity-60">{item.label}</span>
+            <span class="font-bold">{item.val ?? '-'}{item.unit}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+</section>

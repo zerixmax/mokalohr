@@ -34,15 +34,32 @@
     @apply bg-bura-dark-bg text-bura-dark-ink;
   }
 
-  /* Papirnata tekstura overlay */
-  body::before {
-    content: "";
-    @apply fixed inset-0 z-[-1] pointer-events-none opacity-40 transition-opacity duration-500;
-    background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+  :root.dark body::before {
+    @apply opacity-5 invert;
   }
 
-  :root.dark body::before {
-    @apply opacity-10 invert;
+  :root.dark .bg-white\/60,
+  :root.dark .bg-white\/40,
+  :root.dark .bg-white\/20 {
+    @apply bg-bura-dark-paper/60 border-white/5;
+  }
+
+  :root.dark .bg-black\/5,
+  :root.dark .bg-black\/3 {
+    @apply bg-white/5 border-white/10;
+  }
+
+  :root.dark .text-bura-ink {
+    @apply text-bura-dark-ink;
+  }
+
+  :root.dark .text-bura-muted {
+    @apply text-white/40;
+  }
+
+  :root.dark .border-black\/5,
+  :root.dark .border-black\/10 {
+    @apply border-white/10;
   }
 
   /* Custom Scrollbar */

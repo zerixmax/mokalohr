@@ -1,0 +1,62 @@
+---
+// src/components/wine/WineRadarChart.astro
+interface Props {
+  profile: {
+    fruitiness: number;
+    acidity: number;
+    floral: number;
+    spices: number;
+    tannins: number;
+  };
+  themeColor: string;
+  isHR: boolean;
+}
+
+const { profile, themeColor, isHR } = Astro.props;
+
+const size = 220;
+const center = size / 2;
+const radius = size * 0.35;
+
+const getPoint = (i: number, val: number, pCount: number) => {
+  const angle = (i / pCount) * Math.PI * 2 - Math.PI / 2;
+  const r = (val / 100) * radius;
+  return `${center + r * Math.cos(angle)},${center + r * Math.sin(angle)}`;
+};
+
+const points = [
+  { label: isHR ? 'VOĆNOST' : 'FRUITINESS', val: profile.fruitiness },
+  { label: isHR ? 'KISELINA' : 'ACIDITY', val: profile.acidity },
+  { label: isHR ? 'FLORALNOST' : 'FLORAL', val: profile.floral },
+  { label: isHR ? 'ZAČINI' : 'SPICES', val: profile.spices },
+  { label: isHR ? 'TANINI' : 'TANNINS', val: profile.tannins },
+];
+
+const polygonPath = points.map((p, i) => getPoint(i, p.val, points.length)).join(' ');
+const bgPath50 = points.map((p, i) => getPoint(i, 50, points.length)).join(' ');
+const bgPath100 = points.map((p, i) => getPoint(i, 100, points.length)).join(' ');
+---
+
+<div class="relative">
+  <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} class="overflow-visible">
+    <!-- Grid backgrounds -->
+    <polygon points={bgPath100} fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2,2" class="text-bura-ink/10 dark:text-white/10" />
+    <polygon points={bgPath50} fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2,2" class="text-bura-ink/10 dark:text-white/10" />
+    
+    <!-- Axes -->
+    {points.map((_, i) => {
+      const p = getPoint(i, 100, points.length);
+      return <line x1={center} y1={center} x2={p.split(',')[0]} y2={p.split(',')[1]} stroke="currentColor" stroke-width="0.5" class="text-bura-ink/5 dark:text-white/5" />;
+    })}
+    
+    <!-- Data polygon -->
+    <polygon points={polygonPath} fill={themeColor} fill-opacity="0.2" stroke={themeColor} stroke-width="2" stroke-linejoin="round" />
+    
+    <!-- Labels -->
+    {points.map((p, i) => {
+      const pos = getPoint(i, 120, points.length);
+      const [x, y] = pos.split(',').map(Number);
+      return <text x={x} y={y} text-anchor="middle" alignment-baseline="middle" class="text-[9px] font-bold fill-bura-muted dark:fill-white/40 uppercase tracking-tighter">{p.label}</text>;
+    })}
+  </svg>
+</div>

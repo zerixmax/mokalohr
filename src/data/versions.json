@@ -1,6 +1,22 @@
 {
-  "currentVersion": "2.3.0",
+  "currentVersion": "2.5.0",
   "changelog": [
+    {
+      "version": "2.5.0",
+      "date": "2026-03-23",
+      "description": {
+        "hr": "EU COMPLIANCE & i18n SYNC: Implementirano vizualno isticanje alergena, puna sinkronizacija engleskih vina s identičnim slugovima, te default Dark Mode dizajn.",
+        "en": "EU COMPLIANCE & i18n SYNC: Implemented visual allergen highlighting, full English wine synchronization with identical slugs, and default Dark Mode design."
+      }
+    },
+    {
+      "version": "2.4.0",
+      "date": "2026-03-23",
+      "description": {
+        "hr": "SMART ROUTING & QR READY: Podrška za kose crte u slugovima, Borisov LOT i datum punjenja. Implementiran fallback za stabilnost QR kodova.",
+        "en": "SMART ROUTING & QR READY: Support for slashes in slugs, Boris LOT, and filling date. Implemented fallback for QR code stability."
+      }
+    },
     {
       "version": "2.3.0",
       "date": "2026-03-20",
