@@ -40,6 +40,10 @@ const data = {
   analiza: vino.analiza,
   image: vino.slika?.url || null,
   batches: [vino.lot],
+  region: vino.region || null,
+  recycling: vino.recycling || null,
+  producer: vino.producer || 'OPG Mrgudić-Bura',
+  hero_image: vino.hero_image?.url || null,
 };
 
 const t = useTranslations(lang as any);
