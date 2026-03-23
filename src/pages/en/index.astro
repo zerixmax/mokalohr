@@ -1,15 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import heroImage from '../../assets/20170303_Mrgudic-Bura-2017_1198.webp';
 
-const enVina = await getCollection('vina', ({ id }) => {
-  return id.startsWith('en/');
-});
+const lang = 'en';
+const response = await fetch(`https://cms.mokalo.hr/api/vina?locale=${lang}&depth=1`);
+const result = await response.json();
+const vina = result.docs;
 
 // Sort wines by name
-const sortedVina = enVina.sort((a, b) => a.data.name.localeCompare(b.data.name));
+const sortedVina = vina.sort((a: any, b: any) => a.naziv.localeCompare(b.naziv));
 ---
 
 <Layout title="Premium Pelješac Wines" lang="en">
@@ -50,27 +50,29 @@ const sortedVina = enVina.sort((a, b) => a.data.name.localeCompare(b.data.name))
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {sortedVina.map(wine => (
+                {sortedVina.map((wine: any) => (
                     <a 
-                        href={`/en/vina/${wine.slug.replace('en/', '')}`} 
+                        href={`/en/vina/${wine.slug}`} 
                         class="group relative bg-bura-dark-800 border border-bura-gold-500/10 rounded-lg overflow-hidden transition-all duration-500 hover:border-bura-gold-500/40 hover:-translate-y-2 shadow-xl shadow-black/20"
                     >
-                        {wine.data.image && (
+                        {wine.slika && (
                             <div class="aspect-3/4 overflow-hidden">
                                 <Image 
-                                    src={wine.data.image} 
-                                    alt={wine.data.name}
+                                    src={wine.slika.url} 
+                                    alt={wine.naziv}
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                                    width={800}
+                                    height={1200}
                                 />
                             </div>
                         )}
                         <div class="absolute inset-0 bg-linear-to-t from-bura-dark-900 via-transparent to-transparent opacity-80"></div>
                         
                         <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                            <span class="text-bura-gold-400 text-xs uppercase tracking-widest mb-2 block">{wine.data.category_title}</span>
-                            <h3 class="font-playfair text-2xl text-bura-light group-hover:text-bura-gold-500 transition-colors duration-300 mb-2">{wine.data.name}</h3>
+                            <span class="text-bura-gold-400 text-xs uppercase tracking-widest mb-2 block">{wine.category_title}</span>
+                            <h3 class="font-playfair text-2xl text-bura-light group-hover:text-bura-gold-500 transition-colors duration-300 mb-2">{wine.naziv}</h3>
                             <div class="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                <span class="text-bura-light/60 text-sm">{wine.data.year || '2025'}</span>
+                                <span class="text-bura-light/60 text-sm">{wine.year}</span>
                                 <span class="text-bura-gold-500 text-sm font-medium inline-flex items-center">
                                     Details
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

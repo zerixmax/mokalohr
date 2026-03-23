@@ -1,9 +1,22 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import AstroPWA from '@vite-pwa/astro';
+import node from '@astrojs/node';
 
 export default defineConfig({
+  output: 'server',
+  adapter: node({
+    mode: 'standalone',
+  }),
   site: 'https://mokalo.hr',
+  image: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cms.mokalo.hr',
+      },
+    ],
+  },
   vite: {
     plugins: [tailwindcss()],
   },

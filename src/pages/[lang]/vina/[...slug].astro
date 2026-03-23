@@ -1,6 +1,5 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
 
@@ -11,29 +10,43 @@ import logo3 from '../../../assets/mrgudic-bura-logo-web.webp';
 import placeholderBottle from '../../../assets/boca-vina-mrgudic-placeholder.webp';
 import whiteWinePlaceholder from '../../../assets/mrgudic-bura-bijelovino-placeholder.webp';
 
-export async function getStaticPaths() {
-  const vina = await getCollection('vina');
-  const paths: any[] = [];
+const { lang, slug: fullSlug } = Astro.params;
+const [baseSlug, batchFromUrl] = fullSlug.split('/');
 
-  vina.forEach((entry: any) => {
-    const [lang, baseSlug] = entry.slug.split('/');
-    paths.push({ params: { lang, slug: baseSlug }, props: { wine: entry } });
-    if (entry.data.batches) {
-      entry.data.batches.forEach((batch: string) => {
-        paths.push({ params: { lang, slug: `${baseSlug}/${batch}` }, props: { wine: entry } });
-      });
-    }
-  });
-  return paths;
-}
+// Fetch wine data from Payload CMS
+const response = await fetch(`https://cms.mokalo.hr/api/vina?where[slug][equals]=${baseSlug}&locale=${lang}&depth=1`);
+const result = await response.json();
+const vino = result.docs[0];
 
-const { wine } = Astro.props;
-const { data } = wine;
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const batch = Astro.params.slug?.split('/')[1] || data.batches?.[0] || null;
+if (!vino) return Astro.redirect('/404');
+
+// Map Payload data to the structure the template expects
+const data = {
+  name: vino.naziv,
+  category_title: vino.category_title,
+  year: vino.year,
+  alcohol: vino.alcohol,
+  sort: vino.sort,
+  aromas: vino.aromas?.map((a: any) => a.aroma) || [],
+  character: vino.character,
+  technicals: vino.technicals,
+  profile: vino.profile,
+  serving: vino.serving,
+  pairings: vino.pairings,
+  visual_theme: vino.visual_theme,
+  ingredients: vino.ingredients,
+  allergens: vino.allergens,
+  nutricija: vino.nutricija,
+  analiza: vino.analiza,
+  image: vino.slika?.url || null,
+  batches: [vino.lot],
+};
+
+const t = useTranslations(lang as any);
+const batch = batchFromUrl || data.batches?.[0] || null;
 
 const isHR = lang === 'hr';
+
 
 // === THEME SELECTOR LOGIC ===
 const themeMap = {
