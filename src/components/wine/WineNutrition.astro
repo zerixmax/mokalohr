@@ -27,74 +27,92 @@ interface Props {
 const { lang, data, themeColor } = Astro.props;
 const t = useTranslations(lang);
 const isHR = lang === 'hr';
+const ingredientsList = data.ingredients ? data.ingredients.split(',').map(i => i.trim()) : [];
 ---
 
-<section class="bg-black/3 dark:bg-white/5 p-8 rounded-3xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
-  <!-- Ingredients & Allergens -->
-  <div class="lg:col-span-1 space-y-6">
-    <div>
-      <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-3 opacity-50" style={`color: ${themeColor};`}>{t('wine.ingredients')}</h3>
-      <p class="text-bura-ink/70 dark:text-bura-dark-ink/70 leading-relaxed">{data.ingredients}</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <!-- Ingredients Section -->
+  <section class="bg-bura-dark-bg/60 backdrop-blur-sm p-6 rounded-2xl border border-white/10 shadow-sm">
+    <h3 class="font-playfair text-xl mb-4 uppercase tracking-widest text-bura-gold-400">
+      {t('wine.ingredients')}
+    </h3>
+    <div class="flex flex-wrap gap-2">
+      {ingredientsList.map((item) => (
+        <span class="px-3 py-1.5 bg-bura-dark-paper rounded-full text-xs border border-white/10 text-white/80">{item}</span>
+      ))}
     </div>
-    <div>
-      <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-3 opacity-50" style={`color: ${themeColor};`}>{t('wine.allergens')}</h3>
-      <div class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-bura-wine-red/10 rounded-xl shadow-sm border border-bura-wine-red/20">
-        <span class="text-bura-wine-red text-lg">⚠️</span>
-        <p class="font-bold text-bura-wine-red uppercase tracking-tight">{data.allergens}</p>
-      </div>
-      <p class="text-[9px] mt-2 opacity-40 italic">{isHR ? '* Obvezno isticanje prema EU regulativi' : '* Mandatory disclosure per EU regulation'}</p>
-    </div>
-    <div class="pt-4 space-y-4 border-t border-black/5 dark:border-white/5">
-      <div>
-        <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-1 opacity-50" style={`color: ${themeColor};`}>{isHR ? 'Proizvođač' : 'Producer'}</h3>
-        <p class="text-[11px] font-bold text-bura-ink/80 dark:text-bura-dark-ink/80">
-          {data.producer}<br/>
-          Potomje 7, 20244 Potomje<br/>
-          Hrvatska / Croatia
-        </p>
-      </div>
-      {data.recycling && <div class="flex items-center gap-3 text-[11px] text-bura-muted italic grayscale opacity-60"><span class="text-xl">♻️</span> {data.recycling}</div>}
-    </div>
-  </div>
+  </section>
 
-  <!-- Nutrition Table -->
+  <!-- Allergens Section -->
+  <section class="bg-bura-dark-bg/60 backdrop-blur-sm p-6 rounded-2xl border border-white/10 shadow-sm">
+    <h3 class="font-playfair text-xl mb-4 uppercase tracking-widest text-bura-gold-400">
+      {t('wine.allergens')}
+    </h3>
+    <div class="flex items-center gap-3">
+      <span class="text-bura-gold-500 text-xl">⚠️</span>
+      <p class="text-white font-semibold">{data.allergens}</p>
+    </div>
+  </section>
+
+  <!-- Nutrition Section -->
   {data.nutricija && (
-    <div class="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-black/5 dark:border-white/5 shadow-sm slats-bg">
-      <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-6 text-center" style={`color: ${themeColor};`}>{t('wine.nutrition')}</h3>
-      <div class="space-y-1 font-inter text-[11px]">
-        <div class="flex justify-between p-2 bg-black/5 dark:bg-white/5 border-b border-black/5 dark:border-white/5 rounded-t-lg">
-          <span class="opacity-60">{t('wine.energy')}</span>
-          <span class="font-bold">{data.nutricija.energija}</span>
+    <section class="bg-bura-dark-bg/60 backdrop-blur-sm p-6 rounded-2xl border border-white/10 shadow-sm">
+      <h3 class="font-playfair text-xl mb-4 uppercase tracking-widest text-bura-gold-400">
+        {t('wine.nutrition')}
+      </h3>
+      <div class="space-y-2 text-[11px]">
+        <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg">
+          <span class="text-white/50">{t('wine.energy')}</span>
+          <span class="font-bold text-white">{data.nutricija.energija}</span>
         </div>
-        <div class="flex justify-between p-2 border-b border-black/5 dark:border-white/5">
-          <span class="opacity-60">{t('wine.carbs')}</span>
-          <span class="font-bold">{data.nutricija.ugljikohidrati ?? '0'}g</span>
+        <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg">
+          <span class="text-white/50">{t('wine.carbs')}</span>
+          <span class="font-bold text-white">{data.nutricija.ugljikohidrati ?? '0'}g</span>
         </div>
-        <div class="flex justify-between p-2 last:border-0 last:rounded-b-lg">
-          <span class="opacity-60">{t('wine.sugars')}</span>
-          <span class="font-bold">{data.nutricija.seceri ?? '0'}g</span>
+        <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg">
+          <span class="text-white/50">{t('wine.sugars')}</span>
+          <span class="font-bold text-white">{data.nutricija.seceri ?? '0'}g</span>
         </div>
       </div>
-    </div>
+    </section>
   )}
 
-  <!-- Laboratory Analysis -->
+  <!-- Laboratory Analysis Section -->
   {data.analiza && (
-    <div class="bg-white/40 dark:bg-white/5 p-6 rounded-xl border border-black/5 dark:border-white/5 shadow-sm slats-bg">
-      <h3 class="font-playfair font-bold uppercase text-[10px] tracking-widest mb-6 text-center" style={`color: ${themeColor};`}>{t('wine.analysis')}</h3>
-      <div class="space-y-1 font-inter text-[11px]">
+    <section class="bg-bura-dark-bg/60 backdrop-blur-sm p-6 rounded-2xl border border-white/10 shadow-sm">
+      <h3 class="font-playfair text-xl mb-4 uppercase tracking-widest text-bura-gold-400">
+        {t('wine.analysis')}
+      </h3>
+      <div class="space-y-2 text-[11px]">
         {[
           { label: t('wine.extract'), val: data.analiza.suhi_ekstrakt, unit: ' g/l' },
           { label: t('wine.reducing_sugars'), val: data.analiza.reducirajuci_seceri, unit: ' g/l' },
           { label: t('wine.acidity'), val: data.analiza.ukupna_kiselost, unit: ' g/l' },
           { label: t('wine.so2'), val: data.analiza.ukupni_so2, unit: ' mg/L' }
-        ].map((item, i) => (
-          <div class={`flex justify-between p-2 ${i % 2 === 0 ? 'bg-black/5 dark:bg-white/5' : ''} border-b border-black/5 dark:border-white/5 last:border-0 first:rounded-t-lg last:rounded-b-lg`}>
-            <span class="opacity-60">{item.label}</span>
-            <span class="font-bold">{item.val ?? '-'}{item.unit}</span>
+        ].map((item) => (
+          <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg">
+            <span class="text-white/50">{item.label}</span>
+            <span class="font-bold text-white">{item.val ?? '-'}{item.unit}</span>
           </div>
         ))}
       </div>
+    </section>
+  )}
+</div>
+
+<!-- Producer Section - Full Width -->
+<section class="bg-bura-dark-bg/60 backdrop-blur-sm p-6 rounded-2xl border border-white/10 shadow-sm mt-8">
+  <h3 class="font-playfair text-xl mb-4 uppercase tracking-widest text-bura-gold-400">
+    {isHR ? 'Proizvođač' : 'Producer'}
+  </h3>
+  <p class="text-sm font-bold text-white/80 italic">
+    OPG Mrgudić-Bura<br/>
+    Potomje 7, 20244 Potomje, Pelješac<br/>
+    Hrvatska / Croatia
+  </p>
+  {data.recycling && (
+    <div class="mt-4 pt-4 border-t border-white/10 text-[11px] text-white/50 italic flex items-center gap-2">
+      <span class="text-lg">♻️</span> {data.recycling}
     </div>
   )}
 </section>

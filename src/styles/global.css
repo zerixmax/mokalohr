@@ -112,6 +112,6 @@
   
   /* Horizontal divider between sections */
   .section-divider {
-    @apply w-full h-px bg-gradient-to-r from-transparent via-bura-gold-500/30 to-transparent;
+    @apply w-full h-px bg-linear-to-r from-transparent via-bura-gold-500/30 to-transparent;
   }
 }
