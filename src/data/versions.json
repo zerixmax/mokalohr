@@ -1,44 +1,44 @@
 {
-  "currentVersion": "2.5.0",
+  "currentVersion": "2.6.0",
   "changelog": [
+    {
+      "version": "2.6.0",
+      "date": "2026-03-24",
+      "description": {
+        "hr": "DARK THEME & CAROUSEL: Kompletna revizija Dark & Gold teme, implementiran Wine Carousel, pojednostavljen mobilni meni, uklonjeni logotipovi.",
+        "en": "DARK THEME & CAROUSEL: Complete Dark & Gold theme revision, Wine Carousel implementation, simplified mobile menu, logo removed."
+      }
+    },
     {
       "version": "2.5.0",
       "date": "2026-03-23",
       "description": {
-        "hr": "EU COMPLIANCE & i18n SYNC: Implementirano vizualno isticanje alergena, puna sinkronizacija engleskih vina s identičnim slugovima, te default Dark Mode dizajn.",
-        "en": "EU COMPLIANCE & i18n SYNC: Implemented visual allergen highlighting, full English wine synchronization with identical slugs, and default Dark Mode design."
+        "hr": "EU COMPLIANCE & i18n SYNC: Implementirano vizualno isticanje alergena, puna sinkronizacija engleskih vina s identičnim slugovima.",
+        "en": "EU COMPLIANCE & i18n SYNC: Implemented visual allergen highlighting, full English wine synchronization with identical slugs."
       }
     },
     {
       "version": "2.4.0",
       "date": "2026-03-23",
       "description": {
-        "hr": "SMART ROUTING & QR READY: Podrška za kose crte u slugovima, Borisov LOT i datum punjenja. Implementiran fallback za stabilnost QR kodova.",
-        "en": "SMART ROUTING & QR READY: Support for slashes in slugs, Boris LOT, and filling date. Implemented fallback for QR code stability."
+        "hr": "SMART ROUTING & QR READY: Podrška za kose crte u slugovima, Borisov LOT i datum punjenja.",
+        "en": "SMART ROUTING & QR READY: Support for slashes in slugs, Boris LOT, and filling date."
       }
     },
     {
       "version": "2.3.0",
       "date": "2026-03-20",
       "description": {
-        "hr": "LAB & UI EXPANSION: Dodana laboratorijska analiza i nutritivni podaci (EU), veći logotip, boldan font izbornika, stabiliziran mobilni meni.",
-        "en": "LAB & UI EXPANSION: Added laboratory analysis and nutritional data (EU), larger logo, bold menu font, stabilized mobile menu."
+        "hr": "LAB & UI EXPANSION: Dodana laboratorijska analiza i nutritivni podaci (EU).",
+        "en": "LAB & UI EXPANSION: Added laboratory analysis and nutritional data (EU)."
       }
     },
     {
       "version": "2.2.0",
       "date": "2026-03-19",
       "description": {
-        "hr": "MAJOR RELEASE: Payload CMS Integracija. Sustav prebačen na SQLite bazu, automatiziran uvoz podataka (seeding), uvedena kolekcija VINA ASORTIMAN.",
-        "en": "MAJOR RELEASE: Payload CMS Integration. System migrated to SQLite database, automated data seeding, introduced VINA ASORTIMAN collection."
-      }
-    },
-    {
-      "version": "1.2.1",
-      "date": "2026-03-19",
-      "description": {
-        "hr": "UI/UX Poliranje - dodana BackToTop komponenta, hibridna navigacija.",
-        "en": "UI/UX Polishing - added BackToTop component, hybrid navigation."
+        "hr": "MAJOR RELEASE: Payload CMS Integracija.",
+        "en": "MAJOR RELEASE: Payload CMS Integration."
       }
     }
   ]

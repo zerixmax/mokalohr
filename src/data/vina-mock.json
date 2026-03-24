@@ -1,0 +1,85 @@
+{
+  "docs": [
+    {
+      "id": 1,
+      "naziv": "Bura Dingač",
+      "slug": "bura-dingac",
+      "lot": "25-b1",
+      "category_title": "Bura Dingač",
+      "year": 2025,
+      "sort": "Plavac Mali 100%",
+      "slika": null
+    },
+    {
+      "id": 2,
+      "naziv": "Bura Galerija",
+      "slug": "bura-galerija",
+      "lot": "25-b1",
+      "category_title": "Posebna Selekcija",
+      "year": 2025,
+      "sort": "Plavac Mali 100%",
+      "slika": null
+    },
+    {
+      "id": 3,
+      "naziv": "Bura Plavac",
+      "slug": "bura-plavac",
+      "lot": "25-b1",
+      "category_title": "Klasični Pelješac",
+      "year": 2025,
+      "sort": "Plavac Mali 100%",
+      "slika": null
+    },
+    {
+      "id": 4,
+      "naziv": "Bura Rukatac",
+      "slug": "rukatac",
+      "lot": "25-b1",
+      "category_title": "Bura Rukatac",
+      "year": 2025,
+      "sort": "Rukatac (Maraština)",
+      "slika": null
+    },
+    {
+      "id": 5,
+      "naziv": "Bura Sivi Plavac",
+      "slug": "bura-sivi-plavac",
+      "lot": "25-b1",
+      "category_title": "Rariteti Pelješca",
+      "year": 2025,
+      "sort": "Sivi Plavac 100%",
+      "slika": null
+    },
+    {
+      "id": 6,
+      "naziv": "Mare",
+      "slug": "mare",
+      "lot": "25-b1",
+      "category_title": "Elegantno Crno",
+      "year": 2025,
+      "sort": "Plavac Mali 100%",
+      "slika": null
+    },
+    {
+      "id": 7,
+      "naziv": "Marica plavac mali",
+      "slug": "marica-plavac-mali",
+      "lot": "25-b1",
+      "category_title": "Elegantno Crno",
+      "year": 2025,
+      "sort": "Plavac Mali",
+      "slika": null
+    },
+    {
+      "id": 8,
+      "naziv": "Amare Gold",
+      "slug": "amare-gold",
+      "lot": "25-b1",
+      "category_title": "Plemenito Desertno",
+      "year": 2025,
+      "sort": "Plavac Mali 100%",
+      "slika": null
+    }
+  ],
+  "totalDocs": 8
+}

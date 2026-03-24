@@ -2,34 +2,36 @@
 import Layout from '../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import heroImage from '../../assets/20170303_Mrgudic-Bura-2017_1198.webp';
+import WineCarousel from '../../components/WineCarousel.astro';
+import { getWina } from '../../utils/wineApi';
+import type { Wine } from '../../types/wine';
 
 const lang = 'en';
-const response = await fetch(`https://cms.mokalo.hr/api/vina?locale=${lang}&depth=1`);
-const result = await response.json();
-const vina = result.docs;
+const vinaResponse = await getWina(lang);
+const vina: Wine[] = vinaResponse.docs;
 
 // Sort wines by name
-const sortedVina = vina.sort((a: any, b: any) => a.naziv.localeCompare(b.naziv));
+const sortedVina: Wine[] = vina.sort((a: Wine, b: Wine) => a.naziv.localeCompare(b.naziv));
 ---
 
 <Layout title="Premium Pelješac Wines" lang="en">
-    <!-- Hero Section -->
-    <section class="relative h-[70vh] flex items-center justify-center overflow-hidden">
+    <!-- Hero Section - Static Background -->
+    <section class="relative h-[70vh] flex items-center justify-center overflow-hidden bg-bura-dark-bg">
         <Image 
             src={heroImage} 
             alt="Mrgudić Bura Vineyards" 
-            class="absolute inset-0 w-full h-full object-cover"
+            class="absolute inset-0 w-full h-full object-cover opacity-60"
             loading="eager"
         />
-        <div class="absolute inset-0 bg-bura-dark-900/60 backdrop-blur-[2px]"></div>
+        <div class="absolute inset-0 bg-linear-to-b from-bura-dark-bg/40 via-transparent to-bura-dark-bg"></div>
         
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
             <span class="text-bura-gold-500 uppercase tracking-[0.3em] text-sm mb-4 block animate-fade-in">Tradition of Pelješac</span>
-            <h1 class="font-playfair text-5xl md:text-7xl text-bura-light mb-6 leading-tight">
+            <h1 class="font-playfair text-5xl md:text-7xl text-white mb-6 leading-tight">
                 Wines that tell <br/> <span class="italic text-bura-gold-400">a story of stone and sun</span>
             </h1>
-            <div class="w-24 h-px bg-bura-gold-500 mx-auto mb-8"></div>
-            <p class="text-bura-light/80 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+            <div class="w-24 h-px bg-linear-to-r from-transparent via-bura-gold-500 to-transparent mx-auto mb-8"></div>
+            <p class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
                 Welcome to the world of the Mrgudić and Bura families, where the passion for wine has been passed down through generations on the steep slopes of Dingač and Postup.
             </p>
         </div>
@@ -41,38 +43,55 @@ const sortedVina = vina.sort((a: any, b: any) => a.naziv.localeCompare(b.naziv))
         </div>
     </section>
 
+    <!-- Divider -->
+    <div class="h-px bg-linear-to-r from-transparent via-bura-gold-500/50 to-transparent"></div>
+
+    <!-- Wine Carousel Section -->
+    <section class="py-16 bg-bura-dark-bg">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-10">
+                <h2 class="font-playfair text-3xl text-bura-gold-500 mb-3 tracking-wide">Explore Our Collection</h2>
+                <p class="text-white/40 text-sm uppercase tracking-widest">Swipe for more wines</p>
+            </div>
+            <WineCarousel vina={sortedVina} lang="en" />
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="h-px bg-linear-to-r from-transparent via-bura-gold-500/50 to-transparent"></div>
+
     <!-- Wine Gallery -->
-    <section class="py-24 bg-bura-dark-900">
+    <section class="py-24 bg-bura-dark-bg">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="font-playfair text-4xl text-bura-gold-500 mb-4 tracking-wide">Our Collection</h2>
-                <p class="text-bura-muted uppercase tracking-widest text-xs">Discover the character of each location</p>
+                <p class="text-white/40 uppercase tracking-widest text-xs">Discover the character of each location</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {sortedVina.map((wine: any) => (
+                {sortedVina.map((wine: Wine) => (
                     <a 
-                        href={`/en/vina/${wine.slug}`} 
-                        class="group relative bg-bura-dark-800 border border-bura-gold-500/10 rounded-lg overflow-hidden transition-all duration-500 hover:border-bura-gold-500/40 hover:-translate-y-2 shadow-xl shadow-black/20"
+                        href={`/en/wine/${wine.slug}`} 
+                        class="group relative bg-bura-dark-paper border border-bura-gold-500/20 rounded-lg overflow-hidden transition-all duration-500 hover:border-bura-gold-500/60 hover:-translate-y-2 shadow-xl shadow-black/30"
                     >
                         {wine.slika && (
                             <div class="aspect-3/4 overflow-hidden">
                                 <Image 
                                     src={wine.slika.url} 
                                     alt={wine.naziv}
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
-                                    width={800}
-                                    height={1200}
+                                    class="w-full shrink-0 object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                                    width={wine.slika.width || 800}
+                                    height={wine.slika.height || 1200}
                                 />
                             </div>
                         )}
-                        <div class="absolute inset-0 bg-linear-to-t from-bura-dark-900 via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute inset-0 bg-linear-to-t from-bura-dark-paper via-transparent to-transparent opacity-60"></div>
                         
                         <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                             <span class="text-bura-gold-400 text-xs uppercase tracking-widest mb-2 block">{wine.category_title}</span>
-                            <h3 class="font-playfair text-2xl text-bura-light group-hover:text-bura-gold-500 transition-colors duration-300 mb-2">{wine.naziv}</h3>
+                            <h3 class="font-playfair text-2xl text-white group-hover:text-bura-gold-400 transition-colors duration-300 mb-2">{wine.naziv}</h3>
                             <div class="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                <span class="text-bura-light/60 text-sm">{wine.year}</span>
+                                <span class="text-white/60 text-sm">{wine.year}</span>
                                 <span class="text-bura-gold-500 text-sm font-medium inline-flex items-center">
                                     Details
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,6 +105,9 @@ const sortedVina = vina.sort((a: any, b: any) => a.naziv.localeCompare(b.naziv))
             </div>
         </div>
     </section>
+
+    <!-- Divider -->
+    <div class="h-px bg-linear-to-r from-transparent via-bura-gold-500/50 to-transparent"></div>
 </Layout>
 
 <style>

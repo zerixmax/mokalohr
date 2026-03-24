@@ -1,0 +1,220 @@
+---
+import { Image } from 'astro:assets';
+import placeholderBottle from '../assets/boca-vina-mrgudic-placeholder.webp';
+import type { Wine } from '../utils/wineApi';
+
+interface Props {
+  vina: Wine[];
+  lang: 'hr' | 'en';
+}
+
+const { vina, lang } = Astro.props;
+
+const wineRoute = lang === 'en' ? 'wine' : 'vina';
+
+// Get theme colors based on category
+const getThemeColor = (category: string) => {
+  if (category?.toLowerCase().includes('desertno') || category?.toLowerCase().includes('dessert')) {
+    return { bg: 'bg-amber-900/40', border: 'border-amber-500/50', text: 'text-amber-300', accent: 'bg-amber-500' };
+  }
+  if (category?.toLowerCase().includes('bijelo') || category?.toLowerCase().includes('white')) {
+    return { bg: 'bg-sky-900/40', border: 'border-sky-500/50', text: 'text-sky-300', accent: 'bg-sky-500' };
+  }
+  return { bg: 'bg-red-950/40', border: 'border-red-500/50', text: 'text-red-300', accent: 'bg-red-500' };
+};
+---
+
+<div class="relative w-full overflow-hidden bg-bura-dark-950">
+  <!-- Carousel Container -->
+  <div id="wine-carousel" class="flex transition-transform duration-700 ease-out" data-autoplay="true">
+    {vina.map((wine, index) => {
+      const theme = getThemeColor(wine.category_title);
+      return (
+        <div 
+          class="w-full shrink-0"
+          data-slide={index}
+        >
+          <a 
+            href={`/${lang}/${wineRoute}/${wine.slug}`}
+            class="block relative h-[50vh] md:h-[55vh] group"
+          >
+            {/* Background with gradient */}
+            <div class={`absolute inset-0 ${theme.bg} backdrop-blur-sm`}></div>
+            
+            {/* Wine Image */}
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="relative w-32 md:w-40 h-[45vh] md:h-[50vh] transform group-hover:scale-105 transition-transform duration-500">
+                {wine.slika ? (
+                  <Image 
+                    src={wine.slika.url}
+                    alt={wine.naziv}
+                    width={wine.slika.width || 400}
+                    height={wine.slika.height || 600}
+                    class="w-full h-full object-contain drop-shadow-2xl"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                  />
+                ) : (
+                  <Image 
+                    src={placeholderBottle}
+                    alt={wine.naziv}
+                    class="w-full h-full object-contain drop-shadow-2xl opacity-80"
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Content Overlay */}
+            <div class="absolute inset-0 flex flex-col justify-end pb-12 md:pb-16 px-6 md:px-12">
+              <div class="max-w-2xl">
+                {/* Category Badge */}
+                <span class={`inline-block px-3 py-1 ${theme.border} border rounded-full text-[10px] md:text-xs uppercase tracking-widest ${theme.text} mb-3 backdrop-blur-sm`}>
+                  {wine.category_title}
+                </span>
+                
+                {/* Wine Name */}
+                <h2 class={`font-playfair text-4xl md:text-5xl lg:text-6xl font-bold ${theme.text} mb-2 leading-tight`}>
+                  {wine.naziv}
+                </h2>
+                
+                {/* Wine Details */}
+                <div class="flex items-center gap-4 text-bura-dark-ink/70 text-sm">
+                  <span>{wine.year}</span>
+                  <span class={`w-1.5 h-1.5 rounded-full ${theme.accent}`}></span>
+                  <span>{wine.sort}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* View Details CTA */}
+            <div class={`absolute bottom-6 right-6 md:right-12 ${theme.accent} px-4 py-2 rounded-full text-sm font-medium text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300`}>
+              {lang === 'en' ? 'View Details' : 'Pogledaj detalje'} →
+            </div>
+          </a>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- Navigation Arrows -->
+  <button 
+    id="carousel-prev" 
+    class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all disabled:opacity-30"
+    aria-label="Previous wine"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  
+  <button 
+    id="carousel-next" 
+    class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all disabled:opacity-30"
+    aria-label="Next wine"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  <!-- Dots Indicator -->
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+    {vina.map((_, index) => (
+      <button 
+        class={`carousel-dot w-2 h-2 rounded-full transition-all ${index === 0 ? 'bg-white w-6' : 'bg-white/40'}`}
+        data-index={index}
+        aria-label={`Go to slide ${index + 1}`}
+      ></button>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const carousel = document.getElementById('wine-carousel');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    const dots = document.querySelectorAll('.carousel-dot');
+    
+    if (!carousel || !prevBtn || !nextBtn) return;
+    
+    let currentIndex = 0;
+    const totalSlides = carousel.children.length;
+    let autoplayInterval: ReturnType<typeof setInterval>;
+    
+    const updateCarousel = (index: number) => {
+      currentIndex = index;
+      if (currentIndex < 0) currentIndex = totalSlides - 1;
+      if (currentIndex >= totalSlides) currentIndex = 0;
+      
+      carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+      
+      // Update dots
+      dots.forEach((dot, i) => {
+        if (i === currentIndex) {
+          dot.classList.add('bg-white', 'w-6');
+          dot.classList.remove('bg-white/40');
+        } else {
+          dot.classList.remove('bg-white', 'w-6');
+          dot.classList.add('bg-white/40');
+        }
+      });
+    };
+    
+    // Navigation
+    prevBtn.addEventListener('click', () => {
+      updateCarousel(currentIndex - 1);
+      resetAutoplay();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      updateCarousel(currentIndex + 1);
+      resetAutoplay();
+    });
+    
+    // Dots
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-index') || '0');
+        updateCarousel(index);
+        resetAutoplay();
+      });
+    });
+    
+    // Autoplay
+    const startAutoplay = () => {
+      autoplayInterval = setInterval(() => {
+        updateCarousel(currentIndex + 1);
+      }, 5000);
+    };
+    
+    const resetAutoplay = () => {
+      clearInterval(autoplayInterval);
+      startAutoplay();
+    };
+    
+    startAutoplay();
+    
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+    carousel.addEventListener('mouseleave', startAutoplay);
+    
+    // Touch support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    carousel.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    carousel.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        updateCarousel(currentIndex + 1);
+        resetAutoplay();
+      } else if (touchEndX - touchStartX > 50) {
+        updateCarousel(currentIndex - 1);
+        resetAutoplay();
+      }
+    }, { passive: true });
+  });
+</script>

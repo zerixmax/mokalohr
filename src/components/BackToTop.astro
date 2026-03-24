@@ -3,12 +3,12 @@
 
 <button 
   id="back-to-top" 
-  class="fixed bottom-24 right-8 z-[90] w-12 h-12 bg-white/80 backdrop-blur-md border border-black/5 rounded-full shadow-2xl flex items-center justify-center text-bura-ink invisible opacity-0 transition-all duration-500 hover:scale-110 active:scale-95 group"
+  class="fixed bottom-24 right-8 z-[90] w-14 h-14 bg-bura-dark-paper/90 backdrop-blur-xl border-2 border-bura-gold-500/40 rounded-full shadow-2xl shadow-black/50 flex items-center justify-center text-bura-gold-500 transition-all duration-500 hover:scale-110 hover:border-bura-gold-400 active:scale-95 group cursor-pointer invisible opacity-0"
   aria-label="Back to top"
 >
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
-    class="w-6 h-6 transform transition-transform group-hover:-translate-y-1 animate-bounce-gentle" 
+    class="w-6 h-6" 
     fill="none" 
     viewBox="0 0 24 24" 
     stroke="currentColor"
@@ -18,21 +18,29 @@
 </button>
 
 <style>
-  @keyframes bounce-gentle {
+  @keyframes float-up {
     0%, 100% {
-      transform: translateY(0);
+      transform: translateY(4px);
     }
     50% {
       transform: translateY(-4px);
     }
   }
 
-  .animate-bounce-gentle {
-    animation: bounce-gentle 2s infinite ease-in-out;
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(184, 134, 11, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(184, 134, 11, 0.6);
+    }
   }
 
   #back-to-top.visible {
-    @apply visible opacity-100;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    animation: float-up 2s ease-in-out infinite, pulse-glow 3s ease-in-out infinite;
   }
 </style>
 

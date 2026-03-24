@@ -27,8 +27,8 @@ const newPath = toggleLanguagePath(currentPath, lang);
 const isHR = lang === 'hr';
 ---
 
-<a href={newPath} class="inline-flex items-center px-3 py-1 border border-black/10 dark:border-white/10 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all group" aria-label={isHR ? "Switch to English" : "Prebaci na Hrvatski"}>
-  <span class={`text-[10px] font-bold uppercase tracking-widest ${isHR ? 'text-bura-muted dark:text-white/40' : 'text-bura-wine-red'}`}>HRV</span>
-  <span class="mx-2 w-px h-3 bg-black/10 dark:bg-white/10"></span>
-  <span class={`text-[10px] font-bold uppercase tracking-widest ${!isHR ? 'text-bura-muted dark:text-white/40' : 'text-bura-wine-red'}`}>ENG</span>
+<a href={newPath} class="inline-flex items-center px-3 py-1.5 border border-bura-gold-500/40 rounded-full hover:border-bura-gold-400 hover:bg-bura-gold-500/10 transition-all group" aria-label={isHR ? "Switch to English" : "Prebaci na Hrvatski"}>
+  <span class={`text-[10px] font-bold uppercase tracking-widest ${isHR ? 'text-bura-gold-400' : 'text-white/40'}`}>HRV</span>
+  <span class="mx-2 w-px h-3 bg-bura-gold-500/40"></span>
+  <span class={`text-[10px] font-bold uppercase tracking-widest ${!isHR ? 'text-bura-gold-400' : 'text-white/40'}`}>ENG</span>
 </a>

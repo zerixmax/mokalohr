@@ -11,6 +11,11 @@
   --color-bura-dark-paper: #242021;
   --color-bura-dark-ink: #e3e1d4;
   
+  /* Gold Palette */
+  --color-bura-gold-500: #b8860b;
+  --color-bura-gold-400: #d4a017;
+  --color-bura-gold-600: #8b6508;
+  
   --color-bura-wine-red: #800000;
   --color-bura-wine-blue: #004080;
   --color-bura-wine-gold: #b8860b;
@@ -26,8 +31,14 @@
     scroll-behavior: smooth;
   }
 
+  /* Default: Dark Theme */
   body {
-    @apply bg-bura-paper text-bura-ink font-inter m-0 p-0 antialiased transition-colors duration-500;
+    @apply bg-bura-dark-bg text-bura-dark-ink font-inter m-0 p-0 antialiased transition-colors duration-500;
+  }
+
+  /* Light theme override */
+  :root:not(.dark) body {
+    @apply bg-bura-paper text-bura-ink;
   }
 
   :root.dark body {
@@ -97,5 +108,10 @@
   
   .bura-badge {
     @apply rounded-full border border-black/10 bg-bura-wine-gold text-white p-2 flex items-center justify-center shadow-md;
+  }
+  
+  /* Horizontal divider between sections */
+  .section-divider {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-bura-gold-500/30 to-transparent;
   }
 }
