@@ -313,3 +313,234 @@ Dana 25. ožujka 2026. izvršene su finalne UI revizije WineNutrition komponente
 1. **Testiranje:** Pokrenuti `npm run preview` za vizualni pregled
 2. **Deploy:** Push na GitHub, deploy na cPanel
 3. **Final QA:** Provjeriti sve stranice vina na mobilnom i desktopu
+
+---
+
+# Dnevnik Rada: Mrgudić-Bura Vina - Verzija 2.8.0
+**Datum:** 30. ožujka 2026.
+**Verzija:** 2.8.0
+**Lead Architect:** z3r1x
+
+---
+
+## 📋 Sažetak Dana
+
+Dana 30. ožujka 2026. dodane su redirekcije za stare QR kodove kako bi se osiguralo da postojeći QR kodovi na bocama ne "pucaju".
+
+---
+
+## 🔧 Detalji Promjena
+
+### 1. Redirekcije u astro.config.mjs
+
+**Fajl:** `astro.config.mjs` (ažuriran)
+
+Redirekcije za stare QR URL-ove (HR + EN):
+
+```javascript
+redirects: {
+  '/QRvina/buraplavac.html': '/hr/vina/bura-plavac',
+  '/QRvina/burarukatac.html': '/hr/vina/rukatac',
+  '/en/QRvina/buraplavac.html': '/en/wine/bura-plavac',
+  '/en/QRvina/burarukatac.html': '/en/wine/rukatac',
+},
+```
+
+**Napomena:** Samo 2 vina imaju stare QR kodove - Bura Plavac i Bura Rukatac. Ostala vina nemaju stare QR-ove.
+
+---
+
+## 📁 Izmjenjeni Fajlovi
+
+| Fajl | Akcija |
+|------|--------|
+| `astro.config.mjs` | **UREĐEN** |
+
+---
+
+## ✅ Izvršeni Zadaci
+
+| Zadatak | Status |
+|---------|--------|
+| Dodati redirects za sva vina | ✅ |
+| Testirati build | ✅ |
+| Dokumentirati promjene | ✅ |
+
+---
+
+## 🚀 Status Okruženja
+
+| Komponenta | Verzija | Status |
+|------------|---------|--------|
+| Astro | 4.16.15 | 🟢 SSR |
+| Build | 2.8.0 | 🟢 SUCCESS |
+| Redirekcije | v1.0 | 🟢 ACTIVE |
+
+---
+
+**Lead Architect Signature:** z3r1x
+**Završeno:** 30.03.2026 u 11:40
+
+---
+
+### 2. Dodavanje polja "Regija/Vinogorje" u CMS
+
+**Fajl:** `mrgudic-cms/src/collections/Vina.ts`
+
+Dodano novo obavezno polje u tab "Laboratorij (EU)":
+
+```typescript
+{
+  name: 'region',
+  type: 'text',
+  required: true,
+  localized: true,
+  label: 'Regija / Vinogorje',
+  admin: {
+    placeholder: 'npr. Srednja i Južna Dalmacija, Pelješac',
+  },
+},
+```
+
+**Napomena:** Region je obavezan EU podatak za e-etikete.
+
+---
+
+## 🔄 Planirano za idući krug
+
+| Zadatak | Prioritet | Status |
+|---------|-----------|--------|
+| Prikazati region u frontend-u | Visok | ✅ GOTOVO |
+| SEO meta tagovi iz CMS-a | Srednji | ⏳ |
+| Optimizacija slika (sharp) | Nizak | ⏳ |
+
+---
+
+## 🔄 Sljedeći Koraci
+
+1. **Deploy:** Push na GitHub, deploy na server
+2. **Testiranje:** Provjeriti redirekcije putem starog QR koda
+
+---
+
+# Dnevnik Rada: Mrgudić-Bura Vina - Verzija 2.8.0 (Nastavak)
+**Datum:** 30. ožujka 2026. (Popodne)
+**Verzija:** 2.8.0
+**Lead Architect:** z3r1x
+
+---
+
+## 📋 Sažetak
+
+Dana 30. ožujka 2026. popodne izvršene su finalne izmjene prije deploya.
+
+---
+
+## 🔧 Detalji Promjena
+
+### 1. Ispravljeni stari QR URL-ovi
+
+**Fajl:** `astro.config.mjs`
+
+```javascript
+redirects: {
+  // Povezujemo TOČAN stari link s TOČNIM novim linkom
+  '/QRvina/buraplavac.html': '/hr/vina/bura-plavac-2024',
+  '/QRvina/RukatacBura.html': '/hr/vina/bura-rukatac-2024',
+
+  // Isto i za engleski (da i strancima radi scan)
+  '/en/QRvina/buraplavac.html': '/en/vina/bura-plavac-2024',
+  '/en/QRvina/RukatacBura.html': '/en/vina/bura-rukatac-2024',
+},
+```
+
+---
+
+### 2. Poboljšana vidljivost verzije u footeru
+
+**Fajl:** `src/components/Footer.astro`
+
+```html
+<!-- PRIJE -->
+<p class="text-[10px] text-bura-gold-500/40 font-mono...">v{currentVersion}</p>
+
+<!-- POSLIJE -->
+<p class="text-[10px] text-white/50 font-mono...">v{currentVersion}</p>
+```
+
+---
+
+### 3. Fiksni prikaz regije (bez CMS polja)
+
+**Fajl:** `src/pages/[lang]/vina/[...slug].astro`
+
+```javascript
+// Fiksni prijevod regije (ne ovisi o CMS-u)
+const regionValue = isHR ? 'Srednja i Južna Dalmacija' : 'Central and South Dalmatia';
+```
+
+**Napomena:** Odlučeno je koristiti fiksne vrijednosti umjesto CMS polja jer je regija uvijek ista za sva vina.
+
+---
+
+### 4. Verzija ažurirana
+
+**Fajl:** `src/data/versions.json`
+- Verzija: `2.7.5` → `2.7.6`
+
+---
+
+### 5. CMS Cleanup
+
+**Fajl:** `mrgudic-cms/src/collections/Vina.ts`
+
+Uklonjeno polje `region` jer se koriste fiksne vrijednosti u frontend-u.
+
+---
+
+## 📁 Izmjenjeni Fajlovi
+
+| Fajl | Akcija |
+|------|--------|
+| `astro.config.mjs` | **UREĐEN** - redirekcije |
+| `src/components/Footer.astro` | **UREĊEN** - vidljivost verzije |
+| `src/pages/[lang]/vina/[...slug].astro` | **UREĐEN** - fiksna regija |
+| `src/data/versions.json` | **UREĐEN** - verzija 2.7.6 |
+| `mrgudic-cms/src/collections/Vina.ts` | **UREĐEN** - uklonjen region |
+
+---
+
+## ✅ Izvršeni Zadaci
+
+| Zadatak | Status |
+|---------|--------|
+| Ispraviti stari URL format (buraplavac.html, RukatacBura.html) | ✅ |
+| Dodati EN redirekcije | ✅ |
+| Poboljšati vidljivost verzije u footeru | ✅ |
+| Implementirati fiksni prikaz regije | ✅ |
+| Build test | ✅ |
+| Dokumentacija ažurirana | ✅ |
+
+---
+
+## 🚀 Status Okruženja
+
+| Komponenta | Verzija | Status |
+|------------|---------|--------|
+| Astro | 4.16.15 | 🟢 SSR |
+| Build | 2.7.6 | 🟢 SUCCESS |
+| Redirekcije | v2.0 | 🟢 ACTIVE |
+
+---
+
+**Lead Architect Signature:** z3r1x
+**Završeno:** 30.03.2026 u 16:55
+
+---
+
+## 🔄 Sljedeći Koraci
+
+1. **Deploy frontend:** Push na GitHub, deploy na server
+2. **Testiranje:** Provjeriti redirekcije putem starog QR koda
+   - `/QRvina/buraplavac.html` → `/hr/vina/bura-plavac-2024`
+   - `/QRvina/RukatacBura.html` → `/hr/vina/bura-rukatac-2024`

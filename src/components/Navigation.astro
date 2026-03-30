@@ -11,15 +11,14 @@ const t = useTranslations(lang);
 
 const vinaResponse = await getWina(lang);
 // Filtriraj vina za prikaz (Amare Gold - Hidden za sada)
-const hiddenSlugs = ['amare-gold'];
+const hiddenSlugs: string[] = [];
 const allWines = vinaResponse.docs.filter(wine => !hiddenSlugs.includes(wine.slug));
 
 const isHR = lang === 'hr';
 
 // Helper for dynamic collection path
 const getWinePath = (slug: string) => {
-  const wineRoute = lang === 'en' ? 'wine' : 'vina';
-  return `/${lang}/${wineRoute}/${slug}`;
+  return `/${lang}/vina/${slug}`;
 };
 ---
 

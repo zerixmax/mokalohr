@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import { getLangFromUrl, useTranslations } from '../../../i18n/utils';
+import { useTranslations } from '../../../i18n/utils';
 import WineRadarChart from '../../../components/wine/WineRadarChart.astro';
 import WineNutrition from '../../../components/wine/WineNutrition.astro';
 import MultiWineSelector from '../../../components/wine/MultiWineSelector.astro';
@@ -10,13 +10,16 @@ import MultiWineSelector from '../../../components/wine/MultiWineSelector.astro'
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600');
 
 // Import logos for the bottom
-import logo1 from '../../../assets/mrgudic-bura-logo-web.webp';
-import logo2 from '../../../assets/mrgudic-bura-logo-web.webp'; 
-import logo3 from '../../../assets/mrgudic-bura-logo-web.webp';
 import placeholderBottle from '../../../assets/boca-vina-mrgudic-placeholder.webp';
 import whiteWinePlaceholder from '../../../assets/mrgudic-bura-bijelovino-placeholder.webp';
 
 const { lang, slug: fullSlug } = Astro.params;
+
+// Safety check for parameters
+if (!lang || !fullSlug) {
+  return Astro.redirect('/404');
+}
+
 const [baseSlug, batchFromUrl] = fullSlug.split('/');
 const CMS_URL = "https://cms.mokalo.hr";
 
@@ -93,6 +96,9 @@ const t = useTranslations(lang as any);
 const batch = vino ? ((data as any).boris_lot || batchFromUrl || null) : null;
 const isHR = lang === 'hr';
 
+// Fiksni prijevod regije (ne ovisi o CMS-u)
+const regionValue = isHR ? 'Srednja i Južna Dalmacija' : 'Central and South Dalmatia';
+
 const themeMap = {
   'Marica-Red': '#800000',
   'Rukatac-Blue': '#004080',
@@ -159,9 +165,9 @@ if (data) {
                       <span class="font-playfair text-2xl font-bold text-white">{data.year}</span>
                    </div>
                    <div class="flex justify-between items-center border-b border-white/10 pb-4">
-                      <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold">{isHR ? 'Regija' : 'Region'}</span>
-                      <span class="font-playfair text-xl text-white">{data.region}</span>
-                   </div>
+                       <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold">{isHR ? 'Regija' : 'Region'}</span>
+                       <span class="font-playfair text-xl text-white">{regionValue}</span>
+                    </div>
                    <div class="flex justify-between items-center pb-2">
                       <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold">{t('wine.alcohol')}</span>
                       <span class="font-bold text-2xl text-bura-gold-400">{data.alcohol}<span class="text-sm ml-1 opacity-60">%vol</span></span>
@@ -256,7 +262,7 @@ if (data) {
         </div>
       </>
     ) : (
-      <MultiWineSelector allMatches={allMatches} lang={lang} baseSlug={baseSlug} themeMap={themeMap} />
+      <MultiWineSelector allMatches={allMatches} lang={lang as string} baseSlug={baseSlug} themeMap={themeMap} />
     )}
 
     <section class="py-24 border-t border-white/10 bg-bura-dark-bg text-center">

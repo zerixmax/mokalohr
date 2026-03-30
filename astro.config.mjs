@@ -20,6 +20,15 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  redirects: {
+    // Povezujemo TOČAN stari link s TOČNIM novim linkom
+    '/QRvina/buraplavac.html': '/hr/vina/bura-plavac-2024',
+    '/QRvina/RukatacBura.html': '/hr/vina/bura-rukatac-2024',
+
+    // Isto i za engleski (da i strancima radi scan)
+    '/en/QRvina/buraplavac.html': '/en/vina/bura-plavac-2024',
+    '/en/QRvina/RukatacBura.html': '/en/vina/bura-rukatac-2024',
+  },
   i18n: {
     defaultLocale: 'hr',
     locales: ['hr', 'en'],

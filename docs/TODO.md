@@ -39,3 +39,31 @@
 - [ ] Izgenerirati testne QR kodove u SVG formatu (koji vode na `mokalo.hr/vina/marica/24/b1`).
 - [ ] Testirati skeniranje putem mobilnog uređaja (Dark Mode, brzina učitavanja).
 - [ ] Pokrenuti `docker-compose up -d --build` na produkcijskom poslužitelju.
+
+---
+
+## 🔄 Planirano za idući krug "glancanja"
+
+### CMS Polja (Vina.ts)
+- [ ] **SEO Meta Tagovi:** Provjeriti povlače li se opisi iz Payload-a u Layout.astro za bolji Google rang.
+- [ ] **Optimizacija slika:** Implementirati automatsko smanjivanje slika (sharp) pri uploadu u Payload.
+
+### Frontend
+- [x] **Regija/Vinogorje:** Implementiran fiksni prikaz regije (ne ovisi o CMS-u).
+- [ ] Dodati SEO meta tagove iz CMS-a (description, og:image).
+
+---
+
+## 📝 Bilješke za Borisa (Korisničke upute)
+
+### 30.03.2026 - Redirekcije za stare QR kodove
+Stari QR kodovi sada vode na nove stranice:
+- `/QRvina/buraplavac.html` → `/hr/vina/bura-plavac-2024`
+- `/QRvina/RukatacBura.html` → `/hr/vina/bura-rukatac-2024`
+- I engleske verzije za oba vina.
+
+### 30.03.2026 - Regija
+Regija je sada fiksno postavljena u kodu:
+- HR: "Srednja i Južna Dalmacija"
+- EN: "Central and South Dalmatia"
+(Nije potrebno unositi u CMS)

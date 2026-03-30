@@ -33,6 +33,9 @@ export const ui = {
     'contact.social': 'Pratite nas',
     'contact.winery': 'Vinarija Mrgudić-Bura',
     'contact.address': 'Potomje, Pelješac',
+    '404.title': 'Stranica nije pronađena',
+    '404.message': 'Ispričavamo se, ali traženi sadržaj nije dostupan.',
+    '404.back': 'Povratak na početnu',
   },
   en: {
     'nav.home': 'Home',
@@ -61,5 +64,8 @@ export const ui = {
     'contact.social': 'Follow us',
     'contact.winery': 'Mrgudić-Bura Winery',
     'contact.address': 'Potomje, Pelješac',
+    '404.title': 'Page Not Found',
+    '404.message': 'We apologize, but the requested content is not available.',
+    '404.back': 'Back to Home',
   },
 } as const;

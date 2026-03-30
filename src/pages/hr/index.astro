@@ -5,6 +5,8 @@ import heroImage from '../../assets/20170303_Mrgudic-Bura-2017_1198.webp';
 import WineCarousel from '../../components/WineCarousel.astro';
 import { getWina } from '../../utils/wineApi';
 import type { Wine } from '../../types/wine';
+import placeholderBottle from '../../assets/boca-vina-mrgudic-placeholder.webp';
+import whiteWinePlaceholder from '../../assets/mrgudic-bura-bijelovino-placeholder.webp';
 
 const lang = 'hr';
 const vinaResponse = await getWina(lang);
@@ -74,18 +76,16 @@ const sortedVina: Wine[] = vina.sort((a: Wine, b: Wine) => a.naziv.localeCompare
                         href={`/hr/vina/${wine.slug}`} 
                         class="group relative bg-bura-dark-paper border border-bura-gold-500/20 rounded-lg overflow-hidden transition-all duration-500 hover:border-bura-gold-500/60 hover:-translate-y-2 shadow-xl shadow-black/30"
                     >
-                        {wine.slika && (
-                            <div class="aspect-3/4 overflow-hidden">
-                                <Image 
-                                    src={wine.slika.url} 
-                                    alt={wine.naziv}
-                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
-                                    transition:name={`bottle-${wine.slug}`}
-                                    width={wine.slika.width || 800}
-                                    height={wine.slika.height || 1200}
-                                />
-                            </div>
-                        )}
+                        <div class="aspect-3/4 overflow-hidden">
+                            <Image 
+                                src={(wine.slika?.url || (wine.slug.includes('rukatac') || wine.slug.includes('sivi') ? whiteWinePlaceholder : placeholderBottle)) as any} 
+                                alt={wine.naziv}
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                                transition:name={`bottle-${wine.slug}`}
+                                width={wine.slika?.width || 800}
+                                height={wine.slika?.height || 1200}
+                            />
+                        </div>
                         <div class="absolute inset-0 bg-linear-to-t from-bura-dark-paper via-transparent to-transparent opacity-60"></div>
                         
                         <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">

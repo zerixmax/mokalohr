@@ -1,6 +1,30 @@
 {
-  "currentVersion": "2.6.0",
+  "currentVersion": "2.7.7",
   "changelog": [
+    {
+      "version": "2.7.7",
+      "date": "2026-03-30",
+      "description": {
+        "hr": "FINAL POLISH: Finalne pripreme za deploy - ispravljeni QR URL-ovi i pripremljen build.",
+        "en": "FINAL POLISH: Final deploy preparations - fixed QR URLs and prepared build."
+      }
+    },
+    {
+      "version": "2.7.6",
+      "date": "2026-03-30",
+      "description": {
+        "hr": "QR REDIRECTS & POLISH: Ispravljeni stari QR URL-ovi (buraplavac.html, RukatacBura.html), fiksni prikaz regije, poboljšana vidljivost verzije u footeru.",
+        "en": "QR REDIRECTS & POLISH: Fixed old QR URLs (buraplavac.html, RukatacBura.html), fixed region display, improved footer version visibility."
+      }
+    },
+    {
+      "version": "2.7.5",
+      "date": "2026-03-30",
+      "description": {
+        "hr": "POLISH & QUALITY: Implementirana 404 stranica, unificirani fini URL-ovi, ispravljene TypeScript greške i dodani vizualni fallbackovi.",
+        "en": "POLISH & QUALITY: Implemented 404 page, unified fine URLs, fixed TypeScript errors and added visual fallbacks."
+      }
+    },
     {
       "version": "2.6.0",
       "date": "2026-03-24",

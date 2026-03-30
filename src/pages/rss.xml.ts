@@ -19,7 +19,7 @@ export async function GET() {
 ${hrVina.map(wine => `  <item>
     <title>${wine.data.name}</title>
     <link>${baseUrl}/hr/vina/${wine.slug.replace('hr/', '')}</link>
-    <description>${wine.data.producer} - ${wine.data.category}, ${wine.data.year}, ${wine.data.alcohol}</description>
+    <description>${wine.data.producer} - ${wine.data.category_title}, ${wine.data.year}, ${wine.data.alcohol}</description>
     <pubDate>${new Date().toUTCString()}</pubDate>
   </item>`).join('\n')}
 </channel>
