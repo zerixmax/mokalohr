@@ -1,7 +1,11 @@
 # DNEVNIK RADA - 2026-05-07
 
 ## 🚀 Pregled obavljenog posla
-Dan posvećen kompletnoj nadogradnji RichText renderera, usklađivanju TypeScript tipova s CMS strukturom, pripremi bulk seed skripte za nova vina i dokumentaciji.
+Dan posvećen kompletnoj nadogradnji RichText renderera, usklađivanju TypeScript tipova s CMS strukturom, pripremi bulk seed skripte za nova vina, non-priority code review fixovima, implementaciji ePodrum CMS sučelja i pune EU nutritivne tablice.
+
+### Sažetak po verzijama:
+- **v2.8.0** — Non-priority code review fixovi, sitemap rewrite, a11y improvements, TypeScript cleanup (0 errors)
+- **v2.9.0** — ePodrum CMS tab, puna EU nutritivna tablica (7 redaka), godiste/year fallback, objavljeno/featured statusi (0 errors)
 
 ### 1. Payload CMS: Pojednostavljenje sučelja (Tabs & Groups)
 Glavni cilj bio je smanjiti vizualni nered u kolekciji `Vina`.
@@ -165,7 +169,11 @@ Nakon detaljne analize projekta (31 file, 22 issues identificirano), krenuli smo
 ---
 
 ## 📍 Gdje smo stali
-Senior code review fixovi su **10/10 završeni**. Non-priority issues su također riješeni. `npx astro check` potvrđuje `0 errors, 0 warnings, 0 hints`.
+Senior code review fixovi su **10/10 završeni**. Non-priority issues su također riješeni. ePodrum + EU Nutricija v2.9.0 je implementiran. `npx astro check` potvrđuje `0 errors, 0 warnings, 0 hints`.
+
+**Frontend repo** (`mrgudic-bura-vina`): Commit `785bea5` pushan na `origin/main`, v2.9.0.
+
+**CMS repo** (`mrgudic-cms`): Commit `edd01d6` lokalno — push na GitHub nije izvršen (repo upstream nije postavljen / nije public).
 
 ---
 
@@ -222,34 +230,119 @@ Senior code review fixovi su **10/10 završeni**. Non-priority issues su takođe
 
 ---
 
-### 13. ePodrum + Puna EU Nutricija — v2.9.0 (07.05.2026)
+### 14. ePodrum + Puna EU Nutricija — v2.9.0 — Senior Review Notes (07.05.2026)
 
-#### Payload CMS — Novi "ePodrum (Brzi unos)" Tab
-- **Dodan kao prvi tab** (ispred "Osnove") za Borisa — smanjenje korisničkog otpora
-- **Polja:** `naziv`, `godiste` (select: 2024-2028, default 2025), `year` (auto-hook iz godiste), `slika`, `opis` (RichText)
-- **Godiste → year hook:** `beforeValidate` automatski popunjava `year` iz `godiste` za backward compat
-- **naziv_puni hook:** Ažuriran da koristi `godiste || year`
-- **Opis i Karakteristike tab:** Uklonjeni duplicirani `opis`, `category_title`, `sort` (prebačeni u ePodrum/Osnove)
+#### Arhitektonski Kontekst
+Ova iteracija rješava tri zahtjeva: (1) pojednostaviti CMS unos za krajnjeg korisnika (Boris), (2) uskladiti nutritivne tablice s EU Uredbom 1169/2011, (3) razdvojiti koncepte "vidljivosti" i "istaknutosti" vina.
 
-#### Dva Statusa — objavljeno + featured
-- **`objavljeno`** (checkbox, sidebar) — kontrolira vidljivost na webu
-- **`featured`** (checkbox, sidebar) — kontrolira pojavljivanje na carouselu
-- Obra su nezavisna: vino može biti vidljivo ali ne istaknuto
+#### CMS Schema Promjene (mrgudic-cms repo)
 
-#### Puna EU Nutritivna Tablica (Uredba 1169/2011)
-- **Redoslijed:** Energija → Masti → Od kojih zasićene → Ugljikohidrati → Od kojih šećeri → Proteini → Sol
-- **Svi defaulti na 0** — najsigurniji put za EU compliance
-- **Komponente:** `WineNutrition.astro` (7 redaka s `?? 0` fallbackom), `WineCard.astro` (ažurirana tablica)
-- **i18n:** Dodani ključevi `wine.fat`, `wine.saturated_fat`, `wine.protein`, `wine.salt` (HR + EN)
+**Novi tab: "ePodrum (Brzi unos)"**
+- Pozicioniran kao **prvi tab** u Vina.ts — Borisovo primarno radno okruženje
+- Sadrži esencijalna polja za brzi unos: `naziv`, `godiste` (select), `year` (auto-hook), `slika`, `opis`
+- `godiste`: select s opcijama 2024-2028, default "2025". String tip umjesto number jer je godina primarno label, ne brojčani podatak
+- `year` hook: `beforeValidate` parsira `godiste` u number — omogućuje sortiranje i fallback compat s postojećim kodom koji koristi `wine.year`
+- `naziv_puni` hook: ažuriran iz `${data.year}` na `${data.godiste || data.year}`
 
-#### Frontend Ažuriranja
-- **`[lang]/index.astro`:** `export const prerender = false` (live CMS update), sortiranje po `godiste` (desc) s fallback na `year`, filter `objavljeno !== false`
-- **`WineCarousel.astro`:** Prikaz `godiste` s `year` fallbackom, filter `objavljeno !== false`
-- **`[...slug].astro`:** Data mapping — `year: parseInt(godiste) ?? year ?? 2025`, `godiste` string, `objavljeno` boolean
-- **`content/config.ts`:** Proširena `nutricija` schema s novim poljima
-- **`types/wine.ts`:** Dodani `godiste`, `objavljeno`, proširena `nutricija` grupa
-- **`vina-mock.json`:** Sva 8 vina imaju `godiste`, `objavljeno`, punu `nutricija` i `analiza`
+**Tab deduplikacija:**
+- `opis`, `category_title`, `sort` prebačeni iz "Opis i Karakteristike" u "ePodrum"/"Osnove"
+- "Opis i Karakteristike" sada sadrži samo: `karakter`, `aromas`, `technicals`
+
+**`objavljeno` vs `featured` — dva nezavisna koncepta:**
+| Polje | Svrha | Default | Pozicija |
+|-------|-------|---------|----------|
+| `objavljeno` | Vidljivost na webu (wine detail page accessible) | `false` | sidebar |
+| `featured` | Pojavljivanje na homepage carouselu | `false` | sidebar |
+
+Ova dva polja su nezavisna. Vino može biti:
+- Vidljivo ali ne istaknuto (`objavljeno: true, featured: false`) — standardno stanje
+- Istaknuto i vidljivo (`objavljeno: true, featured: true`) — za homepage hero
+- Nevidljivo (`objavljeno: false`) — draft/test vino, ne prikazuje se nigdje
+
+**Proširena `nutricija` grupa:**
+```typescript
+nutricija: {
+  energija: 'text',           // "350 kJ / 84 kcal" — ručni unos
+  masti: 'number',            // default: 0
+  zasicene_masti: 'number',   // default: 0
+  ugljikohidrati: 'number',
+  seceri: 'number',
+  proteini: 'number',         // default: 0
+  sol: 'number',              // default: 0
+}
+```
+Redoslijed polja prati EU Uredbu 1169/2011, Annex XV.
+
+#### Frontend Promjene (mrgudic-bura-vina repo)
+
+**`src/types/wine.ts`:**
+- Dodan `godiste?: string` — primarni identifier za godište
+- `year` postao optional (`year?: number`) — popunjava se automatski iz CMS hooka
+- Dodan `objavljeno?: boolean` u POSTAVKE sekciju
+- Proširena `nutricija` grupa sa 4 nova polja
+
+**`src/components/wine/WineNutrition.astro`:**
+- Nutritivna tablica proširena s 3 na 7 redaka
+- Vizualna hijerarhija: glavni nutrijenti (bold, white), podnutrijenti (pl-6 indent, white/80)
+- Svi numericni prikazi koriste `?? 0` fallback — nula je validna vrijednost za vino
+- Energija koristi `|| '-'` jer je string i može biti prazan
+
+**`src/components/WineCard.astro`:**
+- Ista struktura kao WineNutrition — 7 redaka, EU redoslijed
+- Indentacija za podnutrijente (`pl-4 italic`) — vizualno grupiranje
+- Svi `?? 0` fallbackovi konzistentni
+
+**`src/pages/[lang]/index.astro`:**
+- Dodan `export const prerender = false` — eksplicitni SSR mode za live CMS update
+- Sortiranje: prvo po `godiste` (desc), zatim po `naziv` (alpha)
+- `getYear()` helper: `w.godiste ? parseInt(w.godiste, 10) : (w.year ?? 2025)`
+- Filter: `objavljeno !== false && featured !== false` — samo objavljeni i istaknuti u carouselu
+- Prikaz godine: `wine.godiste || wine.year` — string prioritet
+
+**`src/components/WineCarousel.astro`:**
+- Filter: `objavljeno !== false` — neobjavljena vina ne ulaze u carousel
+- Prikaz godine: `wine.godiste || wine.year`
+
+**`src/pages/[lang]/vina/[...slug].astro`:**
+- Data mapping:
+  ```typescript
+  year: vino.godiste ? parseInt(vino.godiste, 10) : (vino.year ?? 2025),
+  godiste: vino.godiste || (vino.year ? String(vino.year) : '2025'),
+  objavljeno: vino.objavljeno ?? vino.featured ?? true,
+  ```
+- Fallback lanac osigurava da stari CMS podaci (bez godiste) i dalje rade
+
+**`src/content/config.ts`:**
+- Zod schema proširena s novim nutricija poljima (optional + default: 0)
+
+**`src/i18n/ui.ts`:**
+- HR: `wine.fat` → "Masti", `wine.saturated_fat` → "Od kojih zasićene", `wine.protein` → "Proteini", `wine.salt` → "Sol"
+- EN: `wine.fat` → "Fat", `wine.saturated_fat` → "Of which saturates", `wine.protein` → "Protein", `wine.salt` → "Salt"
+
+**`src/data/vina-mock.json`:**
+- Sva 8 vina imaju: `godiste: "2025"`, `objavljeno: true`, `featured: true/false`, punu `nutricija` i `analiza`
+- Realistični laboratorijski podaci za svako vino
+
+#### Backward Compatibility
+| Stari koncept | Novi koncept | Fallback |
+|---------------|--------------|----------|
+| `wine.year` (number) | `wine.godiste` (string) | `parseInt(godiste) \|\| year` |
+| `featured` (jedan status) | `objavljeno` + `featured` | `objavljeno ?? featured ?? true` |
+| 3 nutricija polja | 7 nutricija polja | `?? 0` za sva nova |
+| `year` required | `year` optional (CMS hook) | `year ?? 2025` |
 
 #### Validacija
-- `npx astro check`: **0 errors, 0 warnings, 0 hints**
-- Verzija podignuta na **2.9.0**
+- `npx astro check`: **0 errors, 0 warnings, 0 hints** (27 files)
+- TypeScript strict mode: svi novi tipovi propisno definirani
+- Zod schema: optional + default za sva nova nutricija polja
+- CMS hook: `beforeValidate` za godiste → year konverziju
+
+#### CMS Repo Status
+- Commit `edd01d6` lokalno (`mrgudic-cms` repo)
+- Push na GitHub nije izvršen (repo nije public/upstream nije postavljen)
+- Git diff: `+119 -20` linija u `src/collections/Vina.ts`
+
+#### Frontend Repo Status
+- Commit `785bea5` pushan na `origin/main`
+- Verzija: **2.9.0**
+- Git diff: `+340 -42` linija (13 datoteka)
