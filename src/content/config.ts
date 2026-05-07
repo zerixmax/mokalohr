@@ -7,15 +7,15 @@ const vinaCollection = defineCollection({
     name: z.string(),
     producer: z.string().default('OPG Mrgudić-Bura'),
     category_title: z.string(), // npr. "The Crown of Production"
-    alcohol: z.number(), // npr. 14.5
     sort: z.string(), // npr. "Plavac Mali 100%"
     year: z.number(),
     region: z.string().optional(),
     
     // === MARKETING SADRŽAJ (Localized: true) ===
     aromas: z.array(z.string()),
-    character: z.string(),
+    karakter: z.string().optional(), // Novo: 'karakter'
     technicals: z.string(),
+    opis: z.any().optional(), // Payload RichText
 
     // === PAUK GRAFIKON (Radar Chart 0-100) ===
     profile: z.object({
@@ -50,6 +50,8 @@ const vinaCollection = defineCollection({
       seceri: z.number().optional()
     }).optional(),
     analiza: z.object({
+      alkohol: z.number().optional(), // Novo
+      ph: z.number().optional(),
       suhi_ekstrakt: z.number().optional(),
       reducirajuci_seceri: z.number().optional(),
       ukupna_kiselost: z.number().optional(),
@@ -59,6 +61,10 @@ const vinaCollection = defineCollection({
     allergens: z.string().default('Sulfites'),
     recycling: z.string().optional(),
     batches: z.array(z.string()).optional(),
+
+    // === LEGACY (Za kompatibilnost tijekom migracije) ===
+    alcohol: z.number().optional(),
+    character: z.string().optional(),
     
     // Assets
     image: image().optional(),

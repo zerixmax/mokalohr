@@ -2,13 +2,13 @@
 name: "Marica"
 producer: "OPG Mrgudić-Bura"
 category_title: "Elegantno Crno"
-alcohol: 14.5
+
 sort: "Plavac Mali"
 year: 2025
 
 # Marketing Content
 aromas: ["Višnja", "mediteransko bilje", "zemljane note", "vanilija"]
-character: "Elegantno i uravnoteženo vino s dugim završetkom i pročišćenom teksturo."
+karakter: "Elegantno i uravnoteženo vino s dugim završetkom i pročišćenom teksturo."
 technicals: "Tradicionalna fermentacija, odležano u slavonskom hrastu."
 
 # Radar Chart (0-100)
@@ -37,6 +37,7 @@ nutricija:
   ugljikohidrati: 1.2
   seceri: 0.5
 analiza:
+  alkohol: 14.5
   suhi_ekstrakt: 0
   reducirajuci_seceri: 0
   ukupna_kiselost: 0

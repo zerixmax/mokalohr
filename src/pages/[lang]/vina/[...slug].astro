@@ -5,6 +5,7 @@ import { useTranslations } from '../../../i18n/utils';
 import WineRadarChart from '../../../components/wine/WineRadarChart.astro';
 import WineNutrition from '../../../components/wine/WineNutrition.astro';
 import MultiWineSelector from '../../../components/wine/MultiWineSelector.astro';
+import RichText from '../../../components/wine/RichText.astro';
 
 // SSR Performance: Cache the response for 10 minutes, allow stale for 1 hour
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600');
@@ -65,13 +66,14 @@ if (selectedId) {
 
 // Map Payload data to the structure the template expects
 const data = vino ? {
-  name: vino.naziv,
+  name: vino.naziv || vino.name,
   category_title: vino.category_title,
   year: vino.year,
-  alcohol: vino.alcohol,
+  alcohol: vino.analiza?.alkohol || vino.alcohol,
   sort: vino.sort,
-  aromas: vino.aromas?.map((a: any) => a.aroma) || [],
-  character: vino.character,
+  aromas: vino.aromas?.map((a: any) => typeof a === 'string' ? a : a.aroma) || [],
+  character: vino.karakter || vino.character,
+  opis: vino.opis,
   technicals: vino.technicals,
   profile: vino.profile,
   serving: vino.serving,
@@ -81,14 +83,14 @@ const data = vino ? {
   allergens: vino.allergens,
   nutricija: vino.nutricija,
   analiza: vino.analiza,
-  image: vino.slika?.url || null,
+  image: vino.slika?.url || vino.image?.src || vino.image || null,
   batches: [vino.boris_lot || vino.lot],
   boris_lot: vino.boris_lot || null,
   datum_punjenja: vino.datum_punjenja || null,
   region: vino.region || null,
   recycling: vino.recycling || null,
   producer: vino.producer || 'OPG Mrgudić-Bura',
-  hero_image: vino.hero_image?.url || null,
+  hero_image: vino.hero_image?.url || vino.hero_image?.src || vino.hero_image || null,
 } : null;
 
 const t = useTranslations(lang as any);
@@ -236,6 +238,13 @@ if (data) {
                     </section>
                   </div>
                 </div>
+
+                {data.opis && (
+                  <section class="bg-bura-dark-bg/60 backdrop-blur-sm p-8 rounded-2xl border border-white/10 shadow-sm">
+                    <h2 class="font-playfair text-2xl mb-6 uppercase tracking-widest text-bura-gold-400">{isHR ? 'O Vinu' : 'About the Wine'}</h2>
+                    <RichText content={data.opis} />
+                  </section>
+                )}
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                    <section class="bg-bura-dark-bg/60 backdrop-blur-sm p-6 rounded-2xl border border-white/10 shadow-sm">

@@ -2,13 +2,13 @@
 name: "Marica"
 producer: "OPG Mrgudić-Bura"
 category_title: "Elegant Red"
-alcohol: 14.5
+
 sort: "Plavac Mali"
 year: 2025
 
 # Marketing Content
 aromas: ["Cherry", "mediterranean herbs", "earthy notes", "vanilla"]
-character: "Elegant and balanced with a long finish and refined texture."
+karakter: "Elegant and balanced with a long finish and refined texture."
 technicals: "Traditional fermentation, aged in Slavonian oak."
 
 # Radar Chart (0-100)
@@ -37,6 +37,7 @@ nutricija:
   ugljikohidrati: 1.2
   seceri: 0.5
 analiza:
+  alkohol: 14.5
   suhi_ekstrakt: 0
   reducirajuci_seceri: 0
   ukupna_kiselost: 0

@@ -2,13 +2,13 @@
 name: "Amare Gold"
 producer: "OPG Mrgudić-Bura"
 category_title: "Plemenito Desertno"
-alcohol: 15.0
+
 sort: "Plavac Mali 100%"
 year: 2025
 
 # Marketing Content
 aromas: ["Suho voće", "med", "rogač", "orašasti plodovi"]
-character: "Koncentrirano, slatko i plemenito desertno vino od prosušenih bobica."
+karakter: "Koncentrirano, slatko i plemenito desertno vino od prosušenih bobica."
 technicals: "Tradicionalna proizvodnja od najboljih bobica prosušenih na suncu."
 
 # Radar Chart (0-100)
@@ -37,6 +37,7 @@ nutricija:
   ugljikohidrati: 8
   seceri: 7.5
 analiza:
+  alkohol: 15
   suhi_ekstrakt: 0
   reducirajuci_seceri: 0
   ukupna_kiselost: 0

@@ -2,13 +2,13 @@
 name: "Amare Gold"
 producer: "OPG Mrgudić-Bura"
 category_title: "Noble Dessert Wine"
-alcohol: 15.0
+
 sort: "Plavac Mali 100%"
 year: 2025
 
 # Marketing Content
 aromas: ["Dried fruit", "honey", "carob", "nuts"]
-character: "Concentrated, sweet, and noble dessert wine made from dried berries."
+karakter: "Concentrated, sweet, and noble dessert wine made from dried berries."
 technicals: "Traditional production from the best berries dried in the sun."
 
 # Radar Chart (0-100)
@@ -37,6 +37,7 @@ nutricija:
   ugljikohidrati: 8
   seceri: 7.5
 analiza:
+  alkohol: 15
   suhi_ekstrakt: 0
   reducirajuci_seceri: 0
   ukupna_kiselost: 0

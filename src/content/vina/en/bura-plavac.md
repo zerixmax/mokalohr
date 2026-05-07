@@ -2,14 +2,14 @@
 name: "Bura Plavac"
 producer: "OPG Mrgudić-Bura"
 category_title: "Classic Pelješac"
-alcohol: 12.7
+
 sort: "Plavac Mali 100%"
 year: 2025
 lot: "LOT05022025"
 
 # Marketing Content
 aromas: ["Cherry", "Mediterranean herbs", "earthy notes"]
-character: "Elegance and power of Plavac from locations outside of Dingač."
+karakter: "Elegance and power of Plavac from locations outside of Dingač."
 technicals: "Traditional processing and aging in large oak barrels."
 
 # Radar Chart (0-100)
@@ -38,6 +38,7 @@ nutricija:
   ugljikohidrati: 1.4
   seceri: 0.4
 analiza:
+  alkohol: 12.7
   suhi_ekstrakt: 31.5
   reducirajuci_seceri: 3.7
   ukupna_kiselost: 4.5

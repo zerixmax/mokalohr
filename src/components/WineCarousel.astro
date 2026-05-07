@@ -17,7 +17,7 @@ const filteredVina = vina.filter(wine => !hiddenSlugs.includes(wine.slug));
 const wineRoute = lang === 'en' ? 'wine' : 'vina';
 
 // Get theme colors based on category
-const getThemeColor = (category: string) => {
+const getThemeColor = (category?: string) => {
   if (category?.toLowerCase().includes('desertno') || category?.toLowerCase().includes('dessert')) {
     return { bg: 'bg-amber-900/40', border: 'border-amber-500/50', text: 'text-amber-300', accent: 'bg-amber-500' };
   }

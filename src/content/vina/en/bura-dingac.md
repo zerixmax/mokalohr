@@ -2,13 +2,13 @@
 name: "Bura Dingač"
 producer: "OPG Mrgudić-Bura"
 category_title: "The Crown of Production"
-alcohol: 15.0
+
 sort: "Plavac Mali 100%"
 year: 2025
 
 # Marketing Content
 aromas: ["Dark plum", "blueberry", "violet", "carob", "cocoa", "red pepper"]
-character: "Full-bodied, oily, and warm with phenomenally soft tannins despite its strength."
+karakter: "Full-bodied, oily, and warm with phenomenally soft tannins despite its strength."
 technicals: "Aged 10 months in oak barrels (only 20% new), followed by 16 months in the bottle. Decanting not required."
 
 # Radar Chart (0-100)
@@ -37,6 +37,7 @@ nutricija:
   ugljikohidrati: 1.4
   seceri: 0.6
 analiza:
+  alkohol: 15
   suhi_ekstrakt: 0
   reducirajuci_seceri: 0
   ukupna_kiselost: 0

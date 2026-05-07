@@ -2,13 +2,13 @@
 name: "Bura Dingač"
 producer: "OPG Mrgudić-Bura"
 category_title: "Kruna proizvodnje"
-alcohol: 15.0
+
 sort: "Plavac Mali 100%"
 year: 2025
 
 # Marketing Content
 aromas: ["Tamna šljiva", "borovnica", "ljubičica", "rogač", "kakao", "crveni papar"]
-character: "Gusto, uljato i toplo s fenomenalno mekim taninima unatoč svojoj snazi."
+karakter: "Gusto, uljato i toplo s fenomenalno mekim taninima unatoč svojoj snazi."
 technicals: "Odležavanje 10 mjeseci u hrastovim bačvama (samo 20% novih), nakon čega slijedi 16 mjeseci u boci. Dekantiranje nije potrebno."
 
 # Radar Chart (0-100)
@@ -37,6 +37,7 @@ nutricija:
   ugljikohidrati: 1.4
   seceri: 0.6
 analiza:
+  alkohol: 15
   suhi_ekstrakt: 0
   reducirajuci_seceri: 0
   ukupna_kiselost: 0

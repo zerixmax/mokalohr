@@ -2,14 +2,14 @@
 name: "Bura Rukatac"
 producer: "OPG Mrgudić-Bura"
 category_title: "Autentično Bijelo"
-alcohol: 10.7
+
 sort: "Rukatac (Maraština)"
 year: 2025
 lot: "LOT04022025"
 
 # Marketing Content
 aromas: ["Cvijet naranče", "limun", "badem", "mineralne note"]
-character: "Divlja fermentacija, iskren izričaj pelješkog kamena. Svježe i hrskavo."
+karakter: "Divlja fermentacija, iskren izričaj pelješkog kamena. Svježe i hrskavo."
 technicals: "Odležavanje u inox tankovima radi očuvanja svježine i sortnih aroma."
 
 # Radar Chart (0-100)
@@ -38,6 +38,7 @@ nutricija:
   ugljikohidrati: 1.1
   seceri: 0.3
 analiza:
+  alkohol: 10.7
   suhi_ekstrakt: 22.4
   reducirajuci_seceri: 3.9
   ukupna_kiselost: 4.8

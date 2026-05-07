@@ -42,7 +42,7 @@ const isHR = lang === 'hr';
       </div>
       <div class="flex justify-between text-sm">
         <span class="text-bura-gold-300 uppercase">{isHR ? 'Alkohol' : 'Alcohol'}</span>
-        <span class="text-bura-light">{wine.data.alcohol}</span>
+        <span class="text-bura-light">{wine.data.analiza?.alkohol || wine.data.alcohol}</span>
       </div>
       {wine.data.grape && (
         <div class="flex justify-between text-sm">

@@ -16,6 +16,16 @@
 - [x] **Vina:** Dodano 5 vina (Marica, Mare, Bura, Dingač, Galerija)
 - [x] **SEO:** sitemap.xml, RSS feed
 - [x] **Verzije:** Brojač verzija u footeru
+- [x] **CMS UI Refactor (2026-05-07):** Pojednostavljeno sučelje pomoću tabova i grupa (Osnove, Karakter, Profil, Laboratorij, Postavke).
+- [x] **RichText Bug Fix (07.05.2026):** Popravljen `Fragment` import u RichText.astro komponenti.
+- [x] **Bulk Seed Skripta (07.05.2026):** `scripts/seed-new-wines.mjs` - automatski unos 6 novih vina s HR+EN podacima.
+
+## 🎨 Faza 2 - UI & UX Optimizacija (U tijeku)
+- [x] **Pojednostavljenje Payload CMS-a:** Grupiranje polja u tabove za bolju preglednost.
+- [x] **Frontend Fallback:** Osigurana kompatibilnost s novim nazivima polja (`alkohol`, `karakter`) uz podršku za stare markdown ključeve.
+- [ ] **RichText Renderiranje:** Implementirati prikaz novog polja `opis` (Lexical) na frontendu. *(komponenta postoji, testirati na produkciji)*
+- [ ] **Migracija Markdown u CMS:** Postupno prebacivanje svih opisa iz `.md` datoteka direktno u Payload `opis` polje.
+- [ ] **PH Vrijednost:** Popuniti novo polje `ph` u laboratorijskoj analizi za sva vina.
 
 ## 🌍 Usklađivanje EN verzije s HR verzijom (Hitno)
 - [x] **Standardizacija Slugova (EN = HR):**
@@ -52,6 +62,11 @@
 - [x] **Regija/Vinogorje:** Implementiran fiksni prikaz regije (ne ovisi o CMS-u).
 - [ ] Dodati SEO meta tagove iz CMS-a (description, og:image).
 
+### Nova Vina (Boris)
+- [x] **Seed skripta:** NU Pošip, NU Plavac Mali, Basina Rukatac, Basina Plavac, MONA Rosé, MONA Tribidrag
+- [ ] **Pokrenuti seed na produkciji:** `npm run seed:wines`
+- [ ] **Upload slika boca** za nova vina
+
 ---
 
 ## 📝 Bilješke za Borisa (Korisničke upute)
@@ -67,3 +82,17 @@ Regija je sada fiksno postavljena u kodu:
 - HR: "Srednja i Južna Dalmacija"
 - EN: "Central and South Dalmatia"
 (Nije potrebno unositi u CMS)
+
+### 07.05.2026 - Env konfiguracija
+Za pokretanje seed skripte, potrebne su env varijable. Kopiraj `.env.example` u `.env` i ispuni:
+```bash
+cp .env.example .env
+```
+Zatim uredi `.env` i upiši CMS kredencijale.
+
+### 07.05.2026 - Pokretanje Bulk Seed-a
+Nakon što postaviš `.env` datoteku, pokreni:
+```bash
+npm run seed:wines
+```
+Ovo će automatski kreirati 6 novih vina (NU Pošip, NU Plavac Mali, Basina Rukatac, Basina Plavac, MONA Rosé, MONA Tribidrag) s HR i EN prijevodima. Vina su odmah **published** ali **nisu featured** (ne pojavljuju se na naslovnici).

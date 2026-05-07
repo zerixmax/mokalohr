@@ -14,6 +14,9 @@ const vina: Wine[] = vinaResponse.docs;
 
 // Sortiranje vina po imenu
 const sortedVina: Wine[] = vina.sort((a: Wine, b: Wine) => a.naziv.localeCompare(b.naziv));
+
+// Vina za carousel (istaknuta) - ako featured nije definiran, smatramo ga true za stara vina
+const featuredVina = sortedVina.filter(w => w.featured !== false);
 ---
 
 <Layout title="Vrhunska Pelješka Vina">
@@ -55,7 +58,7 @@ const sortedVina: Wine[] = vina.sort((a: Wine, b: Wine) => a.naziv.localeCompare
                 <h2 class="font-playfair text-3xl text-bura-gold-500 mb-3 tracking-wide">Istražite Našu Kolekciju</h2>
                 <p class="text-white/40 text-sm uppercase tracking-widest">Povucite za više vina</p>
             </div>
-            <WineCarousel vina={sortedVina} lang="hr" />
+            <WineCarousel vina={featuredVina} lang="hr" />
         </div>
     </section>
 

@@ -2,13 +2,13 @@
 name: "Bura Galerija"
 producer: "OPG Mrgudić-Bura"
 category_title: "Special Selection"
-alcohol: 14.5
+
 sort: "Plavac Mali 100%"
 year: 2025
 
 # Marketing Content
 aromas: ["Ripe fruit", "spices", "smoke"]
-character: "Selection of the best clusters from the inland locations of Pelješac."
+karakter: "Selection of the best clusters from the inland locations of Pelješac."
 technicals: "Limited series, aged in barrique barrels."
 
 # Radar Chart (0-100)
@@ -37,6 +37,7 @@ nutricija:
   ugljikohidrati: 1.2
   seceri: 0.5
 analiza:
+  alkohol: 14.5
   suhi_ekstrakt: 0
   reducirajuci_seceri: 0
   ukupna_kiselost: 0

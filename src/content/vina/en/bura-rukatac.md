@@ -2,13 +2,13 @@
 name: "Bura Rukatac"
 producer: "OPG Mrgudić-Bura"
 category_title: "Autochthonous White"
-alcohol: 12.5
+
 sort: "Rukatac (Maraština)"
 year: 2025
 
 # Marketing Content
 aromas: ["Citrus", "dried hay", "almond flower", "mineral notes"]
-character: "Wild fermentation, an honest expression of Pelješac stone. Fresh and crisp."
+karakter: "Wild fermentation, an honest expression of Pelješac stone. Fresh and crisp."
 technicals: "Stainless steel tank aging to preserve freshness and varietal aromas."
 
 # Radar Chart (0-100)
@@ -37,6 +37,7 @@ nutricija:
   ugljikohidrati: 1
   seceri: 0.3
 analiza:
+  alkohol: 12.5
   suhi_ekstrakt: 0
   reducirajuci_seceri: 0
   ukupna_kiselost: 0
