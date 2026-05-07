@@ -6,9 +6,31 @@
       "slug": "bura-dingac",
       "lot": "25-b1",
       "category_title": "Bura Dingač",
+      "godiste": "2025",
       "year": 2025,
       "sort": "Plavac Mali 100%",
-      "slika": null
+      "slika": null,
+      "objavljeno": true,
+      "featured": true,
+      "ingredients": "Grožđe, Sulfite",
+      "allergens": "Sulfite",
+      "analiza": {
+        "alkohol": 14.5,
+        "ph": 3.6,
+        "suhi_ekstrakt": 28.5,
+        "reducirajuci_seceri": 2.1,
+        "ukupna_kiselost": 5.8,
+        "ukupni_so2": 85
+      },
+      "nutricija": {
+        "energija": "350 kJ / 84 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 2.8,
+        "seceri": 2.1,
+        "proteini": 0.1,
+        "sol": 0
+      }
     },
     {
       "id": 2,
@@ -16,9 +38,31 @@
       "slug": "bura-galerija",
       "lot": "25-b1",
       "category_title": "Posebna Selekcija",
+      "godiste": "2025",
       "year": 2025,
       "sort": "Plavac Mali 100%",
-      "slika": null
+      "slika": null,
+      "objavljeno": true,
+      "featured": true,
+      "ingredients": "Grožđe, Sulfite",
+      "allergens": "Sulfite",
+      "analiza": {
+        "alkohol": 15.0,
+        "ph": 3.5,
+        "suhi_ekstrakt": 30.2,
+        "reducirajuci_seceri": 1.8,
+        "ukupna_kiselost": 6.1,
+        "ukupni_so2": 90
+      },
+      "nutricija": {
+        "energija": "365 kJ / 87 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 2.5,
+        "seceri": 1.8,
+        "proteini": 0.1,
+        "sol": 0
+      }
     },
     {
       "id": 3,
@@ -26,9 +70,31 @@
       "slug": "bura-plavac",
       "lot": "25-b1",
       "category_title": "Klasični Pelješac",
+      "godiste": "2025",
       "year": 2025,
       "sort": "Plavac Mali 100%",
-      "slika": null
+      "slika": null,
+      "objavljeno": true,
+      "featured": true,
+      "ingredients": "Grožđe, Sulfite",
+      "allergens": "Sulfite",
+      "analiza": {
+        "alkohol": 13.5,
+        "ph": 3.65,
+        "suhi_ekstrakt": 26.8,
+        "reducirajuci_seceri": 2.5,
+        "ukupna_kiselost": 5.5,
+        "ukupni_so2": 80
+      },
+      "nutricija": {
+        "energija": "335 kJ / 80 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 3.2,
+        "seceri": 2.5,
+        "proteini": 0.1,
+        "sol": 0
+      }
     },
     {
       "id": 4,
@@ -36,9 +102,31 @@
       "slug": "rukatac",
       "lot": "25-b1",
       "category_title": "Bura Rukatac",
+      "godiste": "2025",
       "year": 2025,
       "sort": "Rukatac (Maraština)",
-      "slika": null
+      "slika": null,
+      "objavljeno": true,
+      "featured": true,
+      "ingredients": "Grožđe, Sulfite",
+      "allergens": "Sulfite",
+      "analiza": {
+        "alkohol": 13.0,
+        "ph": 3.3,
+        "suhi_ekstrakt": 20.1,
+        "reducirajuci_seceri": 4.2,
+        "ukupna_kiselost": 6.2,
+        "ukupni_so2": 95
+      },
+      "nutricija": {
+        "energija": "320 kJ / 76 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 5.5,
+        "seceri": 4.2,
+        "proteini": 0.1,
+        "sol": 0
+      }
     },
     {
       "id": 5,
@@ -46,9 +134,31 @@
       "slug": "bura-sivi-plavac",
       "lot": "25-b1",
       "category_title": "Rariteti Pelješca",
+      "godiste": "2025",
       "year": 2025,
       "sort": "Sivi Plavac 100%",
-      "slika": null
+      "slika": null,
+      "objavljeno": true,
+      "featured": true,
+      "ingredients": "Grožđe, Sulfite",
+      "allergens": "Sulfite",
+      "analiza": {
+        "alkohol": 14.0,
+        "ph": 3.55,
+        "suhi_ekstrakt": 27.3,
+        "reducirajuci_seceri": 2.0,
+        "ukupna_kiselost": 5.9,
+        "ukupni_so2": 88
+      },
+      "nutricija": {
+        "energija": "345 kJ / 82 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 2.7,
+        "seceri": 2.0,
+        "proteini": 0.1,
+        "sol": 0
+      }
     },
     {
       "id": 6,
@@ -56,9 +166,31 @@
       "slug": "mare",
       "lot": "25-b1",
       "category_title": "Elegantno Crno",
+      "godiste": "2025",
       "year": 2025,
       "sort": "Plavac Mali 100%",
-      "slika": null
+      "slika": null,
+      "objavljeno": true,
+      "featured": false,
+      "ingredients": "Grožđe, Sulfite",
+      "allergens": "Sulfite",
+      "analiza": {
+        "alkohol": 14.2,
+        "ph": 3.58,
+        "suhi_ekstrakt": 27.9,
+        "reducirajuci_seceri": 1.9,
+        "ukupna_kiselost": 5.7,
+        "ukupni_so2": 82
+      },
+      "nutricija": {
+        "energija": "340 kJ / 81 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 2.6,
+        "seceri": 1.9,
+        "proteini": 0.1,
+        "sol": 0
+      }
     },
     {
       "id": 7,
@@ -66,9 +198,31 @@
       "slug": "marica-plavac-mali",
       "lot": "25-b1",
       "category_title": "Elegantno Crno",
+      "godiste": "2025",
       "year": 2025,
       "sort": "Plavac Mali",
-      "slika": null
+      "slika": null,
+      "objavljeno": true,
+      "featured": true,
+      "ingredients": "Grožđe, Sulfite",
+      "allergens": "Sulfite",
+      "analiza": {
+        "alkohol": 13.8,
+        "ph": 3.62,
+        "suhi_ekstrakt": 26.5,
+        "reducirajuci_seceri": 2.3,
+        "ukupna_kiselost": 5.6,
+        "ukupni_so2": 78
+      },
+      "nutricija": {
+        "energija": "330 kJ / 79 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 3.0,
+        "seceri": 2.3,
+        "proteini": 0.1,
+        "sol": 0
+      }
     },
     {
       "id": 8,
@@ -76,9 +230,31 @@
       "slug": "amare-gold",
       "lot": "25-b1",
       "category_title": "Plemenito Desertno",
+      "godiste": "2025",
       "year": 2025,
       "sort": "Plavac Mali 100%",
-      "slika": null
+      "slika": null,
+      "objavljeno": true,
+      "featured": false,
+      "ingredients": "Grožđe, Sulfite",
+      "allergens": "Sulfite",
+      "analiza": {
+        "alkohol": 15.5,
+        "ph": 3.45,
+        "suhi_ekstrakt": 35.0,
+        "reducirajuci_seceri": 12.5,
+        "ukupna_kiselost": 5.2,
+        "ukupni_so2": 110
+      },
+      "nutricija": {
+        "energija": "420 kJ / 100 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 15.8,
+        "seceri": 12.5,
+        "proteini": 0.1,
+        "sol": 0
+      }
     }
   ],
   "totalDocs": 8

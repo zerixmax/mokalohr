@@ -2,12 +2,13 @@
 // Ažurirano: 2026-05-07 — Usklađeno s CMS tabovima (Osnove, Opis i Karakter, Profil, Laboratorij, Postavke)
 
 export interface Wine {
-  // === OSNOVE (Tab: Osnove) ===
+  // === OSNOVE (Tab: ePodrum / Osnove) ===
   id: string | number;
   naziv: string;
   naziv_puni?: string;
   slug: string;
-  year: number;
+  godiste?: string;        // Novi primary (select: "2024"/"2025"/"2026")
+  year?: number;           // Legacy/autofilled za sortiranje
   lot?: string;
   category_title?: string;
   sort?: string;
@@ -57,8 +58,12 @@ export interface Wine {
   };
   nutricija?: {
     energija?: string;
+    masti?: number;
+    zasicene_masti?: number;
     ugljikohidrati?: number;
     seceri?: number;
+    proteini?: number;
+    sol?: number;
   };
   ingredients?: string;
   allergens?: string;
@@ -69,7 +74,8 @@ export interface Wine {
   };
   boris_lot?: string;
   datum_punjenja?: string;
-  featured?: boolean;
+  featured?: boolean;       // Istaknuto na naslovnici (Carousel)
+  objavljeno?: boolean;     // Vidljivo na web stranici
 
   // === CMS META ===
   _status?: 'draft' | 'published';

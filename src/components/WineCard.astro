@@ -77,20 +77,32 @@ const alcohol = analysis?.alkohol ?? wine.data.alcohol;
             <tbody>
               <tr class="border-b border-bura-brown/50">
                 <td class="py-2 text-bura-light/70">{t('wine.energy')}</td>
-                <td class="py-2 text-bura-light text-right font-mono">{nutrition.energija} kJ/kcal</td>
+                <td class="py-2 text-bura-light text-right font-mono">{nutrition.energija || '-'}</td>
               </tr>
-              {nutrition.ugljikohidrati !== undefined && (
-                <tr class="border-b border-bura-brown/50">
-                  <td class="py-2 text-bura-light/70">{t('wine.carbs')}</td>
-                  <td class="py-2 text-bura-light text-right font-mono">{nutrition.ugljikohidrati}g</td>
-                </tr>
-              )}
-              {nutrition.seceri !== undefined && (
-                <tr class="border-b border-bura-brown/50">
-                  <td class="py-2 text-bura-light/70">{t('wine.sugars')}</td>
-                  <td class="py-2 text-bura-light text-right font-mono">{nutrition.seceri}g</td>
-                </tr>
-              )}
+              <tr class="border-b border-bura-brown/50">
+                <td class="py-2 text-bura-light/70">{t('wine.fat')}</td>
+                <td class="py-2 text-bura-light text-right font-mono">{nutrition.masti ?? 0}g</td>
+              </tr>
+              <tr class="border-b border-bura-brown/50">
+                <td class="py-2 text-bura-light/70 pl-4 italic">{t('wine.saturated_fat')}</td>
+                <td class="py-2 text-bura-light/80 text-right font-mono">{nutrition.zasicene_masti ?? 0}g</td>
+              </tr>
+              <tr class="border-b border-bura-brown/50">
+                <td class="py-2 text-bura-light/70">{t('wine.carbs')}</td>
+                <td class="py-2 text-bura-light text-right font-mono">{nutrition.ugljikohidrati ?? 0}g</td>
+              </tr>
+              <tr class="border-b border-bura-brown/50">
+                <td class="py-2 text-bura-light/70 pl-4 italic">{t('wine.sugars')}</td>
+                <td class="py-2 text-bura-light/80 text-right font-mono">{nutrition.seceri ?? 0}g</td>
+              </tr>
+              <tr class="border-b border-bura-brown/50">
+                <td class="py-2 text-bura-light/70">{t('wine.protein')}</td>
+                <td class="py-2 text-bura-light text-right font-mono">{nutrition.proteini ?? 0}g</td>
+              </tr>
+              <tr>
+                <td class="py-2 text-bura-light/70">{t('wine.salt')}</td>
+                <td class="py-2 text-bura-light text-right font-mono">{nutrition.sol ?? 0}g</td>
+              </tr>
             </tbody>
           </table>
         </div>

@@ -218,4 +218,38 @@ Senior code review fixovi su **10/10 završeni**. Non-priority issues su takođe
 
 ---
 
-**Status:** ✅ CMS UI Refactor | ✅ Frontend Fallback | ✅ TypeScript Types Updated | ✅ RichText Full Lexical | ✅ Markdown Migration | ✅ RichText Bug Fixed | ✅ Bulk Seed | ✅ Env Konfiguracija | ✅ Region Fix | ✅ WineCard Nutrition | ✅ WineCard i18n | ✅ WineCard ?? operator | ✅ index prerender fix | ✅ Image src type safety | ✅ Array sort fix | ✅ aria-hidden SVGs | ✅ EN transition:name | ✅ RSS XML escaping | ✅ RSS all wines | ✅ RSS pubDate | ✅ P3 Unified Index | ✅ P7 CMS_URL env | ✅ P8 Fetch timeout | ✅ P9 lang validation | ✅ Non-priority fixes | ✅ tsconfig cleanup | ✅ 0 errors 0 warnings 0 hints
+**Status:** ✅ CMS UI Refactor | ✅ Frontend Fallback | ✅ TypeScript Types Updated | ✅ RichText Full Lexical | ✅ Markdown Migration | ✅ RichText Bug Fixed | ✅ Bulk Seed | ✅ Env Konfiguracija | ✅ Region Fix | ✅ WineCard Nutrition | ✅ WineCard i18n | ✅ WineCard ?? operator | ✅ index prerender fix | ✅ Image src type safety | ✅ Array sort fix | ✅ aria-hidden SVGs | ✅ EN transition:name | ✅ RSS XML escaping | ✅ RSS all wines | ✅ RSS pubDate | ✅ P3 Unified Index | ✅ P7 CMS_URL env | ✅ P8 Fetch timeout | ✅ P9 lang validation | ✅ Non-priority fixes | ✅ tsconfig cleanup | ✅ ePodrum tab | ✅ EU nutrition 7-row | ✅ godiste/year fallback | ✅ objavljeno/featured | ✅ 0 errors 0 warnings 0 hints
+
+---
+
+### 13. ePodrum + Puna EU Nutricija — v2.9.0 (07.05.2026)
+
+#### Payload CMS — Novi "ePodrum (Brzi unos)" Tab
+- **Dodan kao prvi tab** (ispred "Osnove") za Borisa — smanjenje korisničkog otpora
+- **Polja:** `naziv`, `godiste` (select: 2024-2028, default 2025), `year` (auto-hook iz godiste), `slika`, `opis` (RichText)
+- **Godiste → year hook:** `beforeValidate` automatski popunjava `year` iz `godiste` za backward compat
+- **naziv_puni hook:** Ažuriran da koristi `godiste || year`
+- **Opis i Karakteristike tab:** Uklonjeni duplicirani `opis`, `category_title`, `sort` (prebačeni u ePodrum/Osnove)
+
+#### Dva Statusa — objavljeno + featured
+- **`objavljeno`** (checkbox, sidebar) — kontrolira vidljivost na webu
+- **`featured`** (checkbox, sidebar) — kontrolira pojavljivanje na carouselu
+- Obra su nezavisna: vino može biti vidljivo ali ne istaknuto
+
+#### Puna EU Nutritivna Tablica (Uredba 1169/2011)
+- **Redoslijed:** Energija → Masti → Od kojih zasićene → Ugljikohidrati → Od kojih šećeri → Proteini → Sol
+- **Svi defaulti na 0** — najsigurniji put za EU compliance
+- **Komponente:** `WineNutrition.astro` (7 redaka s `?? 0` fallbackom), `WineCard.astro` (ažurirana tablica)
+- **i18n:** Dodani ključevi `wine.fat`, `wine.saturated_fat`, `wine.protein`, `wine.salt` (HR + EN)
+
+#### Frontend Ažuriranja
+- **`[lang]/index.astro`:** `export const prerender = false` (live CMS update), sortiranje po `godiste` (desc) s fallback na `year`, filter `objavljeno !== false`
+- **`WineCarousel.astro`:** Prikaz `godiste` s `year` fallbackom, filter `objavljeno !== false`
+- **`[...slug].astro`:** Data mapping — `year: parseInt(godiste) ?? year ?? 2025`, `godiste` string, `objavljeno` boolean
+- **`content/config.ts`:** Proširena `nutricija` schema s novim poljima
+- **`types/wine.ts`:** Dodani `godiste`, `objavljeno`, proširena `nutricija` grupa
+- **`vina-mock.json`:** Sva 8 vina imaju `godiste`, `objavljeno`, punu `nutricija` i `analiza`
+
+#### Validacija
+- `npx astro check`: **0 errors, 0 warnings, 0 hints**
+- Verzija podignuta na **2.9.0**

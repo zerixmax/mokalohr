@@ -10,7 +10,7 @@ interface Props {
 
 const { vina, lang } = Astro.props;
 
-const filteredVina = vina.filter(wine => wine.slug !== 'amare-gold');
+const filteredVina = vina.filter(wine => wine.objavljeno !== false && wine.slug !== 'amare-gold');
 
 const getThemeColor = (category?: string) => {
   if (category?.toLowerCase().includes('desertno') || category?.toLowerCase().includes('dessert')) {
@@ -76,7 +76,7 @@ const carouselId = `wine-carousel-${Math.random().toString(36).slice(2, 8)}`;
                 </h2>
                 
                 <div class="flex items-center gap-4 text-bura-dark-ink/70 text-sm">
-                  <span>{wine.year}</span>
+                  <span>{wine.godiste || wine.year}</span>
                   <span class={`w-1.5 h-1.5 rounded-full ${theme.accent}`}></span>
                   <span>{wine.sort}</span>
                 </div>

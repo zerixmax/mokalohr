@@ -11,8 +11,12 @@ interface Props {
     recycling?: string;
     nutricija?: {
       energija: string;
-      ugljikohidrati: number;
-      seceri: number;
+      masti?: number;
+      zasicene_masti?: number;
+      ugljikohidrati?: number;
+      seceri?: number;
+      proteini?: number;
+      sol?: number;
     };
     analiza?: {
       suhi_ekstrakt?: number;
@@ -53,7 +57,7 @@ const ingredientsList = data.ingredients ? data.ingredients.split(',').map(i => 
     </div>
   </section>
 
-  <!-- Nutrition Section -->
+  <!-- Nutrition Section - EU Regulation 1169/2011 -->
   {data.nutricija && (
     <section class="bg-bura-dark-bg/60 backdrop-blur-sm p-6 rounded-2xl border border-white/10 shadow-sm">
       <h3 class="font-playfair text-xl mb-4 uppercase tracking-widest text-bura-gold-400">
@@ -62,15 +66,31 @@ const ingredientsList = data.ingredients ? data.ingredients.split(',').map(i => 
       <div class="space-y-2 text-[11px]">
         <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg">
           <span class="text-white/50">{t('wine.energy')}</span>
-          <span class="font-bold text-white">{data.nutricija.energija}</span>
+          <span class="font-bold text-white">{data.nutricija.energija || '-'}</span>
+        </div>
+        <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg">
+          <span class="text-white/50">{t('wine.fat')}</span>
+          <span class="font-bold text-white">{data.nutricija.masti ?? 0}g</span>
+        </div>
+        <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg pl-6">
+          <span class="text-white/40">{t('wine.saturated_fat')}</span>
+          <span class="font-bold text-white/80">{data.nutricija.zasicene_masti ?? 0}g</span>
         </div>
         <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg">
           <span class="text-white/50">{t('wine.carbs')}</span>
-          <span class="font-bold text-white">{data.nutricija.ugljikohidrati ?? '0'}g</span>
+          <span class="font-bold text-white">{data.nutricija.ugljikohidrati ?? 0}g</span>
+        </div>
+        <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg pl-6">
+          <span class="text-white/40">{t('wine.sugars')}</span>
+          <span class="font-bold text-white/80">{data.nutricija.seceri ?? 0}g</span>
         </div>
         <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg">
-          <span class="text-white/50">{t('wine.sugars')}</span>
-          <span class="font-bold text-white">{data.nutricija.seceri ?? '0'}g</span>
+          <span class="text-white/50">{t('wine.protein')}</span>
+          <span class="font-bold text-white">{data.nutricija.proteini ?? 0}g</span>
+        </div>
+        <div class="flex justify-between p-2 bg-bura-dark-paper rounded-lg">
+          <span class="text-white/50">{t('wine.salt')}</span>
+          <span class="font-bold text-white">{data.nutricija.sol ?? 0}g</span>
         </div>
       </div>
     </section>

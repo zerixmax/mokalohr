@@ -35,6 +35,15 @@
     - `Welcome.astro` — obrisana + unused asseti (`astro.svg`, `background.svg`)
     - TypeScript cleanup — 10+ unused imports/variables uklonjeno
     - `npx astro check`: **0 errors, 0 warnings, 0 hints**
+- [x] **ePodrum + EU Nutrition v2.9.0 (07.05.2026):**
+    - Payload CMS: novi "ePodrum (Brzi unos)" tab s `godiste` select, `objavljeno` checkbox
+    - Puna EU nutritivna tablica (7 redaka): energija, masti, zasićene, ugljikohidrati, šećeri, proteini, sol
+    - `godiste` (string select) s `year` auto-hook i fallback logikom
+    - `objavljeno` (vidljivost) i `featured` (carousel) — dva nezavisna statusa
+    - `prerender = false` za live CMS update
+    - Sortiranje po `godiste` (desc) s fallback na `year`
+    - Mock data: sva 8 vina imaju nove fieldove
+    - `npx astro check`: **0 errors, 0 warnings, 0 hints**
 
 ### 📊 Senior Code Review — Status (07.05.2026)
 | # | Status | Opis |
@@ -56,6 +65,17 @@
 | NP4 | ✅ Done | sitemap.xml.ts — Payload CMS API + lastmod + hreflang |
 | NP5 | ✅ Done | Welcome.astro — obrisana + unused asseti |
 | NP6 | ✅ Done | TypeScript cleanup — 10+ unused imports/variables |
+
+### 📊 ePodrum + EU Nutrition — Status (07.05.2026)
+| # | Status | Opis |
+|---|--------|------|
+| E1 | ✅ Done | CMS "ePodrum (Brzi unos)" tab s `godiste` select |
+| E2 | ✅ Done | `objavljeno` + `featured` — dva nezavisna statusa |
+| E3 | ✅ Done | Puna EU nutricija (7 redaka) — WineNutrition + WineCard |
+| E4 | ✅ Done | `godiste` → `year` auto-hook za backward compat |
+| E5 | ✅ Done | `prerender = false` za live CMS update |
+| E6 | ✅ Done | Sortiranje po godiste (desc) s year fallback |
+| E7 | ✅ Done | Mock data + types + i18n ažurirani |
 
 ## 🎨 Faza 2 - UI & UX Optimizacija (U tijeku)
 - [x] **Pojednostavljenje Payload CMS-a:** Grupiranje polja u tabove za bolju preglednost.

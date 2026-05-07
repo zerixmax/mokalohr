@@ -46,8 +46,12 @@ const vinaCollection = defineCollection({
     // === LEGALNI DIO (EU Regulativa) ===
     nutricija: z.object({
       energija: z.string(), // e.g. "324/77 kJ/kcal"
+      masti: z.number().optional().default(0),
+      zasicene_masti: z.number().optional().default(0),
       ugljikohidrati: z.number().optional(),
-      seceri: z.number().optional()
+      seceri: z.number().optional(),
+      proteini: z.number().optional().default(0),
+      sol: z.number().optional().default(0),
     }).optional(),
     analiza: z.object({
       alkohol: z.number().optional(), // Novo

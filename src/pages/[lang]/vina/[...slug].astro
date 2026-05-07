@@ -85,8 +85,10 @@ if (selectedId) {
 const data = vino ? {
   name: vino.naziv || vino.name,
   category_title: vino.category_title,
-  year: vino.year,
-  alcohol: vino.analiza?.alkohol || vino.alcohol,
+  year: vino.godiste ? parseInt(vino.godiste, 10) : (vino.year ?? 2025),
+  godiste: vino.godiste || (vino.year ? String(vino.year) : '2025'),
+  objavljeno: vino.objavljeno ?? vino.featured ?? true,
+  alcohol: vino.analiza?.alkohol ?? vino.alcohol,
   sort: vino.sort,
   aromas: vino.aromas?.map((a: any) => typeof a === 'string' ? a : a.aroma) || [],
   character: vino.karakter || vino.character,

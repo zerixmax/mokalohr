@@ -9,6 +9,8 @@ import type { Wine } from '../../types/wine';
 import placeholderBottle from '../../assets/boca-vina-mrgudic-placeholder.webp';
 import whiteWinePlaceholder from '../../assets/mrgudic-bura-bijelovino-placeholder.webp';
 
+export const prerender = false;
+
 const { lang } = Astro.params;
 if (!lang || (lang !== 'hr' && lang !== 'en')) {
   return Astro.redirect('/hr');
@@ -20,8 +22,14 @@ const isHR = lang === 'hr';
 const vinaResponse = await getWina(lang);
 const vina: Wine[] = vinaResponse.docs;
 
-const sortedVina: Wine[] = [...vina].sort((a: Wine, b: Wine) => a.naziv.localeCompare(b.naziv));
-const featuredVina = sortedVina.filter(w => w.featured !== false);
+// Sort by godiste (descending), fallback to year, then by name
+const getYear = (w: Wine) => w.godiste ? parseInt(w.godiste, 10) : (w.year ?? 2025);
+const sortedVina: Wine[] = [...vina].sort((a: Wine, b: Wine) => {
+  const yearDiff = getYear(b) - getYear(a);
+  if (yearDiff !== 0) return yearDiff;
+  return a.naziv.localeCompare(b.naziv);
+});
+const featuredVina = sortedVina.filter(w => w.objavljeno !== false && w.featured !== false);
 
 const detailsText = isHR ? 'Detalji' : 'Details';
 ---
@@ -117,7 +125,7 @@ const detailsText = isHR ? 'Detalji' : 'Details';
                                 {wine.naziv}
                             </h3>
                             <div class="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                <span class="text-white/60 text-sm">{wine.year}</span>
+                                <span class="text-white/60 text-sm">{wine.godiste || wine.year}</span>
                                 <span class="text-bura-gold-500 text-sm font-medium inline-flex items-center">
                                     {detailsText}
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

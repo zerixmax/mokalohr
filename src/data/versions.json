@@ -1,6 +1,14 @@
 {
-  "currentVersion": "2.8.0",
+  "currentVersion": "2.9.0",
   "changelog": [
+    {
+      "version": "2.9.0",
+      "date": "2026-05-07",
+      "description": {
+        "hr": "ePODRUM + EU NUTRICIJA: Novi 'ePodrum (Brzi unos)' tab u CMS-u, puna EU nutritivna tablica (7 redaka: energija, masti, zasićene, ugljikohidrati, šećeri, proteini, sol), godiste (string select) s year fallbackom, objavljeno/featured odvojeni statusi, prerender=false za live CMS update.",
+        "en": "ePODRUM + EU NUTRITION: New 'ePodrum (Quick Entry)' tab in CMS, full EU nutrition table (7 rows: energy, fat, saturates, carbs, sugars, protein, salt), godiste (string select) with year fallback, objavljeno/featured separate statuses, prerender=false for live CMS updates."
+      }
+    },
     {
       "version": "2.8.0",
       "date": "2026-05-07",
