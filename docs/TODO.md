@@ -19,6 +19,43 @@
 - [x] **CMS UI Refactor (2026-05-07):** Pojednostavljeno sučelje pomoću tabova i grupa (Osnove, Karakter, Profil, Laboratorij, Postavke).
 - [x] **RichText Bug Fix (07.05.2026):** Popravljen `Fragment` import u RichText.astro komponenti.
 - [x] **Bulk Seed Skripta (07.05.2026):** `scripts/seed-new-wines.mjs` - automatski unos 6 novih vina s HR+EN podacima.
+- [x] **WineCard.astro — Fix nutritivne vrijednosti (07.05.2026):** Ispravljen bug "Masti≠Carbs", dodana laboratorijska analiza, null guardovi, EU allergen badge.
+- [x] **WineCard.astro — useTranslations (07.05.2026):** Svi tekstovi koriste `t()` umjesto hardkodiranih ternary operatora.
+- [x] **WineCard.astro — ?? operator (07.05.2026):** Nullish coalescing za alkohol fallback umjesto `||`.
+- [x] **index.astro — prerender fix (07.05.2026):** Uklonjen `prerender = true` iz SSR root redirecta.
+- [x] **Image src — type safety (07.05.2026):** Uklonjeni `as any` castovi, conditional rendering za CMS vs lokalne slike.
+- [x] **Array sort fix (07.05.2026):** `[...vina].sort()` umjesto mutirajućeg `vina.sort()`.
+- [x] **EN index — transition:name (07.05.2026):** Dodani View Transitions atributi na `<Image>` i `<h3>`.
+- [x] **aria-hidden na SVG-ove (07.05.2026):** Dekoratívne ikone sada imaju `aria-hidden="true"`.
+- [x] **RSS XML escaping (07.05.2026):** Dodana `escapeXml()` funkcija, RSS uključuje sva vina, `pubDate` koristi `updatedAt`.
+- [x] **Non-Priority Fixes (07.05.2026):**
+    - `WineNutrition.astro` — iskorišten `data.producer` prop, uklonjen unused `themeColor`
+    - `ThemeToggle.astro` — dodan `aria-label="Toggle dark mode"`
+    - `sitemap.xml.ts` — rewrite za Payload CMS API, dodani `lastmod` + `hreflang` alternate linkovi
+    - `Welcome.astro` — obrisana + unused asseti (`astro.svg`, `background.svg`)
+    - TypeScript cleanup — 10+ unused imports/variables uklonjeno
+    - `npx astro check`: **0 errors, 0 warnings, 0 hints**
+
+### 📊 Senior Code Review — Status (07.05.2026)
+| # | Status | Opis |
+|---|--------|------|
+| P1 | ✅ Done | WineCard.astro — Fix pogrešnu nutritivnu vrijednost |
+| P2 | ✅ Done | index.astro — Maknuti prerender = true |
+| P3 | ✅ Done | Konsolidacija en/index.astro + hr/index.astro → /[lang]/index.astro |
+| P7 | ✅ Done | CMS_URL u env varijable |
+| P8 | ✅ Done | Fetch timeout na CMS pozive (5s AbortController) |
+| P9 | ✅ Done | lang validacija u [...slug].astro |
+| P10 | ✅ Done | ?? umjesto || za alkohol fallback |
+
+### 📊 Non-Priority Fixes — Status (07.05.2026)
+| # | Status | Opis |
+|---|--------|------|
+| NP1 | ✅ Done | WineNutrition.astro — iskorišten `data.producer` prop |
+| NP2 | ✅ Done | WineNutrition.astro — uklonjen unused `themeColor` |
+| NP3 | ✅ Done | ThemeToggle.astro — dodan `aria-label` |
+| NP4 | ✅ Done | sitemap.xml.ts — Payload CMS API + lastmod + hreflang |
+| NP5 | ✅ Done | Welcome.astro — obrisana + unused asseti |
+| NP6 | ✅ Done | TypeScript cleanup — 10+ unused imports/variables |
 
 ## 🎨 Faza 2 - UI & UX Optimizacija (U tijeku)
 - [x] **Pojednostavljenje Payload CMS-a:** Grupiranje polja u tabove za bolju preglednost.

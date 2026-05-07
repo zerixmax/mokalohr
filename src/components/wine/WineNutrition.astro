@@ -21,10 +21,9 @@ interface Props {
       ukupni_so2?: number;
     };
   };
-  themeColor: string;
 }
 
-const { lang, data, themeColor } = Astro.props;
+const { lang, data } = Astro.props;
 const t = useTranslations(lang);
 const isHR = lang === 'hr';
 const ingredientsList = data.ingredients ? data.ingredients.split(',').map(i => i.trim()) : [];
@@ -106,7 +105,7 @@ const ingredientsList = data.ingredients ? data.ingredients.split(',').map(i => 
     {isHR ? 'Proizvođač' : 'Producer'}
   </h3>
   <p class="text-sm font-bold text-white/80 italic">
-    OPG Mrgudić-Bura<br/>
+    {data.producer || 'OPG Mrgudić-Bura'}<br/>
     Potomje 7, 20244 Potomje, Pelješac<br/>
     Hrvatska / Croatia
   </p>

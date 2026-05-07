@@ -22,7 +22,24 @@ if (!lang || !fullSlug) {
 }
 
 const [baseSlug, batchFromUrl] = fullSlug.split('/');
-const CMS_URL = "https://cms.mokalo.hr";
+const CMS_URL = import.meta.env.CMS_URL || 'https://cms.mokalo.hr';
+const CMS_TIMEOUT = 5000;
+
+// Validate language parameter
+if (!(lang as string in { hr: true, en: true })) {
+  return Astro.redirect('/404');
+}
+
+async function cmsFetch(path: string) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), CMS_TIMEOUT);
+  try {
+    const res = await fetch(path, { signal: controller.signal });
+    return res;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 // Check for selected ID in query params (for multi-wine dispatcher)
 const url = new URL(Astro.request.url);
@@ -31,7 +48,7 @@ const selectedId = url.searchParams.get('id');
 let allMatches = [];
 try {
   // Fetch all wines that match this slug (exact full slug match)
-  const response = await fetch(`${CMS_URL}/api/vina?where[slug][equals]=${fullSlug}&locale=${lang}&depth=1`);
+  const response = await cmsFetch(`${CMS_URL}/api/vina?where[slug][equals]=${fullSlug}&locale=${lang}&depth=1`);
   if (response.ok) {
     const result = await response.json();
     allMatches = result.docs || [];
@@ -40,7 +57,7 @@ try {
   if (!allMatches || allMatches.length === 0) {
     // Fallback: try base slug if fullSlug failed (to support older URLs or base paths)
     if (fullSlug !== baseSlug) {
-      const fallbackRes = await fetch(`${CMS_URL}/api/vina?where[slug][equals]=${baseSlug}&locale=${lang}&depth=1`);
+      const fallbackRes = await cmsFetch(`${CMS_URL}/api/vina?where[slug][equals]=${baseSlug}&locale=${lang}&depth=1`);
       if (fallbackRes.ok) {
         const fallbackData = await fallbackRes.json();
         if (fallbackData.docs && fallbackData.docs.length > 0) {
@@ -264,7 +281,7 @@ if (data) {
                     </section>
                 </div>
 
-                <WineNutrition lang={lang} data={data} themeColor={themeColor} />
+                <WineNutrition lang={lang} data={data} />
               </div>
             </div>
           </div>

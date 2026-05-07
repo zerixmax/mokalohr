@@ -8,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-const { content, className = '' } = Astro.props;
+const { content, className: _className = '' } = Astro.props;
 
 if (!content || !content.root || !content.root.children || content.root.children.length === 0) {
   return null;
@@ -128,7 +128,7 @@ function renderNode(node: any): string {
 const html = content.root.children.map(renderNode).join('');
 ---
 
-<div class="rich-text text-white/80 leading-relaxed text-sm {className}">
+<div class="rich-text text-white/80 leading-relaxed text-sm {_className}">
   <div set:html={html} />
 </div>
 

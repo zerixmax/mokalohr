@@ -4,100 +4,123 @@ import { Image } from 'astro:assets';
 import heroImage from '../../assets/20170303_Mrgudic-Bura-2017_1198.webp';
 import WineCarousel from '../../components/WineCarousel.astro';
 import { getWina } from '../../utils/wineApi';
+import { useTranslations } from '../../i18n/utils';
 import type { Wine } from '../../types/wine';
 import placeholderBottle from '../../assets/boca-vina-mrgudic-placeholder.webp';
 import whiteWinePlaceholder from '../../assets/mrgudic-bura-bijelovino-placeholder.webp';
 
-const lang = 'en';
+const { lang } = Astro.params;
+if (!lang || (lang !== 'hr' && lang !== 'en')) {
+  return Astro.redirect('/hr');
+}
+
+const t = useTranslations(lang as 'hr' | 'en');
+const isHR = lang === 'hr';
+
 const vinaResponse = await getWina(lang);
 const vina: Wine[] = vinaResponse.docs;
 
-// Sort wines by name
-const sortedVina: Wine[] = vina.sort((a: Wine, b: Wine) => a.naziv.localeCompare(b.naziv));
-
-// Featured wines for carousel - if featured is not defined, we consider it true for existing wines
+const sortedVina: Wine[] = [...vina].sort((a: Wine, b: Wine) => a.naziv.localeCompare(b.naziv));
 const featuredVina = sortedVina.filter(w => w.featured !== false);
+
+const detailsText = isHR ? 'Detalji' : 'Details';
 ---
 
-<Layout title="Premium Pelješac Wines" lang="en">
-    <!-- Hero Section - Static Background -->
+<Layout title={isHR ? 'Vrhunska Pelješka Vina' : 'Premium Pelješac Wines'} lang={lang}>
+    <!-- Hero Section -->
     <section class="relative h-[70vh] flex items-center justify-center overflow-hidden bg-bura-dark-bg">
         <Image 
             src={heroImage} 
-            alt="Mrgudić Bura Vineyards" 
+            alt={isHR ? 'Vinogradi Mrgudić Bura' : 'Mrgudić Bura Vineyards'} 
             class="absolute inset-0 w-full h-full object-cover opacity-60"
             loading="eager"
         />
         <div class="absolute inset-0 bg-linear-to-b from-bura-dark-bg/40 via-transparent to-bura-dark-bg"></div>
         
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
-            <span class="text-bura-gold-500 uppercase tracking-[0.3em] text-sm mb-4 block animate-fade-in">Tradition of Pelješac</span>
+            <span class="text-bura-gold-500 uppercase tracking-[0.3em] text-sm mb-4 block animate-fade-in">{t('hero.tradition')}</span>
             <h1 class="font-playfair text-5xl md:text-7xl text-white mb-6 leading-tight">
-                Wines that tell <br/> <span class="italic text-bura-gold-400">a story of stone and sun</span>
+                {isHR ? 'Vina koja pričaju' : 'Wines that tell'}<br/> 
+                <span class="italic text-bura-gold-400">{isHR ? 'priču o kamenu i suncu' : 'a story of stone and sun'}</span>
             </h1>
             <div class="w-24 h-px bg-linear-to-r from-transparent via-bura-gold-500 to-transparent mx-auto mb-8"></div>
             <p class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-                Welcome to the world of the Mrgudić and Bura families, where the passion for wine has been passed down through generations on the steep slopes of Dingač and Postup.
+                {t('hero.description')}
             </p>
         </div>
         
         <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-bura-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-bura-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7" />
             </svg>
         </div>
     </section>
 
-    <!-- Divider -->
     <div class="h-px bg-linear-to-r from-transparent via-bura-gold-500/50 to-transparent"></div>
 
-    <!-- Wine Carousel Section -->
+    <!-- Wine Carousel -->
     <section class="py-16 bg-bura-dark-bg">
         <div class="container mx-auto px-4">
             <div class="text-center mb-10">
-                <h2 class="font-playfair text-3xl text-bura-gold-500 mb-3 tracking-wide">Explore Our Collection</h2>
-                <p class="text-white/40 text-sm uppercase tracking-widest">Swipe for more wines</p>
+                <h2 class="font-playfair text-3xl text-bura-gold-500 mb-3 tracking-wide">{t('home.carousel')}</h2>
+                <p class="text-white/40 text-sm uppercase tracking-widest">{t('home.swipe')}</p>
             </div>
-            <WineCarousel vina={featuredVina} lang="en" />
+            <WineCarousel vina={featuredVina} lang={lang as 'hr' | 'en'} />
         </div>
     </section>
 
-    <!-- Divider -->
     <div class="h-px bg-linear-to-r from-transparent via-bura-gold-500/50 to-transparent"></div>
 
     <!-- Wine Gallery -->
     <section class="py-24 bg-bura-dark-bg">
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="font-playfair text-4xl text-bura-gold-500 mb-4 tracking-wide">Our Collection</h2>
-                <p class="text-white/40 uppercase tracking-widest text-xs">Discover the character of each location</p>
+                <h2 class="font-playfair text-4xl text-bura-gold-500 mb-4 tracking-wide">{t('home.collection')}</h2>
+                <p class="text-white/40 uppercase tracking-widest text-xs">{t('home.discover')}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {sortedVina.map((wine: Wine) => (
                     <a 
-                        href={`/en/vina/${wine.slug}`} 
+                        href={`/${lang}/vina/${wine.slug}`} 
                         class="group relative bg-bura-dark-paper border border-bura-gold-500/20 rounded-lg overflow-hidden transition-all duration-500 hover:border-bura-gold-500/60 hover:-translate-y-2 shadow-xl shadow-black/30"
                     >
                         <div class="aspect-3/4 overflow-hidden">
-                            <Image 
-                                src={(wine.slika?.url || (wine.slug.includes('rukatac') || wine.slug.includes('sivi') ? whiteWinePlaceholder : placeholderBottle)) as any} 
-                                alt={wine.naziv}
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
-                                width={wine.slika?.width || 800}
-                                height={wine.slika?.height || 1200}
-                            />
+                            {wine.slika?.url ? (
+                                <Image
+                                    src={wine.slika.url}
+                                    alt={wine.naziv}
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                                    transition:name={`bottle-${wine.slug}`}
+                                    width={wine.slika.width || 800}
+                                    height={wine.slika.height || 1200}
+                                />
+                            ) : (
+                                <Image
+                                    src={wine.slug.includes('rukatac') || wine.slug.includes('sivi') || wine.slug.includes('galerija')
+                                        ? whiteWinePlaceholder
+                                        : placeholderBottle}
+                                    alt={wine.naziv}
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
+                                    transition:name={`bottle-${wine.slug}`}
+                                />
+                            )}
                         </div>
                         <div class="absolute inset-0 bg-linear-to-t from-bura-dark-paper via-transparent to-transparent opacity-60"></div>
                         
                         <div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                             <span class="text-bura-gold-400 text-xs uppercase tracking-widest mb-2 block">{wine.category_title}</span>
-                            <h3 class="font-playfair text-2xl text-white group-hover:text-bura-gold-400 transition-colors duration-300 mb-2">{wine.naziv}</h3>
+                            <h3 
+                                class="font-playfair text-2xl text-white group-hover:text-bura-gold-400 transition-colors duration-300 mb-2"
+                                transition:name={`title-${wine.slug}`}
+                            >
+                                {wine.naziv}
+                            </h3>
                             <div class="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                                 <span class="text-white/60 text-sm">{wine.year}</span>
                                 <span class="text-bura-gold-500 text-sm font-medium inline-flex items-center">
-                                    Details
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {detailsText}
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                     </svg>
                                 </span>
@@ -109,7 +132,6 @@ const featuredVina = sortedVina.filter(w => w.featured !== false);
         </div>
     </section>
 
-    <!-- Divider -->
     <div class="h-px bg-linear-to-r from-transparent via-bura-gold-500/50 to-transparent"></div>
 </Layout>
 

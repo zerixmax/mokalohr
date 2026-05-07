@@ -3,11 +3,22 @@ import mockVina from '../data/vina-mock.json';
 import type { Wine, VinaResponse } from '../types/wine';
 export type { Wine, VinaResponse };
 
-const CMS_URL = 'https://cms.mokalo.hr/api/vina';
+const CMS_URL = import.meta.env.CMS_URL || 'https://cms.mokalo.hr/api/vina';
+const CMS_TIMEOUT = 5000; // 5 seconds
+
+async function fetchWithTimeout(url: string, options: RequestInit = {}): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), CMS_TIMEOUT);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 export async function getWina(lang: string = 'hr'): Promise<VinaResponse> {
   try {
-    const response = await fetch(`${CMS_URL}?locale=${lang}&depth=1`, {
+    const response = await fetchWithTimeout(`${CMS_URL}?locale=${lang}&depth=1`, {
       headers: {
         'Accept': 'application/json',
       },

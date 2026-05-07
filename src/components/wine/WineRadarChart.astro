@@ -33,8 +33,8 @@ const points = [
 ];
 
 const polygonPath = points.map((p, i) => getPoint(i, p.val, points.length)).join(' ');
-const bgPath50 = points.map((p, i) => getPoint(i, 50, points.length)).join(' ');
-const bgPath100 = points.map((p, i) => getPoint(i, 100, points.length)).join(' ');
+const bgPath50 = points.map((_p, i) => getPoint(i, 50, points.length)).join(' ');
+const bgPath100 = points.map((_p, i) => getPoint(i, 100, points.length)).join(' ');
 ---
 
 <div class="relative">
