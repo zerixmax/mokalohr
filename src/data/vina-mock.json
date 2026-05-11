@@ -255,7 +255,199 @@
         "proteini": 0.1,
         "sol": 0
       }
+    },
+    {
+      "id": 9,
+      "naziv": "NU Pošip",
+      "slug": "nu-posip",
+      "lot": "25-nu1",
+      "category_title": "Elegantno bijelo",
+      "godiste": "2025",
+      "year": 2025,
+      "sort": "Pošip",
+      "slika": null,
+      "objavljeno": true,
+      "featured": false,
+      "ingredients": "Grožđe, Sulfiti",
+      "allergens": "Sulfiti",
+      "analiza": {
+        "alkohol": 12.5,
+        "ph": 3.3,
+        "suhi_ekstrakt": 20.1,
+        "reducirajuci_seceri": 3.2,
+        "ukupna_kiselost": 5.1,
+        "ukupni_so2": 38
+      },
+      "nutricija": {
+        "energija": "290 kJ / 69 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 0.8,
+        "seceri": 0.2,
+        "proteini": 0,
+        "sol": 0
+      }
+    },
+    {
+      "id": 10,
+      "naziv": "NU Plavac Mali",
+      "slug": "nu-plavac-mali",
+      "lot": "25-nu2",
+      "category_title": "Uravnoteženo crno",
+      "godiste": "2025",
+      "year": 2025,
+      "sort": "Plavac Mali",
+      "slika": null,
+      "objavljeno": true,
+      "featured": false,
+      "ingredients": "Grožđe, Sulfiti",
+      "allergens": "Sulfiti",
+      "analiza": {
+        "alkohol": 13.5,
+        "ph": 3.6,
+        "suhi_ekstrakt": 26.3,
+        "reducirajuci_seceri": 2.8,
+        "ukupna_kiselost": 5.0,
+        "ukupni_so2": 35
+      },
+      "nutricija": {
+        "energija": "340 kJ / 81 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 1.0,
+        "seceri": 0.4,
+        "proteini": 0,
+        "sol": 0
+      }
+    },
+    {
+      "id": 11,
+      "naziv": "Basina Rukatac",
+      "slug": "basina-rukatac",
+      "lot": "25-ba1",
+      "category_title": "Struktuirano bijelo",
+      "godiste": "2025",
+      "year": 2025,
+      "sort": "Rukatac (Maraština)",
+      "slika": null,
+      "objavljeno": true,
+      "featured": false,
+      "ingredients": "Grožđe, Sulfiti",
+      "allergens": "Sulfiti",
+      "analiza": {
+        "alkohol": 12.8,
+        "ph": 3.2,
+        "suhi_ekstrakt": 21.5,
+        "reducirajuci_seceri": 3.5,
+        "ukupna_kiselost": 4.9,
+        "ukupni_so2": 40
+      },
+      "nutricija": {
+        "energija": "300 kJ / 72 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 0.9,
+        "seceri": 0.3,
+        "proteini": 0,
+        "sol": 0
+      }
+    },
+    {
+      "id": 12,
+      "naziv": "Basina Plavac",
+      "slug": "basina-plavac",
+      "lot": "25-ba2",
+      "category_title": "Premium crno",
+      "godiste": "2025",
+      "year": 2025,
+      "sort": "Plavac Mali",
+      "slika": null,
+      "objavljeno": true,
+      "featured": false,
+      "ingredients": "Grožđe, Sulfiti",
+      "allergens": "Sulfiti",
+      "analiza": {
+        "alkohol": 14.2,
+        "ph": 3.5,
+        "suhi_ekstrakt": 28.7,
+        "reducirajuci_seceri": 2.5,
+        "ukupna_kiselost": 5.2,
+        "ukupni_so2": 42
+      },
+      "nutricija": {
+        "energija": "355 kJ / 85 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 1.1,
+        "seceri": 0.5,
+        "proteini": 0,
+        "sol": 0
+      }
+    },
+    {
+      "id": 13,
+      "naziv": "MONA Rosé",
+      "slug": "mona-rose",
+      "lot": "25-mo1",
+      "category_title": "Svježi rosé",
+      "godiste": "2025",
+      "year": 2025,
+      "sort": "Plavac Mali (rosé)",
+      "slika": null,
+      "objavljeno": true,
+      "featured": false,
+      "ingredients": "Grožđe, Sulfiti",
+      "allergens": "Sulfiti",
+      "analiza": {
+        "alkohol": 12.0,
+        "ph": 3.1,
+        "suhi_ekstrakt": 18.3,
+        "reducirajuci_seceri": 3.0,
+        "ukupna_kiselost": 5.5,
+        "ukupni_so2": 36
+      },
+      "nutricija": {
+        "energija": "280 kJ / 67 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 0.7,
+        "seceri": 0.2,
+        "proteini": 0,
+        "sol": 0
+      }
+    },
+    {
+      "id": 14,
+      "naziv": "MONA Tribidrag",
+      "slug": "mona-tribidrag",
+      "lot": "25-mo2",
+      "category_title": "Autohtono bijelo",
+      "godiste": "2025",
+      "year": 2025,
+      "sort": "Tribidrag (Crljenak)",
+      "slika": null,
+      "objavljeno": true,
+      "featured": false,
+      "ingredients": "Grožđe, Sulfiti",
+      "allergens": "Sulfiti",
+      "analiza": {
+        "alkohol": 13.0,
+        "ph": 3.4,
+        "suhi_ekstrakt": 22.0,
+        "reducirajuci_seceri": 3.1,
+        "ukupna_kiselost": 4.8,
+        "ukupni_so2": 39
+      },
+      "nutricija": {
+        "energija": "305 kJ / 73 kcal",
+        "masti": 0,
+        "zasicene_masti": 0,
+        "ugljikohidrati": 0.9,
+        "seceri": 0.3,
+        "proteini": 0,
+        "sol": 0
+      }
     }
   ],
-  "totalDocs": 8
+  "totalDocs": 14
 }
